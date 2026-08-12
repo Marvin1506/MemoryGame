@@ -1,1 +1,1 @@
-document.getElementById("h1_hallo")!.innerText = "Das sollte so aussehen";
+import "./styles/style.scss"

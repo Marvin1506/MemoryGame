@@ -5,7 +5,8 @@ body{
 .card{
     height: 100px;
     aspect-ratio: 1/1;
-    background-color: black;
+    background-color: transparent;
+    border: none;
 
     &__inner{
         position: relative;
@@ -19,9 +20,15 @@ body{
         position: absolute;
         inset: 0;
         background-color: black;
-    }
-}
+        backface-visibility: hidden;
 
-.is-flipped{
-    background-color: red;
+        &--back{
+            transform: rotateY(180deg);
+            background-color: red;
+        }
+    }
+
+    &.is-flipped .card__inner{
+        transform: rotateY(180deg);
+    }
 }

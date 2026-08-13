@@ -43,14 +43,21 @@
     font-weight: 400;
     line-height: 100%;
     letter-spacing: 0%;
-    font-family: Almarai;
+    font-style: normal;
 }
 
 @mixin font-weight-700{
     font-weight: 700;
     line-height: 100%;
     letter-spacing: 0%;
-    font-family: Almarai;
+    font-style: normal;
+}
+
+@mixin space-top-bottom-zero{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 body{
@@ -76,7 +83,19 @@ body{
 .play-time-headline{
     @include white-font;
     @include font-weight-400;
+    @include space-top-bottom-zero;
+    font-size: 48px;
+    text-align: left;
+    padding-bottom: 35px;
+}
 
+.ready-to-play-headline{
+    @include white-font;
+    @include font-weight-700;
+    @include space-top-bottom-zero;
+    font-size: 140px;
+    text-align: left;
+    margin-left: -9px;
 }
 
 .card{

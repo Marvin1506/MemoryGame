@@ -35,6 +35,10 @@
     background-color: #303131;
 }
 
+@mixin white-background{
+    background-color: #FFFFFF;
+}
+
 @mixin flexbox-center-column{
     display: flex;
     align-items: center;
@@ -77,11 +81,25 @@
     position: relative;
 }
 
+@mixin position-absolute-sites{
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
 @mixin space-top-bottom-zero{
     margin-top: 0px;
     margin-bottom: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
+}
+
+@mixin display-none{
+    display: none;
+}
+
+@mixin padding-left-settings{
+    padding-left: 173px;
 }
 
 body{
@@ -105,6 +123,9 @@ body{
     @include grey-background;
     @include flexbox-center-column;
     @include position-relative;
+    z-index: 10;
+    top: 0;
+    left: 0;
 
 
     &__play-time-headline{
@@ -143,6 +164,7 @@ body{
         border: none;
         font-size: 40px;
         gap: 20px;
+        cursor: pointer;
 
         &:hover {
             scale: 1.05;
@@ -161,6 +183,22 @@ body{
         &__text{
             color: #303131;
         }
+    }
+}
+
+.settings-content {
+    @include full-size;
+    @include white-background;
+    @include position-absolute-sites;
+    z-index: 9;
+    background-color: #FFFFFF;
+
+    &__headline-div{
+        @include padding-left-settings;
+        @include font-weight-700-RedRose;
+        font-size: 54px;
+        color: #303131;
+        justify-content: flex-start;
     }
 }
 
@@ -195,3 +233,6 @@ body{
     }
 }
 
+.display-none{
+    display: none;
+}

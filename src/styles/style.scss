@@ -196,10 +196,34 @@ body{
     &__headline-div{
         @include padding-left-settings;
         @include font-weight-700-RedRose;
+        padding-top: 114px;
         font-size: 54px;
         color: #303131;
-        justify-content: flex-start;
     }
+
+    &__headline{
+        @include space-top-bottom-zero;
+    }
+
+    &__settings-preview-div{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 170px;
+        padding-right: 167px;
+
+        .settings-content__setting-div{
+            @include flexbox-center-column;
+        }
+
+        .settings-content__games-themes-div{
+            @include flexbox-center-column;
+        }
+
+        .settings-content__board-size-div{
+            @include flexbox-center-column;
+        }
+    }
+    
 }
 
 .card{

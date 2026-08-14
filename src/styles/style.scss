@@ -19,6 +19,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "RedRose";
+    src: url("../assets/fonts/RedRose-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
 @mixin full-size{
     width: 100%;
     height: 100%;
@@ -33,6 +40,12 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+@mixin flexbox-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @mixin white-font{
@@ -51,6 +64,17 @@
     line-height: 100%;
     letter-spacing: 0%;
     font-style: normal;
+}
+
+@mixin font-weight-700-RedRose{
+    font-family: "RedRose", sans-serif;
+    line-height: 100%;
+    letter-spacing: 0%;
+    font-style: normal;
+}
+
+@mixin position-relative{
+    position: relative;
 }
 
 @mixin space-top-bottom-zero{
@@ -74,28 +98,70 @@ body{
     display: none;
 }
 
+// ab hier nesten
+
 .home-content{
     @include full-size;
     @include grey-background;
     @include flexbox-center-column;
-}
+    @include position-relative;
 
-.play-time-headline{
-    @include white-font;
-    @include font-weight-400;
-    @include space-top-bottom-zero;
-    font-size: 48px;
-    text-align: left;
-    padding-bottom: 35px;
-}
 
-.ready-to-play-headline{
-    @include white-font;
-    @include font-weight-700;
-    @include space-top-bottom-zero;
-    font-size: 140px;
-    text-align: left;
-    margin-left: -9px;
+    &__play-time-headline{
+        @include white-font;
+        @include font-weight-400;
+        @include space-top-bottom-zero;
+        font-size: 48px;
+        text-align: left;
+        padding-bottom: 35px;
+    }
+
+    &__ready-to-play-headline{
+        @include white-font;
+        @include font-weight-700-RedRose;
+        @include space-top-bottom-zero;
+        font-size: 140px;
+        text-align: left;
+        margin-left: -9px;
+    }
+
+    &__icon-positioning{
+        position: absolute;
+        left: 0px;
+        bottom: 13.06px;
+    }
+
+    .play-button{
+        @include font-weight-700-RedRose;
+        @include flexbox-center;
+        font-size: 40px;
+        width: 250px;
+        height: 98px;
+        padding: 24px;
+        margin-top: 85px;
+        background-color: #F0EA6E;
+        border: none;
+        font-size: 40px;
+        gap: 20px;
+
+        &:hover {
+            scale: 1.05;
+
+            .play-button__play-button-icon {
+                transition: transform 300ms ease-in-out;
+                transform: rotate(-30deg);
+            }
+
+            .play-button__arrow{
+                transition: transform 300ms ease-in-out;
+                transform: scaleY(1.6) scaleX(1.3);
+            }
+        }
+
+        &__text{
+            color: #303131;
+        }
+    }
 }
 
 .card{

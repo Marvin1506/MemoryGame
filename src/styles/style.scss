@@ -1,25 +1,25 @@
-@font-face {
+@font-face{
     font-family: "Almarai";
     src: url("../assets/fonts/Almarai-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
 
-@font-face {
+@font-face{
     font-family: "Almarai";
     src: url("../assets/fonts/Almarai-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
 }
 
-@font-face {
+@font-face{
     font-family: "Almarai";
     src: url("../assets/fonts/Almarai-ExtraBold.ttf") format("truetype");
     font-weight: 800;
     font-style: normal;
 }
 
-@font-face {
+@font-face{
     font-family: "RedRose";
     src: url("../assets/fonts/RedRose-Bold.ttf") format("truetype");
     font-weight: 700;
@@ -46,10 +46,21 @@
     flex-direction: column;
 }
 
-@mixin flexbox-center {
+@mixin flexbox-center{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@mixin display-flex-align-center{
+    display: flex;
+    align-items: center;
+}
+
+@mixin flexbox-justify-center-column{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 @mixin white-font{
@@ -100,6 +111,16 @@
 
 @mixin padding-left-settings{
     padding-left: 173px;
+}
+
+@mixin margin-left-radion-input{
+    margin-left: 44px;
+}
+
+@mixin margin-font-sub-headlines-settings{
+    font-size: 24px;
+    margin-bottom: 16px;
+    margin-top: 17px;
 }
 
 body{
@@ -166,10 +187,10 @@ body{
         gap: 20px;
         cursor: pointer;
 
-        &:hover {
+        &:hover{
             scale: 1.05;
 
-            .play-button__play-button-icon {
+            .play-button__play-button-icon{
                 transition: transform 300ms ease-in-out;
                 transform: rotate(-30deg);
             }
@@ -186,7 +207,7 @@ body{
     }
 }
 
-.settings-content {
+.settings-content{
     @include full-size;
     @include white-background;
     @include position-absolute-sites;
@@ -210,20 +231,55 @@ body{
         justify-content: space-between;
         padding-left: 170px;
         padding-right: 167px;
+    }
 
-        .settings-content__setting-div{
-            @include flexbox-center-column;
-        }
+    &__setting-div{
+        @include flexbox-justify-center-column;
+    }
 
-        .settings-content__games-themes-div{
-            @include flexbox-center-column;
-        }
+    &__games-themes-div{
+        @include flexbox-justify-center-column;
+    }
 
-        .settings-content__board-size-div{
-            @include flexbox-center-column;
-        }
+    &__games-themes-headline{
+        @include space-top-bottom-zero;
+        @include font-weight-700;
+        @include margin-font-sub-headlines-settings;
+    }
+
+    &__flexbox-input{
+        @include margin-left-radion-input;
     }
     
+
+    &__board-size-div{
+        @include flexbox-justify-center-column;
+    }
+
+    &__flexbox-input{
+        @include display-flex-align-center;
+    }
+
+    &__radio-input{
+        margin-top: 0px;
+    }
+
+    &__choose-player-div{
+        @include flexbox-justify-center-column;
+        align-items: unset;
+    }
+
+    &__choose-player-headline{
+        @include space-top-bottom-zero;
+        @include font-weight-700;
+        @include margin-font-sub-headlines-settings;
+    }
+    
+    &__board-size-headline{
+        @include space-top-bottom-zero;
+        @include font-weight-700;
+        @include margin-font-sub-headlines-settings;
+    }
 }
 
 .card{

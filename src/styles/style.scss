@@ -267,6 +267,10 @@ body{
         width: 24px;
     }
 
+    &__radio-input:hover + &__radio-text{
+        font-weight: bold;
+    }
+
     &__radio-text{
         @include font-weight-400;
         font-size: 20px;
@@ -290,9 +294,18 @@ body{
         @include margin-font-sub-headlines-settings;
     }
 
+    &__flexbox-div-themes{
+        display: flex;
+        align-items: center;
+    }
 
+    &__icons-headlines{
+        padding-right: 8px;
+    }
 
-
+    &__line-svg{
+        margin-left: 10px;
+    }
 
     &__preview-image{
         height: 460px;

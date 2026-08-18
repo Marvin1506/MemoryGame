@@ -399,6 +399,10 @@ body{
 
     &__player-flexbox{
         @include display-flex-align-center;
+        background-color: #86E9D633;
+        width: 292px;
+        height: 62px;
+        margin-left: 112px;
     }
 
     &__blue-player-flexbox{
@@ -409,13 +413,38 @@ body{
         @include display-flex-align-center;
     }
 
+    &__blue-svg{
+        padding-left: 20px;
+        padding-right: 5px;
+    }
+
     &__color-text-blue{
         color: #2BB1FF;
         font-size: 24px;
         @include font-weight-700-RedRose;
+        padding-right: 4px;
+    }
+
+    &__counter-blue{
+        @include font-weight-700-RedRose;
+        padding-right: 20px;
+        color: #2BB1FF;
+        font-size: 24px;
+    }
+
+    &__orange-svg{
+        padding-right: 5px;
     }
 
     &__color-text-orange{
+        color: #F58E39;
+        font-size: 24px;
+        @include font-weight-700-RedRose;
+        padding-right: 4px;
+    }
+
+    &__counter-orange{
+        padding-right: 19px;
         color: #F58E39;
         font-size: 24px;
         @include font-weight-700-RedRose;
@@ -426,7 +455,6 @@ body{
     }
 
     &__current-player-text{
-        @include font-weight-400-RedRose;
         color: #FFFFFF;
         font-size: 26px;
     }
@@ -439,6 +467,11 @@ body{
         background-color: #86E9D633;
         border-color: #4DD5BC;
         border: 1px;
+        margin-right: 111px;
+    }
+
+    &__exit-svg{
+        padding-right: 3.75px;
     }
 
     &__exit-game-button{
@@ -450,10 +483,22 @@ body{
 }
 
 .card{
-    height: 100px;
-    aspect-ratio: 1/1;
-    background-color: transparent;
-    border: none;
+    display: flex;
+    justify-content: center;
+    padding-top: 54px;
+
+
+    &__card-play-field{
+        height: 512px;
+        width: 512px;
+    }
+
+    &__card-div{
+        height: 100px;
+        aspect-ratio: 1/1;
+        background-color: transparent;
+        border: none;
+    }
 
     &__inner{
         position: relative;

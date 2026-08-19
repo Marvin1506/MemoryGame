@@ -494,7 +494,7 @@ body{
     }
 
     &__card-div{
-        height: 100px;
+        height: 120px;
         aspect-ratio: 1/1;
         background-color: transparent;
         border: none;
@@ -511,12 +511,13 @@ body{
     &__face{
         position: absolute;
         inset: 0;
-        background-color: black;
+        background-color: #E8F3F0;
         backface-visibility: hidden;
 
         &--back{
             transform: rotateY(180deg);
-            background-color: red;
+            background-color: #4DD5BC;
+            @include flexbox-center;
         }
     }
 

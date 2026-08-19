@@ -10,6 +10,21 @@ const images: string[] = [
     "./src/assets/fonts/images/daProjectsTheme.png",
     "./src/assets/fonts/images/foodTheme.png"
 ];
+type Card = {
+    id: number;
+    src: string;
+};
+
+const cards: Card[] = [
+    { id: 1, src: "./src/assets/images/html.png" },
+    { id: 2, src: "./src/assets/images/css.png" },
+    { id: 3, src: "./src/assets/images/javascript.png" },
+    { id: 4, src: "./src/assets/images/typescript.png" },
+    { id: 5, src: "./src/assets/images/angular.png" },
+    { id: 6, src: "./src/assets/images/firebase.png" },
+    { id: 7, src: "./src/assets/images/git.png" },
+    { id: 8, src: "./src/assets/images/github.png" }
+];
 
 init();
 
@@ -124,4 +139,9 @@ function chooseBoardSize(){
             fieldSizeText.innerText = "32 cards";
         });
     }
+}
+
+function addCardsToField(){
+    const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
+
 }

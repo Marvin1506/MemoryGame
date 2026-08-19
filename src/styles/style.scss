@@ -511,12 +511,13 @@ body{
     &__face{
         position: absolute;
         inset: 0;
-        background-color: #E8F3F0;
+        background-color: #4DD5BC;
+        @include flexbox-center;
         backface-visibility: hidden;
 
         &--back{
             transform: rotateY(180deg);
-            background-color: #4DD5BC;
+            background-color: #E8F3F0;
             @include flexbox-center;
         }
     }

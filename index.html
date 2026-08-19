@@ -48,7 +48,7 @@
                             <h3 class="settings-content__games-themes-headline">Game themes</h3>
                         </div>
                         <div class="settings-content__flexbox-input">
-                            <input class="settings-content__radio-input" checked type="radio" name="boardTheme" id="codeVibe">
+                            <input class="settings-content__radio-input" type="radio" name="boardTheme" id="codeVibe">
                             <label class="settings-content__radio-text" for="codeVibe">Code vibe themes</label>
                             <svg class="settings-content__line-svg display-none" width="50" height="18" viewBox="0 0 50 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z" fill="#F0EA6E"/>
@@ -103,7 +103,7 @@
                             <svg class="settings-content__icons-headlines" width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.66667 22.4444L1.53333 21.9778C0.844444 21.6889 0.383333 21.1889 0.15 20.4778C-0.0833333 19.7667 -0.0444444 19.0667 0.266667 18.3778L2.66667 13.1778V22.4444ZM8 25.3778C7.26667 25.3778 6.63889 25.1167 6.11667 24.5944C5.59444 24.0722 5.33333 23.4444 5.33333 22.7111V14.7111L8.86667 24.5111C8.93333 24.6667 9 24.8167 9.06667 24.9611C9.13333 25.1056 9.22222 25.2444 9.33333 25.3778H8ZM14.8667 25.2444C14.1556 25.5111 13.4667 25.4778 12.8 25.1444C12.1333 24.8111 11.6667 24.2889 11.4 23.5778L5.46667 7.31111C5.2 6.6 5.22222 5.90556 5.53333 5.22778C5.84444 4.55 6.35556 4.08889 7.06667 3.84444L17.1333 0.177778C17.8444 -0.0888889 18.5333 -0.0555556 19.2 0.277778C19.8667 0.611111 20.3333 1.13333 20.6 1.84444L26.5333 18.1111C26.8 18.8222 26.7778 19.5167 26.4667 20.1944C26.1556 20.8722 25.6444 21.3333 24.9333 21.5778L14.8667 25.2444ZM12 9.37778C12.3778 9.37778 12.6944 9.25 12.95 8.99445C13.2056 8.73889 13.3333 8.42222 13.3333 8.04445C13.3333 7.66667 13.2056 7.35 12.95 7.09444C12.6944 6.83889 12.3778 6.71111 12 6.71111C11.6222 6.71111 11.3056 6.83889 11.05 7.09444C10.7944 7.35 10.6667 7.66667 10.6667 8.04445C10.6667 8.42222 10.7944 8.73889 11.05 8.99445C11.3056 9.25 11.6222 9.37778 12 9.37778ZM13.9333 22.7111L24 19.0444L18.0667 2.71111L8 6.37778L13.9333 22.7111Z" fill="#0635C9"/>
                             </svg>
-                            <h3 class="settings-content__board-size-headline">Board Size</h3>
+                            <h3 class="settings-content__board-size-headline" id="settings-content__board-size-headline">Board Size</h3>
                         </div>
                         <div class="settings-content__flexbox-input">
                             <input class="settings-content__radio-input" type="radio" value="smallBoard" name="boardSize" id="smallBoard">
@@ -129,20 +129,20 @@
                     </div>
                 </div>
                 <div class="settings-content__preview-div">
-                    <img class="settings-content__preview-image" src="./src/assets/fonts/images/codeVibeTheme.png" alt="Bild" srcset="">
+                    <img class="settings-content__preview-image" id="settings-content__preview-image" src="./src/assets/fonts/images/codeVibeTheme.png" alt="Bild" srcset="">
                 </div>
             </div>
             <div class="settings-content__final-settings-flexbox">
                 <div class="settings-content__final-settings-div">
-                    <p class="settings-content__final-settings-game-text">Game theme</p>
+                    <p class="settings-content__final-settings-game-text" id="settings-content__final-settings-game-text">Game theme</p>
                     <svg class="settings-content__line-margin-right" width="27" height="56" viewBox="0 0 27 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="22.3154" y1="1.32435" x2="3.7745" y2="54.166" stroke="#F0EA6E" stroke-width="8"/>
                     </svg>
-                    <p class="settings-content__final-settings-game-text">Player</p>
+                    <p class="settings-content__final-settings-game-text" id="settings-content__final-settings-game-text-player">Player</p>
                     <svg class="settings-content__line-margin-right" width="27" height="56" viewBox="0 0 27 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="22.3154" y1="1.32435" x2="3.7745" y2="54.166" stroke="#F0EA6E" stroke-width="8"/>
                     </svg>
-                    <p class="settings-content__final-settings-game-text">Board size</p>
+                    <p class="settings-content__final-settings-game-text" id="settings-content__final-settings-game-text-board">Board size</p>
                     <button id="final-settings-button" class="settings-content__final-settings-button">
                         <svg class="settings-content__svg-button" width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.275 12L13.85 8.425C14 8.325 14.075 8.18333 14.075 8C14.075 7.81667 14 7.675 13.85 7.575L8.275 4C8.10833 3.88333 7.9375 3.875 7.7625 3.975C7.5875 4.075 7.5 4.225 7.5 4.425V11.575C7.5 11.775 7.5875 11.925 7.7625 12.025C7.9375 12.125 8.10833 12.1167 8.275 12ZM2 16C1.45 16 0.979167 15.8042 0.5875 15.4125C0.195833 15.0208 0 14.55 0 14V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H2ZM2 14H18V2H2V14Z" fill="#303131"/>

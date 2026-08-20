@@ -15,6 +15,7 @@ const images: string[] = [
     "./src/assets/fonts/images/daProjectsTheme.png",
     "./src/assets/fonts/images/foodTheme.png"
 ];
+let flippedCards: Card[] = [];
 type Card = {
     id: number;
     src: string;
@@ -94,16 +95,16 @@ function init(){
     //
 }
 
-function cardFlip(){
-    const fieldRef = document.getElementById("field");
-    if(fieldRef) {
-        fieldRef.addEventListener("click", e => {
-            const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
-            if(card){
-                card.classList.toggle("is-flipped");
-            }
-        })
-    }
+function cardFlip() {
+    const fieldRef = document.getElementById("card__card-play-field");
+
+    fieldRef?.addEventListener("click", (e) => {
+        const card = (e.target as HTMLElement).closest(".card__card-div");
+
+        if (card) {
+            card.classList.toggle("is-flipped");
+        }
+    });
 }
 
 function goToSetting(){
@@ -212,7 +213,7 @@ function addCardsToField(){
         for (let i = 0; i < selectedBoardSize; i++) {
             const card = codeCards[i];
             cardField.innerHTML += `
-                <button class="card__card-div" data-card-id="${card.id}">
+                <button class="card__card-div" data-card-id="${card.id}" data-card-index="${i}">
                     <div class="card__inner">
                         <div class="card__face">
                             <svg width="60" height="48" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -236,5 +237,5 @@ function addCardsToField(){
 }
 
 function flipCard(){
-    
+
 }

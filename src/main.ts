@@ -8,9 +8,16 @@ const smallBoard = document.getElementById("smallBoard") as HTMLInputElement | n
 const mediumBoard = document.getElementById("mediumBoard") as HTMLInputElement | null;
 const largeBoard = document.getElementById("largeBoard") as HTMLInputElement | null;
 const startButton = document.getElementById("final-settings-button") as HTMLButtonElement | null;
+const orangePlayerInput = document.getElementById("orange") as HTMLInputElement | null;
+const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | null;
+const counterOrange = document.getElementById("field-counter-orange");
+const counterBlue = document.getElementById("field-counter-blue");
+const currentPlayerTurn = document.getElementById("field__current-player-playing-div") as HTMLDivElement | null;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
+let isMultiplayer: boolean = false;
+let currentPlayer: PlayerColor = "blue";
 const images: string[] = [
     "./src/assets/fonts/images/codeVibeTheme.png",
     "./src/assets/fonts/images/gamingTheme.png",
@@ -26,6 +33,7 @@ type Card = {
     isFlipped: boolean,
     isMatched: boolean,
 };
+type PlayerColor = "blue" | "orange";
 
 const codeCards: Card[] = [
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
@@ -127,20 +135,56 @@ function cardFlip() {
     });
 }
 
+function selectSingleOrMultiplayer(){
+    if(bluePlayerInput && bluePlayerInput.checked && orangePlayerInput && orangePlayerInput.checked){
+        isMultiplayer = true;
+    } else if(bluePlayerInput && bluePlayerInput.checked) {
+        isMultiplayer = false;
+    } else if (orangePlayerInput && orangePlayerInput.checked){
+        isMultiplayer = false;
+    }
+}
+
+function selectCurrentPlayer() {
+    if (isMultiplayer) {
+        if (Math.random() < 0.5) {
+            currentPlayer = "blue";
+        } else {
+            currentPlayer = "orange";
+        }
+    } else {
+        if (bluePlayerInput?.checked) {
+            currentPlayer = "blue";
+        } else if (orangePlayerInput?.checked) {
+            currentPlayer = "orange";
+        }
+    }
+}
+
+function showPlayerIcon() {
+    if (!currentPlayerTurn) return;
+    if (currentPlayer === "blue") {
+        currentPlayerTurn.innerHTML = `
+            <img src="./src/assets/fonts/images/blueLabelPic.png">
+        `;
+    } else {
+        currentPlayerTurn.innerHTML = `
+            <img src="./src/assets/fonts/images/orangeLabelPic.png">
+        `;
+    }
+}
+
 function increaseScore() {
-    const counterOrange = document.getElementById("field-counter-orange");
-    const counterBlue = document.getElementById("field-counter-blue");
-
     if (!counterOrange || !counterBlue) return;
-
-    if (counterOrange.classList.contains("display-none")) {
+    if (currentPlayer === "blue") {
         blueScore++;
         counterBlue.innerText = blueScore.toString();
-    } else if(counterBlue.classList.contains("display-none")){
+    } else if (currentPlayer === "orange") {
         orangeScore++;
         counterOrange.innerText = orangeScore.toString();
     }
 }
+
 
 function checkForMatch() {
     const firstCard = flippedCards[0];
@@ -153,7 +197,7 @@ function checkForMatch() {
 
         firstCard.isMatched = true;
         secondCard.isMatched = true;
-
+        increaseScore();
         flippedCards = [];
         flippedCardElements = [];
 
@@ -193,6 +237,9 @@ function goToBoard(){
         
     finalSettingButton?.addEventListener("click", () => {
         if(fieldSizeText?.innerText === "Board size" || playerPreview?.innerText === "Player" || gamingThemeText.innerText === "Game theme") return;
+        selectSingleOrMultiplayer();
+        selectCurrentPlayer();
+        showPlayerIcon();
         addCardsToField();
         settingsContent?.classList.add("display-none");
         playContent?.classList.remove("display-none");

@@ -522,10 +522,11 @@ body{
         }
     }
 
-    &.is-flipped .card__inner{
+}
+
+.is-flipped .card__inner{
         transform: rotateY(180deg);
     }
-}
 
 .display-none{
     display: none;

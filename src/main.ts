@@ -127,23 +127,18 @@ function cardFlip() {
     });
 }
 
-function increaseOrangeScore() {
+function increaseScore() {
     const counterOrange = document.getElementById("field-counter-orange");
+    const counterBlue = document.getElementById("field-counter-blue");
 
-    orangeScore++;
+    if (!counterOrange || !counterBlue) return;
 
-    if (counterOrange) {
+    if (counterOrange.classList.contains("display-none")) {
+        blueScore++;
+        counterBlue.innerText = blueScore.toString();
+    } else if(counterBlue.classList.contains("display-none")){
+        orangeScore++;
         counterOrange.innerText = orangeScore.toString();
-    }
-}
-
-function increaseBlueScore() {
-    const counterBlue = document.getElementById("field-counter-orange");
-
-    orangeScore++;
-
-    if (counterBlue) {
-        counterBlue.innerText = orangeScore.toString();
     }
 }
 
@@ -195,7 +190,6 @@ function goToBoard(){
     const playContent = document.getElementById("field");
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
-    
         
     finalSettingButton?.addEventListener("click", () => {
         if(fieldSizeText?.innerText === "Board size" || playerPreview?.innerText === "Player" || gamingThemeText.innerText === "Game theme") return;

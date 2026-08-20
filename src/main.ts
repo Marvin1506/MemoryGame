@@ -38,55 +38,38 @@ type PlayerColor = "blue" | "orange";
 const codeCards: Card[] = [
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
-
     { id: 2, src: "./src/assets/fonts/images/card_img/bootstrap.png", isFlipped: false, isMatched:false },
     { id: 2, src: "./src/assets/fonts/images/card_img/bootstrap.png", isFlipped: false, isMatched:false },
-
     { id: 3, src: "./src/assets/fonts/images/card_img/cssLogo.png", isFlipped: false, isMatched:false },
     { id: 3, src: "./src/assets/fonts/images/card_img/cssLogo.png", isFlipped: false, isMatched:false },
-
     { id: 4, src: "./src/assets/fonts/images/card_img/djangoIcon.png", isFlipped: false, isMatched:false },
     { id: 4, src: "./src/assets/fonts/images/card_img/djangoIcon.png", isFlipped: false, isMatched:false },
-
     { id: 5, src: "./src/assets/fonts/images/card_img/firebaseIcon.png", isFlipped: false, isMatched:false },
     { id: 5, src: "./src/assets/fonts/images/card_img/firebaseIcon.png", isFlipped: false, isMatched:false },
-
     { id: 6, src: "./src/assets/fonts/images/card_img/githubIcon.png", isFlipped: false, isMatched:false },
     { id: 6, src: "./src/assets/fonts/images/card_img/githubIcon.png", isFlipped: false, isMatched:false },
-
     { id: 7, src: "./src/assets/fonts/images/card_img/gitIcon.png", isFlipped: false, isMatched:false },
     { id: 7, src: "./src/assets/fonts/images/card_img/gitIcon.png", isFlipped: false, isMatched:false },
-
     { id: 8, src: "./src/assets/fonts/images/card_img/htmlIcon.png", isFlipped: false, isMatched:false },
     { id: 8, src: "./src/assets/fonts/images/card_img/htmlIcon.png", isFlipped: false, isMatched:false },
-
     { id: 9, src: "./src/assets/fonts/images/card_img/JsIcon.png", isFlipped: false, isMatched:false },
     { id: 9, src: "./src/assets/fonts/images/card_img/JsIcon.png", isFlipped: false, isMatched:false },
-
     { id: 10, src: "./src/assets/fonts/images/card_img/nodejsIcon.png", isFlipped: false, isMatched:false },
     { id: 10, src: "./src/assets/fonts/images/card_img/nodejsIcon.png", isFlipped: false, isMatched:false },
-
     { id: 11, src: "./src/assets/fonts/images/card_img/pythonIcon.png", isFlipped: false, isMatched:false },
     { id: 11, src: "./src/assets/fonts/images/card_img/pythonIcon.png", isFlipped: false, isMatched:false },
-
     { id: 12, src: "./src/assets/fonts/images/card_img/reactIcon.png", isFlipped: false, isMatched:false },
     { id: 12, src: "./src/assets/fonts/images/card_img/reactIcon.png", isFlipped: false, isMatched:false },
-
     { id: 13, src: "./src/assets/fonts/images/card_img/SassIcon.png", isFlipped: false, isMatched:false },
     { id: 13, src: "./src/assets/fonts/images/card_img/SassIcon.png", isFlipped: false, isMatched:false },
-
     { id: 14, src: "./src/assets/fonts/images/card_img/SQL.png", isFlipped: false, isMatched:false },
     { id: 14, src: "./src/assets/fonts/images/card_img/SQL.png", isFlipped: false, isMatched:false },
-
     { id: 15, src: "./src/assets/fonts/images/card_img/terminalIcon.png", isFlipped: false, isMatched:false },
     { id: 15, src: "./src/assets/fonts/images/card_img/terminalIcon.png", isFlipped: false, isMatched:false },
-
     { id: 16, src: "./src/assets/fonts/images/card_img/typescriptIcon.png", isFlipped: false, isMatched:false },
     { id: 16, src: "./src/assets/fonts/images/card_img/typescriptIcon.png", isFlipped: false, isMatched:false },
-
     { id: 17, src: "./src/assets/fonts/images/card_img/VSCodeIcon.png", isFlipped: false, isMatched:false },
     { id: 17, src: "./src/assets/fonts/images/card_img/VSCodeIcon.png", isFlipped: false, isMatched:false },
-
     { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false },
     { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false }
 ];
@@ -97,27 +80,18 @@ function init(){
     cardFlip();
     goToSetting();
     goToBoard();
-    // settings
     changePreviewImage();
     choosePlayer();
     chooseBoardSize();
-    //
-    //Game
-
-    //
 }
 
 function cardFlip() {
     const fieldRef = document.getElementById("card__card-play-field");
 
     fieldRef?.addEventListener("click", (element) => {
-
         if (flippedCards.length === 2) return;
-
         const cardElement = (element.target as HTMLElement).closest(".card__card-div") as HTMLButtonElement | null;
-
         if (!cardElement) return;
-
         const cardIndex = Number(cardElement.dataset.cardIndex);
         const card = shuffledCards[cardIndex];
 
@@ -128,7 +102,6 @@ function cardFlip() {
 
         flippedCards.push(card);
         flippedCardElements.push(cardElement);
-
         if (flippedCards.length === 2) {
             checkForMatch();
         }
@@ -174,6 +147,16 @@ function showPlayerIcon() {
     }
 }
 
+function switchPlayer() {
+    if (!isMultiplayer) return;
+    if (currentPlayer === "blue") {
+        currentPlayer = "orange";
+    } else {
+        currentPlayer = "blue";
+    }
+    showPlayerIcon();
+}
+
 function increaseScore() {
     if (!counterOrange || !counterBlue) return;
     if (currentPlayer === "blue") {
@@ -189,12 +172,10 @@ function increaseScore() {
 function checkForMatch() {
     const firstCard = flippedCards[0];
     const secondCard = flippedCards[1];
-
     const firstCardElement = flippedCardElements[0];
     const secondCardElement = flippedCardElements[1];
 
     if (firstCard.id === secondCard.id) {
-
         firstCard.isMatched = true;
         secondCard.isMatched = true;
         increaseScore();
@@ -206,10 +187,9 @@ function checkForMatch() {
         setTimeout(() => {
             firstCard.isFlipped = false;
             secondCard.isFlipped = false;
-
             firstCardElement.classList.remove("is-flipped");
             secondCardElement.classList.remove("is-flipped");
-
+            switchPlayer();
             flippedCards = [];
             flippedCardElements = [];
         }, 1000);
@@ -256,17 +236,14 @@ function changePreviewImage(){
             previewImg.src = imagesArray[0];
             gamingThemeText.innerText = "Code vibes theme";
         });
-
         gamingThemeInput?.addEventListener("click", () => {
             previewImg.src = imagesArray[1];
             gamingThemeText.innerText = "Gaming theme";
         });
-
         daProjectsThemeInput?.addEventListener("click", () => {
             previewImg.src = imagesArray[2];
             gamingThemeText.innerText = "DA Projects theme";
         });
-
         foodThemeInput?.addEventListener("click", () => {
             previewImg.src = imagesArray[3];
             gamingThemeText.innerText = "Foods theme";
@@ -283,7 +260,6 @@ function choosePlayer(){
         orangePlayerInput?.addEventListener("click", () => {
             playerPreview.innerText = "Orange";
         });
-
         bluePlayerInput?.addEventListener("click", () => {
             playerPreview.innerText = "Blue";
         });
@@ -295,11 +271,9 @@ function chooseBoardSize(){
         smallBoard?.addEventListener("click", () => {
             fieldSizeText.innerText = "16 cards";
         });
-
         mediumBoard?.addEventListener("click", () => {
             fieldSizeText.innerText = "24 cards";
         });
-
         largeBoard?.addEventListener("click", () => {
             fieldSizeText.innerText = "32 cards";
         });
@@ -322,19 +296,14 @@ function shuffleCards(cards: Card[]) {
 
 function addCardsToField(){
     const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
-
     setCardFieldSize();
 
     if (cardField) {
         cardField.innerHTML = "";
-
         const selectedCards = codeCards.slice(0, selectedBoardSize);
-
         shuffledCards = shuffleCards(selectedCards);
-
         for (let i = 0; i < shuffledCards.length; i++) {
             const card = shuffledCards[i];
-
             cardField.innerHTML += `
                 <button class="card__card-div" data-card-id="${card.id}" data-card-index="${i}">
                     <div class="card__inner">
@@ -349,7 +318,6 @@ function addCardsToField(){
                                 </defs>
                             </svg>
                         </div>
-
                         <div class="card__face card__face--back">
                             <img src="${card.src}">
                         </div>

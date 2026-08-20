@@ -459,6 +459,11 @@ body{
         font-size: 26px;
     }
 
+    &__current-player-playing-div{
+        margin-top: 10px;
+        margin-left: 8px;
+    }
+
     &__button{
         @include flexbox-center;
         width: 207px;
@@ -466,8 +471,15 @@ body{
         padding: 18px 18px 18px 18px;
         background-color: #86E9D633;
         border-color: #4DD5BC;
-        border: 1px;
+        border-width: 1px;
         margin-right: 111px;
+        cursor: pointer;
+
+        &:hover{
+            transition: ease-in 200ms;
+            border-width: 4px;
+            box-shadow: #ffffff93 1px 1px 2px 1px;
+        }
     }
 
     &__exit-svg{

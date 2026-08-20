@@ -16,11 +16,12 @@ const images: string[] = [
     "./src/assets/fonts/images/foodTheme.png"
 ];
 let flippedCards: Card[] = [];
+let flippedCardElements: HTMLButtonElement[] = [];
 type Card = {
     id: number;
     src: string;
-    isFlipped: false,
-    isMatched: false,
+    isFlipped: boolean,
+    isMatched: boolean,
 };
 
 const codeCards: Card[] = [
@@ -98,13 +99,59 @@ function init(){
 function cardFlip() {
     const fieldRef = document.getElementById("card__card-play-field");
 
-    fieldRef?.addEventListener("click", (e) => {
-        const card = (e.target as HTMLElement).closest(".card__card-div");
+    fieldRef?.addEventListener("click", (element) => {
 
-        if (card) {
-            card.classList.toggle("is-flipped");
+        if (flippedCards.length === 2) return;
+
+        const cardElement = (element.target as HTMLElement).closest(".card__card-div") as HTMLButtonElement | null;
+
+        if (!cardElement) return;
+
+        const cardIndex = Number(cardElement.dataset.cardIndex);
+        const card = codeCards[cardIndex];
+
+        if (card.isFlipped || card.isMatched) return;
+
+        card.isFlipped = true;
+        cardElement.classList.add("is-flipped");
+
+        flippedCards.push(card);
+        flippedCardElements.push(cardElement);
+
+        if (flippedCards.length === 2) {
+            checkForMatch();
         }
     });
+}
+
+function checkForMatch() {
+    const firstCard = flippedCards[0];
+    const secondCard = flippedCards[1];
+
+    const firstCardElement = flippedCardElements[0];
+    const secondCardElement = flippedCardElements[1];
+
+    if (firstCard.id === secondCard.id) {
+
+        firstCard.isMatched = true;
+        secondCard.isMatched = true;
+
+        flippedCards = [];
+        flippedCardElements = [];
+
+    } else {
+
+        setTimeout(() => {
+            firstCard.isFlipped = false;
+            secondCard.isFlipped = false;
+
+            firstCardElement.classList.remove("is-flipped");
+            secondCardElement.classList.remove("is-flipped");
+
+            flippedCards = [];
+            flippedCardElements = [];
+        }, 1000);
+    }
 }
 
 function goToSetting(){
@@ -234,8 +281,4 @@ function addCardsToField(){
             `;
         }
     }
-}
-
-function flipCard(){
-
 }

@@ -9,6 +9,8 @@ const mediumBoard = document.getElementById("mediumBoard") as HTMLInputElement |
 const largeBoard = document.getElementById("largeBoard") as HTMLInputElement | null;
 const startButton = document.getElementById("final-settings-button") as HTMLButtonElement | null;
 let selectedBoardSize: number = 0;
+let orangeScore: number = 0;
+let blueScore: number = 0;
 const images: string[] = [
     "./src/assets/fonts/images/codeVibeTheme.png",
     "./src/assets/fonts/images/gamingTheme.png",
@@ -17,6 +19,7 @@ const images: string[] = [
 ];
 let flippedCards: Card[] = [];
 let flippedCardElements: HTMLButtonElement[] = [];
+let shuffledCards: Card[] = [];
 type Card = {
     id: number;
     src: string;
@@ -108,7 +111,7 @@ function cardFlip() {
         if (!cardElement) return;
 
         const cardIndex = Number(cardElement.dataset.cardIndex);
-        const card = codeCards[cardIndex];
+        const card = shuffledCards[cardIndex];
 
         if (card.isFlipped || card.isMatched) return;
 
@@ -122,6 +125,26 @@ function cardFlip() {
             checkForMatch();
         }
     });
+}
+
+function increaseOrangeScore() {
+    const counterOrange = document.getElementById("field-counter-orange");
+
+    orangeScore++;
+
+    if (counterOrange) {
+        counterOrange.innerText = orangeScore.toString();
+    }
+}
+
+function increaseBlueScore() {
+    const counterBlue = document.getElementById("field-counter-orange");
+
+    orangeScore++;
+
+    if (counterBlue) {
+        counterBlue.innerText = orangeScore.toString();
+    }
 }
 
 function checkForMatch() {
@@ -252,13 +275,25 @@ function setCardFieldSize(){
     }
 }
 
+function shuffleCards(cards: Card[]) {
+    return [...cards].sort(() => Math.random() - 0.5);
+}
+
 function addCardsToField(){
     const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
+
     setCardFieldSize();
+
     if (cardField) {
         cardField.innerHTML = "";
-        for (let i = 0; i < selectedBoardSize; i++) {
-            const card = codeCards[i];
+
+        const selectedCards = codeCards.slice(0, selectedBoardSize);
+
+        shuffledCards = shuffleCards(selectedCards);
+
+        for (let i = 0; i < shuffledCards.length; i++) {
+            const card = shuffledCards[i];
+
             cardField.innerHTML += `
                 <button class="card__card-div" data-card-id="${card.id}" data-card-index="${i}">
                     <div class="card__inner">
@@ -273,8 +308,9 @@ function addCardsToField(){
                                 </defs>
                             </svg>
                         </div>
+
                         <div class="card__face card__face--back">
-                            <img src="${card.src}" alt="Memory Card"class="card__image">
+                            <img src="${card.src}">
                         </div>
                     </div>
                 </button>

@@ -492,6 +492,72 @@ body{
         color: #FFFFFF;
     }
 
+    &__exit-div {
+        background-color: #FFFFFF;
+        z-index: 10;
+        width: 538px;
+        height: 270px;
+        position: fixed;
+        top: -135px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__exit-headline{
+        @include font-weight-700-RedRose;
+        font-size: 32px;
+        color: #303131;
+        padding-left: 40px;
+        padding-right: 40px;
+        text-align: center;
+        margin-top: 40px
+    }
+
+    &__exit-flexbox-buttons{
+        @include flexbox-center;
+        margin-top: 54px;
+    }
+
+    &__button-back-to-game{
+        @include font-weight-700-RedRose;
+        font-size: 20px;
+        color: #FFFFFF;
+        width: 182px;
+        height: 57px;
+        padding-top: 16px;
+        padding-right: 24px;
+        padding-bottom: 16px;
+        padding-left: 24px;
+        background-color: #66CFBC;
+        border: none;
+    }
+
+    &__button-exit-game{
+        @include font-weight-700-RedRose;
+        color: #4DD5BC;
+        font-size: 20px;
+        width: 152px;
+        height: 57px;
+        padding-top: 16px;
+        padding-right: 24px;
+        padding-bottom: 16px;
+        padding-left: 24px;
+        border-width: 2px;
+        background-color: #86E9D624;
+        border-color: #4DD5BC;
+        margin-left: 24px;
+        border: 2px solid #4DD5BC;
+    }
+
+    &__exit-div--open {
+        transition: ease-in 200ms;
+        top: 50%;
+    }
+
+    &__exit-div--close {
+        transition: ease-in 200ms;
+        top: -135px;
+    }
 }
 
 .card{

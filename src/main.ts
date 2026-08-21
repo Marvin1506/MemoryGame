@@ -13,6 +13,9 @@ const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | nu
 const counterOrange = document.getElementById("field-counter-orange");
 const counterBlue = document.getElementById("field-counter-blue");
 const currentPlayerTurn = document.getElementById("field__current-player-playing-div") as HTMLDivElement | null;
+const exitButtonGame = document.getElementById("field__button-exit") as HTMLButtonElement | null;
+const backToGameButton = document.getElementById("field__button-back-to-game") as HTMLButtonElement | null;
+const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement | null;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
@@ -83,6 +86,9 @@ function init(){
     changePreviewImage();
     choosePlayer();
     chooseBoardSize();
+    openExitGameDiv();
+    closeExitGameDiv();
+    exitGameButtonEvent();
 }
 
 function cardFlip() {
@@ -325,5 +331,93 @@ function addCardsToField(){
                 </button>
             `;
         }
+    }
+}
+
+function openExitGameDiv(){
+    const exitDiv = document.getElementById("field__exit-div");
+
+    if (exitButtonGame && exitDiv) {
+        exitButtonGame.addEventListener("click", () => {
+            exitDiv.classList.remove("display-none");
+
+            setTimeout(() => {
+                exitDiv.classList.add("field__exit-div--open");
+                exitDiv.classList.remove("field__exit-div--close");
+            }, 10);
+        });
+    }
+}
+
+function closeExitDiv() {
+    const exitDiv = document.getElementById("field__exit-div");
+
+    if (!exitDiv) return;
+
+    exitDiv.classList.add("field__exit-div--close");
+
+    setTimeout(() => {
+        exitDiv.classList.remove("field__exit-div--open");
+        exitDiv.classList.remove("field__exit-div--close");
+        exitDiv.classList.add("display-none");
+    }, 200);
+}
+
+function closeExitGameDiv() {
+    backToGameButton?.addEventListener("click", () => {
+        closeExitDiv();
+    });
+}
+
+function exitGameButtonEvent(){
+    exitGameButton?.addEventListener("click", () => {
+    resetGameAndBackToMenu();
+});
+}
+
+function resetGameAndBackToMenu(){
+    const settingsContent = document.getElementById("settings-content");
+    const field = document.getElementById("field");
+    if(exitGameButton){
+        closeExitDiv();
+        resetTextFieldsSettings();
+        orangeScore = 0;
+        blueScore = 0;
+        isMultiplayer = false;
+        selectedBoardSize = 0;
+        flippedCards = [];
+        flippedCardElements = [];
+        shuffledCards = [];
+        resetInputs();
+        settingsContent?.classList.remove("display-none");
+        field?.classList.add("display-none");
+    }
+}
+
+function resetInputs() {
+    const themeInputs = document.getElementsByName("boardTheme");
+    const boardSizeInputs = document.getElementsByName("boardSize");
+    themeInputs.forEach((input) => {
+        (input as HTMLInputElement).checked = false;
+    });
+    boardSizeInputs.forEach((input) => {
+        (input as HTMLInputElement).checked = false;
+    });
+    if (orangePlayerInput && bluePlayerInput) {
+        orangePlayerInput.checked = false;
+        bluePlayerInput.checked = false;
+    }
+}
+
+function resetTextFieldsSettings(){
+    const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
+    const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
+
+    if (playerPreview) {
+        playerPreview.innerText = "Player";
+    }
+    gamingThemeText.innerText = "Game theme";
+    if (fieldSizeText) {
+        fieldSizeText.innerText = "Board size";
     }
 }

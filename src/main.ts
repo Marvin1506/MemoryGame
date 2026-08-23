@@ -110,6 +110,9 @@ function cardFlip() {
         flippedCardElements.push(cardElement);
         if (flippedCards.length === 2) {
             checkForMatch();
+            setTimeout(() => {
+                checkIfGameIsOver();
+            }, 1000);
         }
     });
 }
@@ -424,5 +427,18 @@ function resetTextFieldsSettings(){
     gamingThemeText.innerText = "Game theme";
     if (fieldSizeText) {
         fieldSizeText.innerText = "Board size";
+    }
+}
+
+function checkIfGameIsOver() {
+    const cards = document.getElementsByClassName("card__card-div");
+    const field = document.getElementById("field");
+
+    const allCardsFlipped = Array.from(cards).every((card) => {
+        return card.classList.contains("is-flipped");
+    });
+
+    if (allCardsFlipped) {
+        field?.classList.add("display-none");
     }
 }

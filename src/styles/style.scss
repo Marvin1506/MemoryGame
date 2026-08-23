@@ -617,6 +617,22 @@ body{
     }
 }
 
+.winner-screen{
+    @include flexbox-center-column;
+    @include grey-background;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    height: 100%;
+    width: 100%;
+    display: none;
+
+    &__color-confetti{
+        width: 90%;
+    }
+}
+
 .is-flipped .card__inner{
         transform: rotateY(180deg);
     }

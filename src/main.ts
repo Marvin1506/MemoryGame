@@ -336,10 +336,12 @@ function addCardsToField(){
 
 function openExitGameDiv(){
     const exitDiv = document.getElementById("field__exit-div");
+    const cardField = document.getElementById("card__card-play-field");
 
     if (exitButtonGame && exitDiv) {
         exitButtonGame.addEventListener("click", () => {
             exitDiv.classList.remove("display-none");
+            cardField?.classList.add("card__card-play-field--disabled");
 
             setTimeout(() => {
                 exitDiv.classList.add("field__exit-div--open");
@@ -351,7 +353,7 @@ function openExitGameDiv(){
 
 function closeExitDiv() {
     const exitDiv = document.getElementById("field__exit-div");
-
+    const cardField = document.getElementById("card__card-play-field");
     if (!exitDiv) return;
 
     exitDiv.classList.add("field__exit-div--close");
@@ -360,6 +362,7 @@ function closeExitDiv() {
         exitDiv.classList.remove("field__exit-div--open");
         exitDiv.classList.remove("field__exit-div--close");
         exitDiv.classList.add("display-none");
+        cardField?.classList.remove("card__card-play-field--disabled");
     }, 200);
 }
 
@@ -378,6 +381,7 @@ function exitGameButtonEvent(){
 function resetGameAndBackToMenu(){
     const settingsContent = document.getElementById("settings-content");
     const field = document.getElementById("field");
+    const cardField = document.getElementById("card__card-play-field");
     if(exitGameButton){
         closeExitDiv();
         resetTextFieldsSettings();
@@ -391,6 +395,7 @@ function resetGameAndBackToMenu(){
         resetInputs();
         settingsContent?.classList.remove("display-none");
         field?.classList.add("display-none");
+        cardField?.classList.remove("card__card-play-field--disabled");
     }
 }
 

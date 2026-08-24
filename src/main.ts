@@ -15,7 +15,7 @@ const counterBlue = document.getElementById("field-counter-blue");
 const currentPlayerTurn = document.getElementById("field__current-player-playing-div") as HTMLDivElement | null;
 const exitButtonGame = document.getElementById("field__button-exit") as HTMLButtonElement | null;
 const backToGameButton = document.getElementById("field__button-back-to-game") as HTMLButtonElement | null;
-const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement | null;
+const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement;
 const winnerScreenContent = document.getElementById("winner-screen") as HTMLDivElement | null;
 const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
 const winnerColorTextDiv = document.getElementById("winner-screen__color-winner") as HTMLTextAreaElement | null;
@@ -95,6 +95,7 @@ function init(){
     openExitGameDiv();
     closeExitGameDiv();
     exitGameButtonEvent();
+    playerInputEvent();
 }
 
 function cardFlip() {
@@ -231,7 +232,8 @@ function goToBoard(){
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
         
     finalSettingButton?.addEventListener("click", () => {
-        if(fieldSizeText?.innerText === "Board size" || playerPreview?.innerText === "Player" || gamingThemeText.innerText === "Game theme") return;
+        if(fieldSizeText?.innerText === "Board size" || playerPreview?.innerText === "Player" || gamingThemeText.innerText === "Game theme"
+        || orangePlayerInput?.checked === false && bluePlayerInput?.checked === false) return;
         selectSingleOrMultiplayer();
         selectCurrentPlayer();
         showPlayerIcon();
@@ -399,20 +401,46 @@ function resetGameAndBackToMenu(){
     const settingsContent = document.getElementById("settings-content");
     const field = document.getElementById("field");
     const cardField = document.getElementById("card__card-play-field");
-    if(exitGameButton){
-        closeExitDiv();
-        resetTextFieldsSettings();
-        orangeScore = 0;
-        blueScore = 0;
-        isMultiplayer = false;
-        selectedBoardSize = 0;
-        flippedCards = [];
-        flippedCardElements = [];
-        shuffledCards = [];
-        resetInputs();
-        settingsContent?.classList.remove("display-none");
-        field?.classList.add("display-none");
-        cardField?.classList.remove("card__card-play-field--disabled");
+    closeExitDiv();
+    resetTextFieldsSettings();
+    orangeScore = 0;
+    blueScore = 0;
+    if (counterOrange) {
+        counterOrange.innerText = "0";
+    }
+    if (counterBlue) {
+        counterBlue.innerText = "0";
+    }
+    isMultiplayer = false;
+    selectedBoardSize = 0;
+    flippedCards = [];
+    flippedCardElements = [];
+    shuffledCards = [];
+    resetInputs();
+    settingsContent?.classList.remove("display-none");
+    field?.classList.add("display-none");
+    cardField?.classList.remove("card__card-play-field--disabled");
+}
+
+function playerInputEvent() {
+    bluePlayerInput?.addEventListener("click", (event) => {
+        togglePlayerInput(event);
+    });
+
+    orangePlayerInput?.addEventListener("click", (event) => {
+        togglePlayerInput(event);
+    });
+}
+
+function togglePlayerInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.dataset.wasChecked === "true") {
+        input.checked = false;
+        input.dataset.wasChecked = "false";
+
+    } else {
+        input.checked = true;
+        input.dataset.wasChecked = "true";
     }
 }
 

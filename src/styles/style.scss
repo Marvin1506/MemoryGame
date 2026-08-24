@@ -618,18 +618,66 @@ body{
 }
 
 .winner-screen{
-    @include flexbox-center-column;
     @include grey-background;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 12;
     height: 100%;
     width: 100%;
-    display: none;
 
     &__color-confetti{
         width: 90%;
+        height: auto;
+    }
+
+    &__winner-headline{
+        @include font-weight-400-RedRose;
+        font-size: 40px;
+        color: #FFFFFF;
+        margin-top: 0px;
+        margin-bottom: 8px;
+    }
+
+    &__button{
+        @include font-weight-700-RedRose;
+        @include flexbox-center;
+        width: 204px;
+        height: 62px;
+        margin-top: 64px;
+        border: 1px solid #4DD5BC;
+        background-color: #86E9D633;
+
+        &:hover{
+            border: 3px solid #4DD5BC;
+            background-color: #86e9d556;
+            cursor: pointer;
+            transition: ease-in 100ms;
+        }
+    }
+
+    &__button-text{
+        color: #FFFFFF;
+        font-size: 24px;
+    }
+
+    &__color-winner{
+        @include font-weight-700-RedRose;
+        font-size: 60px;
+        color: #2BB1FF;
+        margin-top: 0px;
+        margin-bottom: 64px;
+    }
+
+    &__blue-winner{
+        color: #2BB1FF;
+    }
+
+    &__orange-winner{
+        color: #F58E39;
     }
 }
 

@@ -16,6 +16,10 @@ const currentPlayerTurn = document.getElementById("field__current-player-playing
 const exitButtonGame = document.getElementById("field__button-exit") as HTMLButtonElement | null;
 const backToGameButton = document.getElementById("field__button-back-to-game") as HTMLButtonElement | null;
 const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement | null;
+const winnerScreenContent = document.getElementById("winner-screen") as HTMLDivElement | null;
+const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
+const winnerColorTextDiv = document.getElementById("winner-screen__color-winner") as HTMLTextAreaElement | null;
+const winnerChessImage = document.getElementById("winner-picture") as HTMLImageElement;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
@@ -377,8 +381,12 @@ function closeExitGameDiv() {
 
 function exitGameButtonEvent(){
     exitGameButton?.addEventListener("click", () => {
-    resetGameAndBackToMenu();
-});
+        resetGameAndBackToMenu();
+    });
+    exitGameButtonWin?.addEventListener("click", () => {
+        resetGameAndBackToMenu();
+        winnerScreenContent?.classList.add("display-none");
+    });
 }
 
 function resetGameAndBackToMenu(){
@@ -402,7 +410,7 @@ function resetGameAndBackToMenu(){
     }
 }
 
-function resetInputs() {
+function resetInputs(){
     const themeInputs = document.getElementsByName("boardTheme");
     const boardSizeInputs = document.getElementsByName("boardSize");
     themeInputs.forEach((input) => {
@@ -430,15 +438,30 @@ function resetTextFieldsSettings(){
     }
 }
 
-function checkIfGameIsOver() {
+function checkIfGameIsOver(){
     const cards = document.getElementsByClassName("card__card-div");
     const field = document.getElementById("field");
-
     const allCardsFlipped = Array.from(cards).every((card) => {
         return card.classList.contains("is-flipped");
     });
 
     if (allCardsFlipped) {
+        whoisTheWinner();
         field?.classList.add("display-none");
+        winnerScreenContent?.classList.remove("display-none");
+    }
+}
+
+function whoisTheWinner(){
+    if (winnerColorTextDiv){
+        if(blueScore > orangeScore){
+            winnerColorTextDiv.innerText = "BLUE PLAYER";
+            winnerColorTextDiv.classList.add("winner-screen__blue-winner");
+            winnerChessImage.src = "./src/assets/fonts/images/chessBlue.png";
+        } else if(orangeScore > blueScore){
+            winnerColorTextDiv.innerText = "ORANGE PLAYER";
+            winnerColorTextDiv.classList.add("winner-screen__orange-winner");
+            winnerChessImage.src = "./src/assets/fonts/images/chessOrange.png";
+        }
     }
 }

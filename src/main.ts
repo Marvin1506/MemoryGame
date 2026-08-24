@@ -20,6 +20,8 @@ const winnerScreenContent = document.getElementById("winner-screen") as HTMLDivE
 const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
 const winnerColorTextDiv = document.getElementById("winner-screen__color-winner") as HTMLTextAreaElement | null;
 const winnerChessImage = document.getElementById("winner-picture") as HTMLImageElement;
+const drawContentDiv = document.getElementById("draw-screen") as HTMLDivElement;
+const drawContentButton = document.getElementById("draw-screen__draw-button") as HTMLButtonElement;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
@@ -387,6 +389,10 @@ function exitGameButtonEvent(){
         resetGameAndBackToMenu();
         winnerScreenContent?.classList.add("display-none");
     });
+    drawContentButton?.addEventListener("click", () => {
+        resetGameAndBackToMenu();
+        drawContentDiv?.classList.add("display-none");
+    });
 }
 
 function resetGameAndBackToMenu(){
@@ -444,24 +450,27 @@ function checkIfGameIsOver(){
     const allCardsFlipped = Array.from(cards).every((card) => {
         return card.classList.contains("is-flipped");
     });
-
-    if (allCardsFlipped) {
+    if (allCardsFlipped && blueScore !== orangeScore) {
         whoisTheWinner();
         field?.classList.add("display-none");
-        winnerScreenContent?.classList.remove("display-none");
     }
 }
 
 function whoisTheWinner(){
+    winnerScreenContent?.classList.remove("display-none");
     if (winnerColorTextDiv){
         if(blueScore > orangeScore){
             winnerColorTextDiv.innerText = "BLUE PLAYER";
             winnerColorTextDiv.classList.add("winner-screen__blue-winner");
             winnerChessImage.src = "./src/assets/fonts/images/chessBlue.png";
+            winnerScreenContent?.classList.remove("display-none");
         } else if(orangeScore > blueScore){
             winnerColorTextDiv.innerText = "ORANGE PLAYER";
             winnerColorTextDiv.classList.add("winner-screen__orange-winner");
             winnerChessImage.src = "./src/assets/fonts/images/chessOrange.png";
+            winnerScreenContent?.classList.remove("display-none");
+        } else if (orangeScore === blueScore){
+            drawContentDiv.classList.remove("display-none");
         }
     }
 }

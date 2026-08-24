@@ -681,6 +681,68 @@ body{
     }
 }
 
+.draw-screen{
+    @include grey-background;
+    @include flexbox-center-column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 13;
+    height: 100%;
+    width: 100%;
+
+    &__its-headline{
+        @include font-weight-400-RedRose;
+        font-size: 40px;
+        color: #FFFFFF;
+    }
+
+    &__draw-div{
+        position: relative;
+    }
+
+    &__headline-white{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 13;
+        margin-top: 12px;
+    }
+
+    &__headline-green{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 13;
+        margin-top: 12px;
+    }
+
+    &__draw-image{
+        margin-top: 109px;
+    }
+
+    &__draw-button{
+        @include font-weight-700-RedRose;
+        font-size: 24px;
+        width: 204px;
+        height: 62px;
+        color: #FFFFFF;
+        background-color: #86E9D633;
+        border: 1px solid #4DD5BC;
+        cursor: pointer;
+        margin-top: 64px;
+
+        &:hover{
+            border: 3px solid #4DD5BC;
+            background-color: #86e9d575;
+            transition: ease-in 100ms;
+        }
+    }
+
+}
+
 .is-flipped .card__inner{
         transform: rotateY(180deg);
     }

@@ -689,6 +689,11 @@ body{
 
     }
 
+    .field__exit-div{
+        border-radius: 20px;
+        background-color: #F0F6F9;
+    }
+
     .field__exit-headline{
         @include font-weight-700-Orbitron;
     }

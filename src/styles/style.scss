@@ -673,12 +673,61 @@ body{
         border-width: 2px;
 
         &:hover{
-            background-color: #ed1b7641;
+            background-color: #ED1B7624;
             border-width: 3px;
-            box-shadow: unset;
+            box-shadow: 3px 3px 5px 0px #2F2E2E33;
+
+            .field__exit-svg{
+                path {fill: #E71C4F;}
+                transition: ease-in 200ms;
+            }
+
+            .field__exit-svg path {
+                transition: fill 200ms ease-in-out;
+            }
+        }
+
+    }
+
+    .field__exit-headline{
+        @include font-weight-700-Orbitron;
+    }
+
+    .field__button-back-to-game{
+        @include font-weight-700-Orbitron;
+        @include flexbox-center;
+        background-color: #ED1B76;
+        border: 1px solid #E71C4F;
+        border-radius: 10px;
+        font-size: 16px;
+        width: 205px;
+        height: 44px;
+
+        &:hover{
+            color: #ED1B76;
+            background-color: #F2C7DA14;
+            border: 2px solid #E71C4F;
+            transition: ease-in 100ms;
         }
     }
 
+    .field__button-exit-game{
+        @include font-weight-700-Orbitron;
+        @include flexbox-center;
+        font-size: 16px;
+        width: 180px;
+        height: 44px;
+        border-radius: 10px;
+        background-color: #ED1B7614;
+        border: 2px solid #E71C4F;
+        color: #ED1B76;
+
+        &:hover{
+            color: #ED1B76;
+            background-color: #F2C7DA14;
+            border: 2px solid #E71C4F;
+        }
+    }
 }
 
 .card{
@@ -708,6 +757,7 @@ body{
     }
 
     &__face{
+        cursor: pointer;
         position: absolute;
         inset: 0;
         background-color: #4DD5BC;
@@ -727,8 +777,10 @@ body{
 }
 
 .card__card-play-field--gaming {
+
     .card__face {
         background: linear-gradient(147.13deg, #ED1B76 1.28%, #0A2835 142.53%);
+        border-radius: 12px;
 
         &--back{
             background: #E8F3F0;

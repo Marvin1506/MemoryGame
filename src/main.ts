@@ -490,8 +490,8 @@ function renderGameField() {
             <div class="field__exit-div display-none" id="field__exit-div">
                 <h2 class="field__exit-headline" id="field__exit-headline">Are you sure you want to quit the game?</h2>
                 <div class="field__exit-flexbox-buttons" id="field__exit-flexbox-buttons">
-                    <button class="field__button-back-to-game" id="field__button-back-to-game">Back to game</button>
-                    <button class="field__button-exit-game" id="field__button-exit-game">Exit game</button>
+                    <button class="field__button-back-to-game" id="field__button-back-to-game">No, back to game</button>
+                    <button class="field__button-exit-game" id="field__button-exit-game">Yes, quit game</button>
                 </div>
             </div>
 

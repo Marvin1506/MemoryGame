@@ -624,6 +624,10 @@ body{
         margin-left: 24px;
     }
 
+    .field__orange-player-flexbox{
+        padding-left: 16px;
+    }
+
     .field__color-text-blue{
         display: none;
     }
@@ -633,6 +637,10 @@ body{
         font-size: 30px;
     }
 
+    .field__blue-svg{
+        padding-left: 0px;
+    }
+
     .field__color-text-orange{
         display: none;
     }
@@ -640,7 +648,37 @@ body{
     .field__counter-orange{
         @include font-weight-700-Orbitron;
         font-size: 30px;
+        padding-right: 0px;
     }
+
+    .field__counter-blue{
+        padding-right: 16px;
+    }
+
+    .field__current-player-text{
+        @include font-weight-700-Orbitron;
+    }
+
+    .field__current-player-playing-div{
+        @include flexbox-center;
+        margin-top: 0px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .field__button{
+        background-color: #ED1B7614;
+        border-color: #E71C4F;
+        border-radius: 10px;
+        border-width: 2px;
+
+        &:hover{
+            background-color: #ed1b7641;
+            border-width: 3px;
+            box-shadow: unset;
+        }
+    }
+
 }
 
 .card{
@@ -686,6 +724,18 @@ body{
     .card__card-play-field--disabled {
         pointer-events: none;
     }
+}
+
+.card__card-play-field--gaming {
+    .card__face {
+        background: linear-gradient(147.13deg, #ED1B76 1.28%, #0A2835 142.53%);
+
+        &--back{
+            background: #E8F3F0;
+        }
+    }
+
+
 }
 
 .winner-screen{

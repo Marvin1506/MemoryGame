@@ -572,6 +572,10 @@ body{
     }
 }
 
+.field--gaming{
+    background-color: #294F60;
+}
+
 .card{
     display: flex;
     justify-content: center;
@@ -744,8 +748,8 @@ body{
 }
 
 .is-flipped .card__inner{
-        transform: rotateY(180deg);
-    }
+    transform: rotateY(180deg);
+}
 
 .display-none{
     display: none;

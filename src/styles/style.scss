@@ -28,7 +28,7 @@
 
 @font-face{
     font-family: "RedRose";
-    src: url("../assets/fonts/RedRose-Bold.ttf") format("truetype");
+    src: url("../assets/fonts/RedRose-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
@@ -793,6 +793,68 @@ body{
     }
 
 
+}
+
+.game-over{
+    @include grey-background;
+    @include flexbox-center-column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    height: 100%;
+    width: 100%;
+
+    &__headline-div{
+        position: relative;
+        display: flex;
+        height: 125px;
+        width: 990px;
+    }
+
+    &__headline-white{
+        @include space-top-bottom-zero;
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #FFFFFF;
+    }
+
+    &__headline-blue{
+        @include space-top-bottom-zero;
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__score-headline{
+        @include font-weight-400-RedRose;
+        @include space-top-bottom-zero;
+        font-size: 26px;
+        text-align: center;
+        padding-top: 124px;
+        color: #FFFFFF;
+        padding-bottom: 24px;
+    }
+
+    &__blue-background{
+        @include flexbox-center;
+        height: 62px;
+        width: 323px;
+        background-color: #86E9D633;
+    }
+
+    &__blue-div{
+        @include flexbox-center;
+    }
+
+    &__orange-div{
+        @include flexbox-center;
+    }
 }
 
 .winner-screen{

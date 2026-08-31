@@ -145,3 +145,25 @@ export function drawScreenCodeTemplate() {
         <button class="draw-screen__draw-button" id="draw-screen__draw-button">Back to start</button>
     `;
 }
+
+export function gameOverScreenGamingTemplate() {
+    return `
+        <div class="game-over__headline-div">
+            <img src="./src/assets/fonts/images/gameOverWhite.png" class="game-over__headline-white">
+            <img src="./src/assets/fonts/images/gameOverGreen.png" class="game-over__headline-blue">
+        </div>
+        <h3 class="game-over__score-headline">Final score</h3>
+        <div class="game-over__blue-background">
+            <div class="game-over__blue-div">
+                <img class="game-over__image-padding-blue" src="./src/assets/fonts/images/blueLabelPic.png" alt="">
+                <p class="game-over__blue-headline">Blue</p>
+                <div class="game-over__blue-counter" id="game-over__blue-counter">0</div>
+            </div>
+            <div class="game-over__orange-div">
+                <img class="game-over__image-padding-orange" src="./src/assets/fonts/images/orangeLabelPic.png" alt="">
+                <p class="game-over__orange-headline">Orange</p>
+                <div class="game-over__orange-counter" id="game-over__orange-counter">0</div>
+            </div>
+        </div>
+    `;
+}

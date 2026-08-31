@@ -1,5 +1,6 @@
 import './styles/style.scss'
-import {codeGameFieldTemplate,gamingGameFieldTemplate, winnerScreenCodeTemplate, gameOverScreenCodeTemplate, drawScreenCodeTemplate} from "./templates/templates";
+import {codeGameFieldTemplate,gamingGameFieldTemplate, winnerScreenCodeTemplate, gameOverScreenCodeTemplate,
+drawScreenCodeTemplate,gameOverScreenGamingTemplate} from "./templates/templates";
 const codeVibeThemeInput = document.getElementById("codeVibe");
 const gamingThemeInput = document.getElementById("gamingTheme");
 const daProjectsThemeInput = document.getElementById("daProjectsTheme");
@@ -12,11 +13,9 @@ const startButton = document.getElementById("final-settings-button") as HTMLButt
 const orangePlayerInput = document.getElementById("orange") as HTMLInputElement | null;
 const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | null;
 const winnerScreenContent = document.getElementById("winner-screen") as HTMLDivElement | null;
-const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
 const winnerColorTextDiv = document.getElementById("winner-screen__color-winner") as HTMLTextAreaElement | null;
 const winnerChessImage = document.getElementById("winner-picture") as HTMLImageElement;
 const drawContentDiv = document.getElementById("draw-screen") as HTMLDivElement;
-const drawContentButton = document.getElementById("draw-screen__draw-button") as HTMLButtonElement;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
@@ -383,9 +382,9 @@ function renderGameField() {
     const drawScreen = document.getElementById("draw-screen");
     if (!field || !winnerScreen || !gameOverScreen || !drawScreen) return;
     field.className = `field field--${selectedTheme}`;
-    winnerScreen.className = `winner-screen winner-screen--${selectedTheme}`;
-    gameOverScreen.className = `game-over game-over--${selectedTheme}`;
-    drawScreen.className = `draw-screen draw-screen--${selectedTheme}`;
+    winnerScreen.className = `winner-screen winner-screen--${selectedTheme} display-none`;
+    gameOverScreen.className = `game-over game-over--${selectedTheme} display-none`;
+    drawScreen.className = `draw-screen draw-screen--${selectedTheme} display-none`;
     if(selectedTheme === "code"){
         field.innerHTML = codeGameFieldTemplate();
         winnerScreen.innerHTML = winnerScreenCodeTemplate();
@@ -393,6 +392,7 @@ function renderGameField() {
         drawScreen.innerHTML = drawScreenCodeTemplate();
     } else if(selectedTheme === "gaming") {
         field.innerHTML = gamingGameFieldTemplate();
+        gameOverScreen.innerHTML = gameOverScreenGamingTemplate();
     }
 }
 
@@ -505,6 +505,9 @@ function closeExitGameDiv() {
 
 function exitGameButtonEvent(){
     const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement | null;
+    const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
+    const drawContentButton = document.getElementById("draw-screen__draw-button") as HTMLButtonElement;
+
     exitGameButton?.addEventListener("click", () => {
         resetGameAndBackToMenu();
     });

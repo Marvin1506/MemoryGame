@@ -801,7 +801,7 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 12;
+    z-index: 20;
     height: 100%;
     width: 100%;
 
@@ -854,6 +854,43 @@ body{
 
     &__orange-div{
         @include flexbox-center;
+    }
+
+    &__image-padding-blue{
+        padding-left: 20px;
+        padding-right: 5px;
+    }
+
+    &__blue-headline{
+        @include font-weight-700-RedRose;
+        color: #2BB1FF;
+        font-size: 24px;
+        padding-right: 4px;
+    }
+
+    &__blue-counter{
+        @include font-weight-700-RedRose;
+        color: #2BB1FF;
+        font-size: 24px;
+        padding-right: 32px;
+    }
+
+    &__image-padding-orange{
+        padding-right: 5px;
+    }
+
+    &__orange-headline{
+        @include font-weight-700-RedRose;
+        color: #F58E39;
+        font-size: 24px;
+        padding-right: 4px;
+    }
+
+    &__orange-counter{
+        @include font-weight-700-RedRose;
+        color: #F58E39;
+        font-size: 24px;
+        padding-right: 20px;
     }
 }
 

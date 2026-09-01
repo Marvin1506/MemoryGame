@@ -894,6 +894,32 @@ body{
     }
 }
 
+.game-over--gaming{
+
+    .game-over__score-headline{
+        @include font-weight-700-Orbitron;
+        font-size: 28px;
+        padding-top: 104px;
+    }
+
+    .game-over__blue-background{
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        width: 222px;
+        height: 66px;
+    }
+
+    .game-over__image-padding-orange{
+        height: 32px;
+        width: 28px;
+    }
+
+    .game-over__image-padding-blue{
+        height: 32px;
+        width: 28px;
+    }
+}
+
 .winner-screen{
     @include grey-background;
     display: flex;

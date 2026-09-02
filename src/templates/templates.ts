@@ -110,6 +110,17 @@ export function winnerScreenCodeTemplate() {
     `;
 }
 
+export function winnerScreenGamingTemplate() {
+    return `
+        <h3 class="winner-screen__winner-headline">The winner is</h3>
+        <h2 class="winner-screen__color-winner" id="winner-screen__color-winner">Blue Player</h2>
+        <img src="./src/assets/fonts/images/trophy.png" alt="winner" id="winner-picture">
+        <button class="winner-screen__button" id="winner-screen__button">
+            <p class="winner-screen__button-text">Home</p>
+        </button>
+    `;
+}
+
 export function gameOverScreenCodeTemplate() {
     return `
         <div class="game-over__headline-div">

@@ -1,6 +1,6 @@
 import './styles/style.scss'
 import {codeGameFieldTemplate,gamingGameFieldTemplate, winnerScreenCodeTemplate, gameOverScreenCodeTemplate,
-drawScreenCodeTemplate,gameOverScreenGamingTemplate} from "./templates/templates";
+drawScreenCodeTemplate,gameOverScreenGamingTemplate, winnerScreenGamingTemplate} from "./templates/templates";
 const codeVibeThemeInput = document.getElementById("codeVibe");
 const gamingThemeInput = document.getElementById("gamingTheme");
 const daProjectsThemeInput = document.getElementById("daProjectsTheme");
@@ -392,6 +392,7 @@ function renderGameField() {
         drawScreen.innerHTML = drawScreenCodeTemplate();
     } else if(selectedTheme === "gaming") {
         field.innerHTML = gamingGameFieldTemplate();
+        winnerScreen.innerHTML = winnerScreenGamingTemplate();
         gameOverScreen.innerHTML = gameOverScreenGamingTemplate();
     }
 }

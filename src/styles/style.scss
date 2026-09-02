@@ -907,6 +907,11 @@ body{
         border-radius: 10px;
         width: 222px;
         height: 66px;
+        justify-content: space-between;
+    }
+
+    .game-over__orange-div{
+        padding-left: 16px;
     }
 
     .game-over__image-padding-orange{
@@ -914,9 +919,27 @@ body{
         width: 28px;
     }
 
+    .game-over__orange-counter{
+        @include font-weight-700-Orbitron;
+        font-size: 40px;
+        padding-right: 0px;
+    }
+
+    .game-over__blue-div{
+        padding-right: 16px;
+    }
+
     .game-over__image-padding-blue{
         height: 32px;
         width: 28px;
+        padding-left: 0px;
+        padding-right: 5px;
+    }
+
+    .game-over__blue-counter{
+        @include font-weight-700-Orbitron;
+        font-size: 40px;
+        padding-right: 0px;
     }
 }
 

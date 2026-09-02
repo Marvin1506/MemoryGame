@@ -952,7 +952,7 @@ body{
     justify-content: center;
     top: 0;
     left: 0;
-    z-index: 21; //12
+    z-index: 12;
     height: 100%;
     width: 100%;
 
@@ -1098,6 +1098,52 @@ body{
         }
     }
 
+}
+
+.draw-screen--gaming{
+    background-color: #294F60;
+
+    .draw-screen__headline-flexbox{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+    .draw-screen__its-headline{
+        @include space-top-bottom-zero;
+    }
+
+    .draw-screen__headline-white{
+        position: unset;
+        top: unset;
+        left: unset;
+        transform: unset;
+        margin-top: 32px;
+    }
+
+    .draw-screen__draw-image{
+        margin-top: 32px;
+    }
+
+    .draw-screen__draw-button{
+        height: 48px;
+        width: 107px;
+        background-color: #ED1B7614;
+        border: 2px solid #E71C4F;
+        border-radius: 10px;
+        padding: 12px 20px 12px 20px;
+        gap: 10px;
+        @include font-weight-700-Orbitron;
+        font-size: 20px;
+
+        &:hover{
+            background-color: #F2C7DA14;
+            border: 3px solid #E71C4F;
+            transition: ease-in 100ms;
+        }
+    }
 }
 
 .is-flipped .card__inner{

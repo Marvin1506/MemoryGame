@@ -157,6 +157,17 @@ export function drawScreenCodeTemplate() {
     `;
 }
 
+export function drawScreenGamingTemplate() {
+    return `
+        <div class="draw-screen__headline-flexbox">
+            <h3 class="draw-screen__its-headline">It's a</h3>
+            <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawGamingHeadline.png" alt="">
+        </div>
+        <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIconGaming.png" alt="draw">
+        <button class="draw-screen__draw-button" id="draw-screen__draw-button">Home</button>
+    `;
+}
+
 export function gameOverScreenGamingTemplate() {
     return `
         <div class="game-over__headline-div">

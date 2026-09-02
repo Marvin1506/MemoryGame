@@ -1,6 +1,6 @@
 import './styles/style.scss'
 import {codeGameFieldTemplate,gamingGameFieldTemplate, winnerScreenCodeTemplate, gameOverScreenCodeTemplate,
-drawScreenCodeTemplate,gameOverScreenGamingTemplate, winnerScreenGamingTemplate} from "./templates/templates";
+drawScreenCodeTemplate,gameOverScreenGamingTemplate, winnerScreenGamingTemplate, drawScreenGamingTemplate} from "./templates/templates";
 const codeVibeThemeInput = document.getElementById("codeVibe");
 const gamingThemeInput = document.getElementById("gamingTheme");
 const daProjectsThemeInput = document.getElementById("daProjectsTheme");
@@ -394,6 +394,7 @@ function renderGameField() {
         field.innerHTML = gamingGameFieldTemplate();
         winnerScreen.innerHTML = winnerScreenGamingTemplate();
         gameOverScreen.innerHTML = gameOverScreenGamingTemplate();
+        drawScreen.innerHTML = drawScreenGamingTemplate();
     }
 }
 
@@ -617,7 +618,9 @@ function whoisTheWinner(){
         if(blueScore > orangeScore){
             winnerColorTextDiv.innerText = "BLUE PLAYER";
             winnerColorTextDiv.classList.add("winner-screen__blue-winner");
-            winnerChessImage.src = "./src/assets/fonts/images/chessBlue.png";
+            if(selectedTheme === "code"){
+                winnerChessImage.src = "./src/assets/fonts/images/chessBlue.png";
+            }
             gameOverScreen.classList.remove("display-none");
             setTimeout(() => {
                 gameOverScreen.classList.add("display-none");
@@ -626,7 +629,9 @@ function whoisTheWinner(){
         } else if(orangeScore > blueScore){
             winnerColorTextDiv.innerText = "ORANGE PLAYER";
             winnerColorTextDiv.classList.add("winner-screen__orange-winner");
-            winnerChessImage.src = "./src/assets/fonts/images/chessOrange.png";
+            if(selectedTheme === "code"){
+                winnerChessImage.src = "./src/assets/fonts/images/chessOrange.png";
+            }
             gameOverScreen.classList.remove("display-none");
             setTimeout(() => {
                 gameOverScreen.classList.add("display-none");

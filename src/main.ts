@@ -24,9 +24,7 @@ let currentPlayer: PlayerColor = "blue";
 let selectedTheme: Theme = "code";
 const images: string[] = [
     "./src/assets/fonts/images/codeVibeTheme.png",
-    "./src/assets/fonts/images/gamingTheme.png",
-    "./src/assets/fonts/images/daProjectsTheme.png",
-    "./src/assets/fonts/images/foodTheme.png"
+    "./src/assets/fonts/images/gamingTheme.png"
 ];
 let flippedCards: Card[] = [];
 let flippedCardElements: HTMLButtonElement[] = [];
@@ -38,8 +36,7 @@ type Card = {
     isMatched: boolean,
 };
 type PlayerColor = "blue" | "orange";
-type Theme = "code" | "gaming" | "daProjects" | "food";
-
+type Theme = "code" | "gaming";
 const codeCards: Card[] = [
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
@@ -78,7 +75,6 @@ const codeCards: Card[] = [
     { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false },
     { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false }
 ];
-
 const gamingCards: Card[] = [
     { id: 1, src: "./src/assets/fonts/images/card_gaming_img/bananaGaming.png", isFlipped: false, isMatched:false },
     { id: 1, src: "./src/assets/fonts/images/card_gaming_img/bananaGaming.png", isFlipped: false, isMatched:false },
@@ -138,12 +134,9 @@ function cardFlip() {
         if (!cardElement) return;
         const cardIndex = Number(cardElement.dataset.cardIndex);
         const card = shuffledCards[cardIndex];
-
         if (card.isFlipped || card.isMatched) return;
-
         card.isFlipped = true;
         cardElement.classList.add("is-flipped");
-
         flippedCards.push(card);
         flippedCardElements.push(cardElement);
         if (flippedCards.length === 2) {
@@ -184,9 +177,7 @@ function selectCurrentPlayer() {
 function showPlayerIcon() {
     const currentPlayerTurn = document.getElementById("field__current-player-playing-div") as HTMLDivElement | null;
     if (!currentPlayerTurn) return;
-
     let playerIcon = "";
-
     if (selectedTheme === "code") {
         if (currentPlayer === "blue") {
             playerIcon = "./src/assets/fonts/images/blueLabelPic.png";
@@ -194,7 +185,6 @@ function showPlayerIcon() {
             playerIcon = "./src/assets/fonts/images/orangeLabelPic.png";
         }
     }
-
     if (selectedTheme === "gaming") {
         if (currentPlayer === "blue") {
             currentPlayerTurn.style.backgroundColor = "#1FAAFC";
@@ -204,7 +194,6 @@ function showPlayerIcon() {
             playerIcon = "./src/assets/fonts/images/card_gaming_img/chessWhite.png";
         }
     }
-
     currentPlayerTurn.innerHTML = `
         <img src="${playerIcon}">
     `;
@@ -243,16 +232,13 @@ function checkForMatch() {
     const secondCard = flippedCards[1];
     const firstCardElement = flippedCardElements[0];
     const secondCardElement = flippedCardElements[1];
-
     if (firstCard.id === secondCard.id) {
         firstCard.isMatched = true;
         secondCard.isMatched = true;
         increaseScore();
         flippedCards = [];
         flippedCardElements = [];
-
     } else {
-
         setTimeout(() => {
             firstCard.isFlipped = false;
             secondCard.isFlipped = false;
@@ -283,23 +269,18 @@ function goToBoard(){
     const playContent = document.getElementById("field");
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
-        
     finalSettingButton?.addEventListener("click", () => {
         if(fieldSizeText?.innerText === "Board size" || playerPreview?.innerText === "Player" || gamingThemeText.innerText === "Game theme"
         || orangePlayerInput?.checked === false && bluePlayerInput?.checked === false) return;
         selectSingleOrMultiplayer();
         selectCurrentPlayer();
-
         renderGameField();
-
         showPlayerIcon();
         addCardsToField();
-
         cardFlip();
         openExitGameDiv();
         closeExitGameDiv();
         exitGameButtonEvent();
-
         settingsContent?.classList.add("display-none");
         playContent?.classList.remove("display-none");
     });
@@ -309,7 +290,6 @@ function changePreviewImage(){
     const previewImg = document.getElementById("settings-content__preview-image") as HTMLImageElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
     const imagesArray = images;
-
     if(previewImg){
         codeVibeThemeInput?.addEventListener("click", () => {
             selectedTheme = "code";
@@ -320,14 +300,6 @@ function changePreviewImage(){
             selectedTheme = "gaming";
             previewImg.src = imagesArray[1];
             gamingThemeText.innerText = "Gaming theme";
-        });
-        daProjectsThemeInput?.addEventListener("click", () => {
-            previewImg.src = imagesArray[2];
-            gamingThemeText.innerText = "DA Projects theme";
-        });
-        foodThemeInput?.addEventListener("click", () => {
-            previewImg.src = imagesArray[3];
-            gamingThemeText.innerText = "Foods theme";
         });
     }
 }
@@ -414,7 +386,6 @@ function renderGameField() {
 function addCardsToField(){
     const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
     setCardFieldSize();
-
     if (!cardField) return;
     cardField.className = `card__card-play-field card__card-play-field--${selectedTheme}`;
     cardField.innerHTML = "";
@@ -426,7 +397,6 @@ function addCardsToField(){
         selectedCards = gamingCards.slice(0, selectedBoardSize);
     }
     shuffledCards = shuffleCards(selectedCards);
-
     if(selectedTheme === "code"){
         for (let i = 0; i < shuffledCards.length; i++) {
             const card = shuffledCards[i];
@@ -482,12 +452,10 @@ function openExitGameDiv(){
     const exitButtonGame = document.getElementById("field__button-exit") as HTMLButtonElement | null;
     const exitDiv = document.getElementById("field__exit-div");
     const cardField = document.getElementById("card__card-play-field");
-
     if (exitButtonGame && exitDiv) {
         exitButtonGame.addEventListener("click", () => {
             exitDiv.classList.remove("display-none");
             cardField?.classList.add("card__card-play-field--disabled");
-
             setTimeout(() => {
                 exitDiv.classList.add("field__exit-div--open");
                 exitDiv.classList.remove("field__exit-div--close");
@@ -500,9 +468,7 @@ function closeExitDiv() {
     const exitDiv = document.getElementById("field__exit-div");
     const cardField = document.getElementById("card__card-play-field");
     if (!exitDiv) return;
-
     exitDiv.classList.add("field__exit-div--close");
-
     setTimeout(() => {
         exitDiv.classList.remove("field__exit-div--open");
         exitDiv.classList.remove("field__exit-div--close");
@@ -522,7 +488,6 @@ function exitGameButtonEvent(){
     const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement | null;
     const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
     const drawContentButton = document.getElementById("draw-screen__draw-button") as HTMLButtonElement;
-
     exitGameButton?.addEventListener("click", () => {
         resetGameAndBackToMenu();
     });
@@ -568,7 +533,6 @@ function playerInputEvent() {
         togglePlayerInput(event);
         updatePlayerPreview();
     });
-
     orangePlayerInput?.addEventListener("click", (event) => {
         togglePlayerInput(event);
         updatePlayerPreview();
@@ -580,7 +544,6 @@ function togglePlayerInput(event: Event) {
     if (input.dataset.wasChecked === "true") {
         input.checked = false;
         input.dataset.wasChecked = "false";
-
     } else {
         input.checked = true;
         input.dataset.wasChecked = "true";
@@ -605,7 +568,6 @@ function resetInputs(){
 function resetTextFieldsSettings(){
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
-
     if (playerPreview) {
         playerPreview.innerText = "Player";
     }

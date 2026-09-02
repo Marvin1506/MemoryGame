@@ -336,14 +336,27 @@ function choosePlayer(){
     const orangePlayerInput = document.getElementById("orange") as HTMLInputElement | null;
     const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | null;
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
-
     if(playerPreview){
         orangePlayerInput?.addEventListener("click", () => {
-            playerPreview.innerText = "Orange";
+            updatePlayerPreview();
         });
         bluePlayerInput?.addEventListener("click", () => {
-            playerPreview.innerText = "Blue";
+            updatePlayerPreview();
         });
+    }
+}
+
+ function updatePlayerPreview() {
+    const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
+    if (!orangePlayerInput || !bluePlayerInput || !playerPreview) return;
+    if (orangePlayerInput.checked && bluePlayerInput.checked) {
+        playerPreview.innerText = "2 Player";
+    } else if (orangePlayerInput.checked) {
+        playerPreview.innerText = "Orange";
+    } else if (bluePlayerInput.checked) {
+        playerPreview.innerText = "Blue";
+    } else {
+        playerPreview.innerText = "Player";
     }
 }
 
@@ -553,10 +566,12 @@ function resetGameAndBackToMenu(){
 function playerInputEvent() {
     bluePlayerInput?.addEventListener("click", (event) => {
         togglePlayerInput(event);
+        updatePlayerPreview();
     });
 
     orangePlayerInput?.addEventListener("click", (event) => {
         togglePlayerInput(event);
+        updatePlayerPreview();
     });
 }
 

@@ -397,12 +397,12 @@ function addCardsToField(){
     if(selectedTheme === "code"){
         for (let i = 0; i < shuffledCards.length; i++) {
             const card = shuffledCards[i];
-            cardField.innerHTML += cardField.innerHTML += codeCardsTemplate(card, i);
+            cardField.innerHTML += codeCardsTemplate(card, i);
         }
     } else if(selectedTheme === "gaming"){
          for (let i = 0; i < shuffledCards.length; i++) {
             const card = shuffledCards[i];
-            cardField.innerHTML += cardField.innerHTML += gamingCardsTemplate(card, i);
+            cardField.innerHTML += gamingCardsTemplate(card, i);
         }
     }
 }

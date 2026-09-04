@@ -59,55 +59,28 @@ function cardFlip() {
     });
 }
 
-function selectSingleOrMultiplayer(){
-    if(bluePlayerInput && bluePlayerInput.checked && orangePlayerInput && orangePlayerInput.checked){
-        isMultiplayer = true;
-    } else if(bluePlayerInput && bluePlayerInput.checked) {
-        isMultiplayer = false;
-    } else if (orangePlayerInput && orangePlayerInput.checked){
-        isMultiplayer = false;
-    }
+function selectSingleOrMultiplayer() {
+    isMultiplayer = Boolean(bluePlayerInput?.checked && orangePlayerInput?.checked);
 }
 
 function selectCurrentPlayer() {
     if (isMultiplayer) {
-        if (Math.random() < 0.5) {
-            currentPlayer = "blue";
-        } else {
-            currentPlayer = "orange";
-        }
-    } else {
-        if (bluePlayerInput?.checked) {
-            currentPlayer = "blue";
-        } else if (orangePlayerInput?.checked) {
-            currentPlayer = "orange";
-        }
+        currentPlayer = Math.random() < 0.5 ? "blue" : "orange";
+        return;
     }
+    currentPlayer = bluePlayerInput?.checked ? "blue" : "orange";
 }
 
 function showPlayerIcon() {
-    const currentPlayerTurn = document.getElementById("field__current-player-playing-div") as HTMLDivElement | null;
+    const currentPlayerTurn = document.getElementById(
+        "field__current-player-playing-div"
+    );
     if (!currentPlayerTurn) return;
-    let playerIcon = "";
-    if (selectedTheme === "code") {
-        if (currentPlayer === "blue") {
-            playerIcon = "./src/assets/fonts/images/blueLabelPic.png";
-        } else {
-            playerIcon = "./src/assets/fonts/images/orangeLabelPic.png";
-        }
-    }
+    const playerIcon = selectedTheme === "code" ? `./src/assets/fonts/images/${currentPlayer}LabelPic.png` : "./src/assets/fonts/images/card_gaming_img/chessWhite.png";
     if (selectedTheme === "gaming") {
-        if (currentPlayer === "blue") {
-            currentPlayerTurn.style.backgroundColor = "#1FAAFC";
-            playerIcon = "./src/assets/fonts/images/card_gaming_img/chessWhite.png";
-        } else {
-            currentPlayerTurn.style.backgroundColor = "#EA6900";
-            playerIcon = "./src/assets/fonts/images/card_gaming_img/chessWhite.png";
-        }
+        currentPlayerTurn.style.backgroundColor = currentPlayer === "blue" ? "#1FAAFC" : "#EA6900";
     }
-    currentPlayerTurn.innerHTML = `
-        <img src="${playerIcon}">
-    `;
+    currentPlayerTurn.innerHTML = `<img src="${playerIcon}">`;
 }
 
 function switchPlayer() {

@@ -1,10 +1,9 @@
 import './styles/style.scss'
+import { codeCards, gamingCards, type Card } from "./cards";
 import {codeGameFieldTemplate,gamingGameFieldTemplate, winnerScreenCodeTemplate, gameOverScreenCodeTemplate,
 drawScreenCodeTemplate,gameOverScreenGamingTemplate, winnerScreenGamingTemplate, drawScreenGamingTemplate, gamingCardsTemplate, codeCardsTemplate} from "./templates/templates";
 const codeVibeThemeInput = document.getElementById("codeVibe");
 const gamingThemeInput = document.getElementById("gamingTheme");
-const daProjectsThemeInput = document.getElementById("daProjectsTheme");
-const foodThemeInput = document.getElementById("foodTheme");
 const fieldSizeText = document.getElementById("settings-content__final-settings-game-text-board") as HTMLParagraphElement | null;
 const smallBoard = document.getElementById("smallBoard") as HTMLInputElement | null;
 const mediumBoard = document.getElementById("mediumBoard") as HTMLInputElement | null;
@@ -26,92 +25,8 @@ const images: string[] = ["./src/assets/fonts/images/codeVibeTheme.png", "./src/
 let flippedCards: Card[] = [];
 let flippedCardElements: HTMLButtonElement[] = [];
 let shuffledCards: Card[] = [];
-type Card = {
-    id: number;
-    src: string;
-    isFlipped: boolean,
-    isMatched: boolean,
-};
 type PlayerColor = "blue" | "orange";
 type Theme = "code" | "gaming";
-const codeCards: Card[] = [
-    { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
-    { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
-    { id: 2, src: "./src/assets/fonts/images/card_img/bootstrap.png", isFlipped: false, isMatched:false },
-    { id: 2, src: "./src/assets/fonts/images/card_img/bootstrap.png", isFlipped: false, isMatched:false },
-    { id: 3, src: "./src/assets/fonts/images/card_img/cssLogo.png", isFlipped: false, isMatched:false },
-    { id: 3, src: "./src/assets/fonts/images/card_img/cssLogo.png", isFlipped: false, isMatched:false },
-    { id: 4, src: "./src/assets/fonts/images/card_img/djangoIcon.png", isFlipped: false, isMatched:false },
-    { id: 4, src: "./src/assets/fonts/images/card_img/djangoIcon.png", isFlipped: false, isMatched:false },
-    { id: 5, src: "./src/assets/fonts/images/card_img/firebaseIcon.png", isFlipped: false, isMatched:false },
-    { id: 5, src: "./src/assets/fonts/images/card_img/firebaseIcon.png", isFlipped: false, isMatched:false },
-    { id: 6, src: "./src/assets/fonts/images/card_img/githubIcon.png", isFlipped: false, isMatched:false },
-    { id: 6, src: "./src/assets/fonts/images/card_img/githubIcon.png", isFlipped: false, isMatched:false },
-    { id: 7, src: "./src/assets/fonts/images/card_img/gitIcon.png", isFlipped: false, isMatched:false },
-    { id: 7, src: "./src/assets/fonts/images/card_img/gitIcon.png", isFlipped: false, isMatched:false },
-    { id: 8, src: "./src/assets/fonts/images/card_img/htmlIcon.png", isFlipped: false, isMatched:false },
-    { id: 8, src: "./src/assets/fonts/images/card_img/htmlIcon.png", isFlipped: false, isMatched:false },
-    { id: 9, src: "./src/assets/fonts/images/card_img/JsIcon.png", isFlipped: false, isMatched:false },
-    { id: 9, src: "./src/assets/fonts/images/card_img/JsIcon.png", isFlipped: false, isMatched:false },
-    { id: 10, src: "./src/assets/fonts/images/card_img/nodejsIcon.png", isFlipped: false, isMatched:false },
-    { id: 10, src: "./src/assets/fonts/images/card_img/nodejsIcon.png", isFlipped: false, isMatched:false },
-    { id: 11, src: "./src/assets/fonts/images/card_img/pythonIcon.png", isFlipped: false, isMatched:false },
-    { id: 11, src: "./src/assets/fonts/images/card_img/pythonIcon.png", isFlipped: false, isMatched:false },
-    { id: 12, src: "./src/assets/fonts/images/card_img/reactIcon.png", isFlipped: false, isMatched:false },
-    { id: 12, src: "./src/assets/fonts/images/card_img/reactIcon.png", isFlipped: false, isMatched:false },
-    { id: 13, src: "./src/assets/fonts/images/card_img/SassIcon.png", isFlipped: false, isMatched:false },
-    { id: 13, src: "./src/assets/fonts/images/card_img/SassIcon.png", isFlipped: false, isMatched:false },
-    { id: 14, src: "./src/assets/fonts/images/card_img/SQL.png", isFlipped: false, isMatched:false },
-    { id: 14, src: "./src/assets/fonts/images/card_img/SQL.png", isFlipped: false, isMatched:false },
-    { id: 15, src: "./src/assets/fonts/images/card_img/terminalIcon.png", isFlipped: false, isMatched:false },
-    { id: 15, src: "./src/assets/fonts/images/card_img/terminalIcon.png", isFlipped: false, isMatched:false },
-    { id: 16, src: "./src/assets/fonts/images/card_img/typescriptIcon.png", isFlipped: false, isMatched:false },
-    { id: 16, src: "./src/assets/fonts/images/card_img/typescriptIcon.png", isFlipped: false, isMatched:false },
-    { id: 17, src: "./src/assets/fonts/images/card_img/VSCodeIcon.png", isFlipped: false, isMatched:false },
-    { id: 17, src: "./src/assets/fonts/images/card_img/VSCodeIcon.png", isFlipped: false, isMatched:false },
-    { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false },
-    { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false }
-];
-const gamingCards: Card[] = [
-    { id: 1, src: "./src/assets/fonts/images/card_gaming_img/bananaGaming.png", isFlipped: false, isMatched:false },
-    { id: 1, src: "./src/assets/fonts/images/card_gaming_img/bananaGaming.png", isFlipped: false, isMatched:false },
-    { id: 2, src: "./src/assets/fonts/images/card_gaming_img/bigPacmanGaming.png", isFlipped: false, isMatched:false },
-    { id: 2, src: "./src/assets/fonts/images/card_gaming_img/bigPacmanGaming.png", isFlipped: false, isMatched:false },
-    { id: 3, src: "./src/assets/fonts/images/card_gaming_img/cardGaming.png", isFlipped: false, isMatched:false },
-    { id: 3, src: "./src/assets/fonts/images/card_gaming_img/cardGaming.png", isFlipped: false, isMatched:false },
-    { id: 4, src: "./src/assets/fonts/images/card_gaming_img/circleGaming.png", isFlipped: false, isMatched:false },
-    { id: 4, src: "./src/assets/fonts/images/card_gaming_img/circleGaming.png", isFlipped: false, isMatched:false },
-    { id: 5, src: "./src/assets/fonts/images/card_gaming_img/coinGaming.png", isFlipped: false, isMatched:false },
-    { id: 5, src: "./src/assets/fonts/images/card_gaming_img/coinGaming.png", isFlipped: false, isMatched:false },
-    { id: 6, src: "./src/assets/fonts/images/card_gaming_img/creeperGaming.png", isFlipped: false, isMatched:false },
-    { id: 6, src: "./src/assets/fonts/images/card_gaming_img/creeperGaming.png", isFlipped: false, isMatched:false },
-    { id: 7, src: "./src/assets/fonts/images/card_gaming_img/cubeGaming.png", isFlipped: false, isMatched:false },
-    { id: 7, src: "./src/assets/fonts/images/card_gaming_img/cubeGaming.png", isFlipped: false, isMatched:false },
-    { id: 8, src: "./src/assets/fonts/images/card_gaming_img/gameboyGaming.png", isFlipped: false, isMatched:false },
-    { id: 8, src: "./src/assets/fonts/images/card_gaming_img/gameboyGaming.png", isFlipped: false, isMatched:false },
-    { id: 9, src: "./src/assets/fonts/images/card_gaming_img/levelGaming.png", isFlipped: false, isMatched:false },
-    { id: 9, src: "./src/assets/fonts/images/card_gaming_img/levelGaming.png", isFlipped: false, isMatched:false },
-    { id: 10, src: "./src/assets/fonts/images/card_gaming_img/mushroomGaming.png", isFlipped: false, isMatched:false },
-    { id: 10, src: "./src/assets/fonts/images/card_gaming_img/mushroomGaming.png", isFlipped: false, isMatched:false },
-    { id: 11, src: "./src/assets/fonts/images/card_gaming_img/pacmanGaming.png", isFlipped: false, isMatched:false },
-    { id: 11, src: "./src/assets/fonts/images/card_gaming_img/pacmanGaming.png", isFlipped: false, isMatched:false },
-    { id: 12, src: "./src/assets/fonts/images/card_gaming_img/playerGaming.png", isFlipped: false, isMatched:false },
-    { id: 12, src: "./src/assets/fonts/images/card_gaming_img/playerGaming.png", isFlipped: false, isMatched:false },
-    { id: 13, src: "./src/assets/fonts/images/card_gaming_img/playGaming.png", isFlipped: false, isMatched:false },
-    { id: 13, src: "./src/assets/fonts/images/card_gaming_img/playGaming.png", isFlipped: false, isMatched:false },
-    { id: 14, src: "./src/assets/fonts/images/card_gaming_img/puzzleGaming.png", isFlipped: false, isMatched:false },
-    { id: 14, src: "./src/assets/fonts/images/card_gaming_img/puzzleGaming.png", isFlipped: false, isMatched:false },
-    { id: 15, src: "./src/assets/fonts/images/card_gaming_img/quarterGaming.png", isFlipped: false, isMatched:false },
-    { id: 15, src: "./src/assets/fonts/images/card_gaming_img/quarterGaming.png", isFlipped: false, isMatched:false },
-    { id: 16, src: "./src/assets/fonts/images/card_gaming_img/runesGaming.png", isFlipped: false, isMatched:false },
-    { id: 16, src: "./src/assets/fonts/images/card_gaming_img/runesGaming.png", isFlipped: false, isMatched:false },
-    { id: 17, src: "./src/assets/fonts/images/card_gaming_img/snakeGaming.png", isFlipped: false, isMatched:false },
-    { id: 17, src: "./src/assets/fonts/images/card_gaming_img/snakeGaming.png", isFlipped: false, isMatched:false },
-    { id: 18, src: "./src/assets/fonts/images/card_gaming_img/traiangleGaming.png", isFlipped: false, isMatched:false },
-    { id: 18, src: "./src/assets/fonts/images/card_gaming_img/traiangleGaming.png", isFlipped: false, isMatched:false }
-];
-
-init();
 
 function init(){
     goToSetting();
@@ -122,9 +37,10 @@ function init(){
     playerInputEvent();
 }
 
+init();
+
 function cardFlip() {
     const fieldRef = document.getElementById("card__card-play-field");
-
     fieldRef?.addEventListener("click", (element) => {
         if (flippedCards.length === 2) return;
         const cardElement = (element.target as HTMLElement).closest(".card__card-div") as HTMLButtonElement | null;
@@ -138,9 +54,7 @@ function cardFlip() {
         flippedCardElements.push(cardElement);
         if (flippedCards.length === 2) {
             checkForMatch();
-            setTimeout(() => {
-                checkIfGameIsOver();
-            }, 1000);
+            setTimeout(checkIfGameIsOver, 1000);
         }
     });
 }

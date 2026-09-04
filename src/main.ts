@@ -72,9 +72,7 @@ function selectCurrentPlayer() {
 }
 
 function showPlayerIcon() {
-    const currentPlayerTurn = document.getElementById(
-        "field__current-player-playing-div"
-    );
+    const currentPlayerTurn = document.getElementById("field__current-player-playing-div");
     if (!currentPlayerTurn) return;
     const playerIcon = selectedTheme === "code" ? `./src/assets/fonts/images/${currentPlayer}LabelPic.png` : "./src/assets/fonts/images/card_gaming_img/chessWhite.png";
     if (selectedTheme === "gaming") {
@@ -85,31 +83,18 @@ function showPlayerIcon() {
 
 function switchPlayer() {
     if (!isMultiplayer) return;
-    if (currentPlayer === "blue") {
-        currentPlayer = "orange";
-    } else {
-        currentPlayer = "blue";
-    }
+    currentPlayer = currentPlayer === "blue" ? "orange" : "blue";
     showPlayerIcon();
 }
 
 function increaseScore() {
-    const counterOrange = document.getElementById("field-counter-orange");
-    const counterBlue = document.getElementById("field-counter-blue");
-    const counterBlueGameOver = document.getElementById("game-over__blue-counter");
-    const counterOrangeGameOver = document.getElementById("game-over__orange-counter");
-    if (!counterOrange || !counterBlue || !counterBlueGameOver || !counterOrangeGameOver) return;
-    if (currentPlayer === "blue") {
-        blueScore++;
-        counterBlue.innerText = blueScore.toString();
-        counterBlueGameOver.innerHTML = blueScore.toString();
-    } else if (currentPlayer === "orange") {
-        orangeScore++;
-        counterOrange.innerText = orangeScore.toString();
-        counterOrangeGameOver.innerHTML = orangeScore.toString();
-    }
+    const counter = document.getElementById(`field-counter-${currentPlayer}`);
+    const gameOverCounter = document.getElementById(`game-over__${currentPlayer}-counter`);
+    if (!counter || !gameOverCounter) return;
+    const score = currentPlayer === "blue" ? ++blueScore : ++orangeScore;
+    counter.innerText = score.toString();
+    gameOverCounter.innerText = score.toString();
 }
-
 
 function checkForMatch() {
     const firstCard = flippedCards[0];

@@ -300,32 +300,33 @@ function renderCards(cardField: HTMLDivElement) {
     }
 }
 
-function openExitGameDiv(){
-    const exitButtonGame = document.getElementById("field__button-exit") as HTMLButtonElement | null;
+function openExitGameDiv() {
+    const exitButton = document.getElementById("field__button-exit");
     const exitDiv = document.getElementById("field__exit-div");
     const cardField = document.getElementById("card__card-play-field");
-    if (exitButtonGame && exitDiv) {
-        exitButtonGame.addEventListener("click", () => {
-            exitDiv.classList.remove("display-none");
-            cardField?.classList.add("card__card-play-field--disabled");
-            setTimeout(() => {
-                exitDiv.classList.add("field__exit-div--open");
-                exitDiv.classList.remove("field__exit-div--close");
-            }, 10);
-        });
-    }
+    if (!exitButton || !exitDiv) return;
+    exitButton.addEventListener("click", () =>
+        showExitGameDiv(exitDiv, cardField)
+    );
+}
+
+function showExitGameDiv( exitDiv: HTMLElement, cardField: HTMLElement | null) {
+    exitDiv.classList.remove("display-none");
+    cardField?.classList.add("card__card-play-field--disabled");
+    setTimeout(() => {
+        exitDiv.classList.add("field__exit-div--open");
+        exitDiv.classList.remove("field__exit-div--close");
+    }, 10);
 }
 
 function closeExitDiv() {
     const exitDiv = document.getElementById("field__exit-div");
-    const cardField = document.getElementById("card__card-play-field");
     if (!exitDiv) return;
     exitDiv.classList.add("field__exit-div--close");
     setTimeout(() => {
-        exitDiv.classList.remove("field__exit-div--open");
-        exitDiv.classList.remove("field__exit-div--close");
+        exitDiv.classList.remove("field__exit-div--open", "field__exit-div--close");
         exitDiv.classList.add("display-none");
-        cardField?.classList.remove("card__card-play-field--disabled");
+        document.getElementById("card__card-play-field")?.classList.remove("card__card-play-field--disabled");
     }, 200);
 }
 
@@ -336,20 +337,16 @@ function closeExitGameDiv() {
     });
 }
 
-function exitGameButtonEvent(){
-    const exitGameButton = document.getElementById("field__button-exit-game") as HTMLButtonElement | null;
-    const exitGameButtonWin = document.getElementById("winner-screen__button") as HTMLButtonElement | null;
-    const drawContentButton = document.getElementById("draw-screen__draw-button") as HTMLButtonElement;
-    exitGameButton?.addEventListener("click", () => {
+function exitGameButtonEvent() {
+    addExitButtonEvent("field__button-exit-game");
+    addExitButtonEvent("winner-screen__button", winnerScreenContent);
+    addExitButtonEvent("draw-screen__draw-button", drawContentDiv);
+}
+
+function addExitButtonEvent( buttonId: string, screen?: HTMLElement | null) {
+    document.getElementById(buttonId)?.addEventListener("click", () => {
         resetGameAndBackToMenu();
-    });
-    exitGameButtonWin?.addEventListener("click", () => {
-        resetGameAndBackToMenu();
-        winnerScreenContent?.classList.add("display-none");
-    });
-    drawContentButton?.addEventListener("click", () => {
-        resetGameAndBackToMenu();
-        drawContentDiv?.classList.add("display-none");
+        screen?.classList.add("display-none");
     });
 }
 

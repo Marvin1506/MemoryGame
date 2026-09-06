@@ -41,22 +41,22 @@ init();
 
 function cardFlip() {
     const fieldRef = document.getElementById("card__card-play-field");
-    fieldRef?.addEventListener("click", (element) => {
-        if (flippedCards.length === 2) return;
-        const cardElement = (element.target as HTMLElement).closest(".card__card-div") as HTMLButtonElement | null;
-        if (!cardElement) return;
-        const cardIndex = Number(cardElement.dataset.cardIndex);
-        const card = shuffledCards[cardIndex];
-        if (card.isFlipped || card.isMatched) return;
-        card.isFlipped = true;
-        cardElement.classList.add("is-flipped");
-        flippedCards.push(card);
-        flippedCardElements.push(cardElement);
-        if (flippedCards.length === 2) {
-            checkForMatch();
-            setTimeout(checkIfGameIsOver, 1000);
-        }
-    });
+    fieldRef?.addEventListener("click", handleCardClick);
+}
+
+function handleCardClick(event: Event) {
+    if (flippedCards.length === 2) return;
+    const cardElement = (event.target as HTMLElement).closest<HTMLButtonElement>(".card__card-div");
+    if (!cardElement) return;
+    const card = shuffledCards[Number(cardElement.dataset.cardIndex)];
+    if (!card || card.isFlipped || card.isMatched) return;
+    card.isFlipped = true;
+    cardElement.classList.add("is-flipped");
+    flippedCards.push(card);
+    flippedCardElements.push(cardElement);
+    if (flippedCards.length < 2) return;
+    checkForMatch();
+    setTimeout(checkIfGameIsOver, 1000);
 }
 
 function selectSingleOrMultiplayer() {
@@ -97,27 +97,28 @@ function increaseScore() {
 }
 
 function checkForMatch() {
-    const firstCard = flippedCards[0];
-    const secondCard = flippedCards[1];
-    const firstCardElement = flippedCardElements[0];
-    const secondCardElement = flippedCardElements[1];
+    const [firstCard, secondCard] = flippedCards;
     if (firstCard.id === secondCard.id) {
-        firstCard.isMatched = true;
-        secondCard.isMatched = true;
+        firstCard.isMatched = secondCard.isMatched = true;
         increaseScore();
-        flippedCards = [];
-        flippedCardElements = [];
-    } else {
-        setTimeout(() => {
-            firstCard.isFlipped = false;
-            secondCard.isFlipped = false;
-            firstCardElement.classList.remove("is-flipped");
-            secondCardElement.classList.remove("is-flipped");
-            switchPlayer();
-            flippedCards = [];
-            flippedCardElements = [];
-        }, 1000);
+        resetFlippedCards();
+        return;
     }
+    setTimeout(resetMismatchedCards, 1000);
+}
+
+function resetFlippedCards() {
+    flippedCards = [];
+    flippedCardElements = [];
+}
+
+function resetMismatchedCards() {
+    flippedCards.forEach(card => card.isFlipped = false);
+    flippedCardElements.forEach(element =>
+        element.classList.remove("is-flipped")
+    );
+    switchPlayer();
+    resetFlippedCards();
 }
 
 function goToSetting(){

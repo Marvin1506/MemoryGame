@@ -172,19 +172,13 @@ function changePreviewImage() {
     );
 }
 
-function selectCodeTheme(
-    previewImg: HTMLImageElement,
-    gamingThemeText: HTMLParagraphElement
-) {
+function selectCodeTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLParagraphElement) {
     selectedTheme = "code";
     previewImg.src = images[0];
     gamingThemeText.innerText = "Code vibes theme";
 }
 
-function selectGamingTheme(
-    previewImg: HTMLImageElement,
-    gamingThemeText: HTMLParagraphElement
-) {
+function selectGamingTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLParagraphElement) {
     selectedTheme = "gaming";
     previewImg.src = images[1];
     gamingThemeText.innerText = "Gaming theme";

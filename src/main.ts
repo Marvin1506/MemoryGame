@@ -142,36 +142,52 @@ function goToBoard(){
     finalSettingButton?.addEventListener("click", () => {
         if(fieldSizeText?.innerText === "Board size" || playerPreview?.innerText === "Player" || gamingThemeText.innerText === "Game theme"
         || orangePlayerInput?.checked === false && bluePlayerInput?.checked === false) return;
-        selectSingleOrMultiplayer();
-        selectCurrentPlayer();
-        renderGameField();
-        showPlayerIcon();
-        addCardsToField();
-        cardFlip();
-        openExitGameDiv();
-        closeExitGameDiv();
-        exitGameButtonEvent();
+        startGameFunctions();
         settingsContent?.classList.add("display-none");
         playContent?.classList.remove("display-none");
     });
 }
 
-function changePreviewImage(){
+function startGameFunctions() {
+    selectSingleOrMultiplayer();
+    selectCurrentPlayer();
+    renderGameField();
+    showPlayerIcon();
+    addCardsToField();
+    cardFlip();
+    openExitGameDiv();
+    closeExitGameDiv();
+    exitGameButtonEvent();
+}
+
+function changePreviewImage() {
     const previewImg = document.getElementById("settings-content__preview-image") as HTMLImageElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
-    const imagesArray = images;
-    if(previewImg){
-        codeVibeThemeInput?.addEventListener("click", () => {
-            selectedTheme = "code";
-            previewImg.src = imagesArray[0];
-            gamingThemeText.innerText = "Code vibes theme";
-        });
-        gamingThemeInput?.addEventListener("click", () => {
-            selectedTheme = "gaming";
-            previewImg.src = imagesArray[1];
-            gamingThemeText.innerText = "Gaming theme";
-        });
-    }
+    if (!previewImg) return;
+    codeVibeThemeInput?.addEventListener("click", () =>
+        selectCodeTheme(previewImg, gamingThemeText)
+    );
+    gamingThemeInput?.addEventListener("click", () =>
+        selectGamingTheme(previewImg, gamingThemeText)
+    );
+}
+
+function selectCodeTheme(
+    previewImg: HTMLImageElement,
+    gamingThemeText: HTMLParagraphElement
+) {
+    selectedTheme = "code";
+    previewImg.src = images[0];
+    gamingThemeText.innerText = "Code vibes theme";
+}
+
+function selectGamingTheme(
+    previewImg: HTMLImageElement,
+    gamingThemeText: HTMLParagraphElement
+) {
+    selectedTheme = "gaming";
+    previewImg.src = images[1];
+    gamingThemeText.innerText = "Gaming theme";
 }
 
 function choosePlayer(){

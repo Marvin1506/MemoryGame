@@ -198,7 +198,7 @@ function choosePlayer(){
     }
 }
 
- function updatePlayerPreview() {
+function updatePlayerPreview() {
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     if (!orangePlayerInput || !bluePlayerInput || !playerPreview) return;
     if (orangePlayerInput.checked && bluePlayerInput.checked) {
@@ -247,46 +247,56 @@ function renderGameField() {
     const drawScreen = document.getElementById("draw-screen");
     if (!field || !winnerScreen || !gameOverScreen || !drawScreen) return;
     field.className = `field field--${selectedTheme}`;
-    winnerScreen.className = `winner-screen winner-screen--${selectedTheme} display-none`;
-    gameOverScreen.className = `game-over game-over--${selectedTheme} display-none`;
-    drawScreen.className = `draw-screen draw-screen--${selectedTheme} display-none`;
+    setEndScreenClasses(winnerScreen, gameOverScreen, drawScreen);
     if(selectedTheme === "code"){
-        field.innerHTML = codeGameFieldTemplate();
-        winnerScreen.innerHTML = winnerScreenCodeTemplate();
-        gameOverScreen.innerHTML = gameOverScreenCodeTemplate();
-        drawScreen.innerHTML = drawScreenCodeTemplate();
+        renderCodeTemplates(field, winnerScreen, gameOverScreen, drawScreen);
     } else if(selectedTheme === "gaming") {
-        field.innerHTML = gamingGameFieldTemplate();
-        winnerScreen.innerHTML = winnerScreenGamingTemplate();
-        gameOverScreen.innerHTML = gameOverScreenGamingTemplate();
-        drawScreen.innerHTML = drawScreenGamingTemplate();
+       renderGamingTemplates(field, winnerScreen, gameOverScreen, drawScreen);
     }
 }
 
-function addCardsToField(){
+function renderCodeTemplates( field: HTMLElement, winnerScreen: HTMLElement, gameOverScreen: HTMLElement, drawScreen: HTMLElement) {
+    field.innerHTML = codeGameFieldTemplate();
+    winnerScreen.innerHTML = winnerScreenCodeTemplate();
+    gameOverScreen.innerHTML = gameOverScreenCodeTemplate();
+    drawScreen.innerHTML = drawScreenCodeTemplate();
+}
+
+function renderGamingTemplates( field: HTMLElement, winnerScreen: HTMLElement, gameOverScreen: HTMLElement, drawScreen: HTMLElement) {
+    field.innerHTML = gamingGameFieldTemplate();
+    winnerScreen.innerHTML = winnerScreenGamingTemplate();
+    gameOverScreen.innerHTML = gameOverScreenGamingTemplate();
+    drawScreen.innerHTML = drawScreenGamingTemplate();
+}
+
+function setEndScreenClasses(winnerScreen: HTMLElement,gameOverScreen: HTMLElement,drawScreen: HTMLElement) {
+    winnerScreen.className = `winner-screen winner-screen--${selectedTheme} display-none`;
+    gameOverScreen.className = `game-over game-over--${selectedTheme} display-none`;
+    drawScreen.className = `draw-screen draw-screen--${selectedTheme} display-none`;
+}
+
+function addCardsToField() {
     const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
-    setCardFieldSize();
     if (!cardField) return;
+    setCardFieldSize();
     cardField.className = `card__card-play-field card__card-play-field--${selectedTheme}`;
     cardField.innerHTML = "";
-    let selectedCards: Card[] = [];
+    shuffledCards = shuffleCards(getSelectedCards());
+    renderCards(cardField);
+}
+
+function getSelectedCards() {
     if (selectedTheme === "code") {
-        selectedCards = codeCards.slice(0, selectedBoardSize);
-    }   
-    if (selectedTheme === "gaming") {
-        selectedCards = gamingCards.slice(0, selectedBoardSize);
+        return codeCards.slice(0, selectedBoardSize);
     }
-    shuffledCards = shuffleCards(selectedCards);
-    if(selectedTheme === "code"){
-        for (let i = 0; i < shuffledCards.length; i++) {
-            const card = shuffledCards[i];
-            cardField.innerHTML += codeCardsTemplate(card, i);
-        }
-    } else if(selectedTheme === "gaming"){
-         for (let i = 0; i < shuffledCards.length; i++) {
-            const card = shuffledCards[i];
-            cardField.innerHTML += gamingCardsTemplate(card, i);
-        }
+    return gamingCards.slice(0, selectedBoardSize);
+}
+
+function renderCards(cardField: HTMLDivElement) {
+    const cardTemplate = selectedTheme === "code" ? codeCardsTemplate: gamingCardsTemplate;
+    for (let i = 0; i < shuffledCards.length; i++) {
+        const card = shuffledCards[i];
+        cardField.innerHTML += cardTemplate(card, i);
     }
 }
 

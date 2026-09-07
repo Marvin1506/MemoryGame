@@ -350,31 +350,35 @@ function addExitButtonEvent( buttonId: string, screen?: HTMLElement | null) {
     });
 }
 
-function resetGameAndBackToMenu(){
-    const settingsContent = document.getElementById("settings-content");
-    const field = document.getElementById("field");
-    const cardField = document.getElementById("card__card-play-field");
-    const counterBlue = document.getElementById("field-counter-blue");
-    const counterOrange = document.getElementById("field-counter-orange");
+function resetGameAndBackToMenu() {
     closeExitDiv();
     resetTextFieldsSettings();
+    resetGameState();
+    resetScoreDisplay();
+    resetInputs();
+    showSettingsMenu();
+}
+
+function resetGameState() {
     orangeScore = 0;
     blueScore = 0;
-    if (counterOrange) {
-        counterOrange.innerText = "0";
-    }
-    if (counterBlue) {
-        counterBlue.innerText = "0";
-    }
     isMultiplayer = false;
     selectedBoardSize = 0;
-    flippedCards = [];
-    flippedCardElements = [];
     shuffledCards = [];
-    resetInputs();
-    settingsContent?.classList.remove("display-none");
-    field?.classList.add("display-none");
-    cardField?.classList.remove("card__card-play-field--disabled");
+    resetFlippedCards();
+}
+
+function resetScoreDisplay() {
+    const blueCounter = document.getElementById("field-counter-blue");
+    const orangeCounter = document.getElementById("field-counter-orange");
+    if (blueCounter) blueCounter.innerText = "0";
+    if (orangeCounter) orangeCounter.innerText = "0";
+}
+
+function showSettingsMenu() {
+    document.getElementById("settings-content")?.classList.remove("display-none");
+    document.getElementById("field")?.classList.add("display-none");
+    document.getElementById("card__card-play-field")?.classList.remove("card__card-play-field--disabled");
 }
 
 function playerInputEvent() {
@@ -438,37 +442,36 @@ function checkIfGameIsOver(){
     }
 }
 
-function whoisTheWinner(){
-    const gameOverScreen = document.getElementById("game-over") as HTMLDivElement || null;
-    if (winnerColorTextDiv){
-        if(blueScore > orangeScore){
-            winnerColorTextDiv.innerText = "BLUE PLAYER";
-            winnerColorTextDiv.classList.add("winner-screen__blue-winner");
-            if(selectedTheme === "code"){
-                winnerChessImage.src = "./src/assets/fonts/images/chessBlue.png";
-            }
-            gameOverScreen.classList.remove("display-none");
-            setTimeout(() => {
-                gameOverScreen.classList.add("display-none");
-                winnerScreenContent?.classList.remove("display-none");
-            }, 2000);
-        } else if(orangeScore > blueScore){
-            winnerColorTextDiv.innerText = "ORANGE PLAYER";
-            winnerColorTextDiv.classList.add("winner-screen__orange-winner");
-            if(selectedTheme === "code"){
-                winnerChessImage.src = "./src/assets/fonts/images/chessOrange.png";
-            }
-            gameOverScreen.classList.remove("display-none");
-            setTimeout(() => {
-                gameOverScreen.classList.add("display-none");
-                winnerScreenContent?.classList.remove("display-none");
-            }, 2000);
-        } else if (orangeScore === blueScore){
-            gameOverScreen.classList.remove("display-none");
-            setTimeout(() => {
-                gameOverScreen.classList.add("display-none");
-                drawContentDiv.classList.remove("display-none");
-            }, 2000);
-        }
+function whoisTheWinner() {
+    const gameOverScreen = document.getElementById("game-over");
+    if (!gameOverScreen) return;
+    if (blueScore === orangeScore) {
+        showResultScreen(gameOverScreen, drawContentDiv);
+        return;
     }
+    const winner = blueScore > orangeScore ? "blue" : "orange";
+    updateWinnerContent(winner);
+    showResultScreen(gameOverScreen, winnerScreenContent);
+}
+
+function updateWinnerContent(winner: PlayerColor) {
+    const winnerText = document.getElementById("winner-screen__color-winner");
+    const winnerImage = document.getElementById("winner-picture") as HTMLImageElement | null;
+    if (!winnerText || !winnerImage) return;
+    winnerText.innerText = `${winner.toUpperCase()} PLAYER`;
+    winnerText.classList.remove("winner-screen__blue-winner","winner-screen__orange-winner");
+    winnerText.classList.add(`winner-screen__${winner}-winner`);
+    if (selectedTheme === "code") {
+        winnerImage.src = winner === "blue"
+        ? "./src/assets/fonts/images/chessBlue.png"
+        : "./src/assets/fonts/images/chessOrange.png";
+    }
+}
+
+function showResultScreen( gameOverScreen: HTMLElement, resultScreen: HTMLElement | null) {
+    gameOverScreen.classList.remove("display-none");
+    setTimeout(() => {
+        gameOverScreen.classList.add("display-none");
+        resultScreen?.classList.remove("display-none");
+    }, 2000);
 }

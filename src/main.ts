@@ -1,7 +1,10 @@
 import './styles/style.scss'
 import { codeCards, gamingCards, type Card } from "./cards";
-import {codeGameFieldTemplate,gamingGameFieldTemplate, winnerScreenCodeTemplate, gameOverScreenCodeTemplate,
-drawScreenCodeTemplate,gameOverScreenGamingTemplate, winnerScreenGamingTemplate, drawScreenGamingTemplate, gamingCardsTemplate, codeCardsTemplate} from "./templates/templates";
+import {
+    closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates,
+    resetScoreDisplay, setEndScreenClasses, showExitGameDiv, showResultScreen,
+    showSettingsMenu, shuffleCards, updateWinnerContent, type PlayerColor, type Theme
+} from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe");
 const gamingThemeInput = document.getElementById("gamingTheme");
 const fieldSizeText = document.getElementById("settings-content__final-settings-game-text-board") as HTMLParagraphElement | null;
@@ -12,8 +15,6 @@ const startButton = document.getElementById("final-settings-button") as HTMLButt
 const orangePlayerInput = document.getElementById("orange") as HTMLInputElement | null;
 const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | null;
 const winnerScreenContent = document.getElementById("winner-screen") as HTMLDivElement | null;
-const winnerColorTextDiv = document.getElementById("winner-screen__color-winner") as HTMLTextAreaElement | null;
-const winnerChessImage = document.getElementById("winner-picture") as HTMLImageElement;
 const drawContentDiv = document.getElementById("draw-screen") as HTMLDivElement;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
@@ -25,8 +26,6 @@ const images: string[] = ["./src/assets/fonts/images/codeVibeTheme.png", "./src/
 let flippedCards: Card[] = [];
 let flippedCardElements: HTMLButtonElement[] = [];
 let shuffledCards: Card[] = [];
-type PlayerColor = "blue" | "orange";
-type Theme = "code" | "gaming";
 
 function init(){
     goToSetting();
@@ -236,10 +235,6 @@ function setCardFieldSize(){
     }
 }
 
-function shuffleCards(cards: Card[]) {
-    return [...cards].sort(() => Math.random() - 0.5);
-}
-
 function renderGameField() {
     const field = document.getElementById("field");
     const winnerScreen = document.getElementById("winner-screen");
@@ -247,32 +242,12 @@ function renderGameField() {
     const drawScreen = document.getElementById("draw-screen");
     if (!field || !winnerScreen || !gameOverScreen || !drawScreen) return;
     field.className = `field field--${selectedTheme}`;
-    setEndScreenClasses(winnerScreen, gameOverScreen, drawScreen);
+    setEndScreenClasses(winnerScreen, gameOverScreen, drawScreen, selectedTheme);
     if(selectedTheme === "code"){
         renderCodeTemplates(field, winnerScreen, gameOverScreen, drawScreen);
     } else if(selectedTheme === "gaming") {
        renderGamingTemplates(field, winnerScreen, gameOverScreen, drawScreen);
     }
-}
-
-function renderCodeTemplates( field: HTMLElement, winnerScreen: HTMLElement, gameOverScreen: HTMLElement, drawScreen: HTMLElement) {
-    field.innerHTML = codeGameFieldTemplate();
-    winnerScreen.innerHTML = winnerScreenCodeTemplate();
-    gameOverScreen.innerHTML = gameOverScreenCodeTemplate();
-    drawScreen.innerHTML = drawScreenCodeTemplate();
-}
-
-function renderGamingTemplates( field: HTMLElement, winnerScreen: HTMLElement, gameOverScreen: HTMLElement, drawScreen: HTMLElement) {
-    field.innerHTML = gamingGameFieldTemplate();
-    winnerScreen.innerHTML = winnerScreenGamingTemplate();
-    gameOverScreen.innerHTML = gameOverScreenGamingTemplate();
-    drawScreen.innerHTML = drawScreenGamingTemplate();
-}
-
-function setEndScreenClasses(winnerScreen: HTMLElement,gameOverScreen: HTMLElement,drawScreen: HTMLElement) {
-    winnerScreen.className = `winner-screen winner-screen--${selectedTheme} display-none`;
-    gameOverScreen.className = `game-over game-over--${selectedTheme} display-none`;
-    drawScreen.className = `draw-screen draw-screen--${selectedTheme} display-none`;
 }
 
 function addCardsToField() {
@@ -282,7 +257,7 @@ function addCardsToField() {
     cardField.className = `card__card-play-field card__card-play-field--${selectedTheme}`;
     cardField.innerHTML = "";
     shuffledCards = shuffleCards(getSelectedCards());
-    renderCards(cardField);
+    renderCards(cardField, shuffledCards, selectedTheme);
 }
 
 function getSelectedCards() {
@@ -290,14 +265,6 @@ function getSelectedCards() {
         return codeCards.slice(0, selectedBoardSize);
     }
     return gamingCards.slice(0, selectedBoardSize);
-}
-
-function renderCards(cardField: HTMLDivElement) {
-    const cardTemplate = selectedTheme === "code" ? codeCardsTemplate: gamingCardsTemplate;
-    for (let i = 0; i < shuffledCards.length; i++) {
-        const card = shuffledCards[i];
-        cardField.innerHTML += cardTemplate(card, i);
-    }
 }
 
 function openExitGameDiv() {
@@ -308,26 +275,6 @@ function openExitGameDiv() {
     exitButton.addEventListener("click", () =>
         showExitGameDiv(exitDiv, cardField)
     );
-}
-
-function showExitGameDiv( exitDiv: HTMLElement, cardField: HTMLElement | null) {
-    exitDiv.classList.remove("display-none");
-    cardField?.classList.add("card__card-play-field--disabled");
-    setTimeout(() => {
-        exitDiv.classList.add("field__exit-div--open");
-        exitDiv.classList.remove("field__exit-div--close");
-    }, 10);
-}
-
-function closeExitDiv() {
-    const exitDiv = document.getElementById("field__exit-div");
-    if (!exitDiv) return;
-    exitDiv.classList.add("field__exit-div--close");
-    setTimeout(() => {
-        exitDiv.classList.remove("field__exit-div--open", "field__exit-div--close");
-        exitDiv.classList.add("display-none");
-        document.getElementById("card__card-play-field")?.classList.remove("card__card-play-field--disabled");
-    }, 200);
 }
 
 function closeExitGameDiv() {
@@ -366,19 +313,6 @@ function resetGameState() {
     selectedBoardSize = 0;
     shuffledCards = [];
     resetFlippedCards();
-}
-
-function resetScoreDisplay() {
-    const blueCounter = document.getElementById("field-counter-blue");
-    const orangeCounter = document.getElementById("field-counter-orange");
-    if (blueCounter) blueCounter.innerText = "0";
-    if (orangeCounter) orangeCounter.innerText = "0";
-}
-
-function showSettingsMenu() {
-    document.getElementById("settings-content")?.classList.remove("display-none");
-    document.getElementById("field")?.classList.add("display-none");
-    document.getElementById("card__card-play-field")?.classList.remove("card__card-play-field--disabled");
 }
 
 function playerInputEvent() {
@@ -450,28 +384,6 @@ function whoisTheWinner() {
         return;
     }
     const winner = blueScore > orangeScore ? "blue" : "orange";
-    updateWinnerContent(winner);
+    updateWinnerContent(winner, selectedTheme);
     showResultScreen(gameOverScreen, winnerScreenContent);
-}
-
-function updateWinnerContent(winner: PlayerColor) {
-    const winnerText = document.getElementById("winner-screen__color-winner");
-    const winnerImage = document.getElementById("winner-picture") as HTMLImageElement | null;
-    if (!winnerText || !winnerImage) return;
-    winnerText.innerText = `${winner.toUpperCase()} PLAYER`;
-    winnerText.classList.remove("winner-screen__blue-winner","winner-screen__orange-winner");
-    winnerText.classList.add(`winner-screen__${winner}-winner`);
-    if (selectedTheme === "code") {
-        winnerImage.src = winner === "blue"
-        ? "./src/assets/fonts/images/chessBlue.png"
-        : "./src/assets/fonts/images/chessOrange.png";
-    }
-}
-
-function showResultScreen( gameOverScreen: HTMLElement, resultScreen: HTMLElement | null) {
-    gameOverScreen.classList.remove("display-none");
-    setTimeout(() => {
-        gameOverScreen.classList.add("display-none");
-        resultScreen?.classList.remove("display-none");
-    }, 2000);
 }

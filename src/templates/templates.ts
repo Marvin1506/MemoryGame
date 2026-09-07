@@ -1,3 +1,5 @@
+import { Card } from "../cards";
+
 export function codeGameFieldTemplate() {
     return `
         <div class="field__padding-margin">

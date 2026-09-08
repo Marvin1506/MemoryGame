@@ -1,3 +1,10 @@
+body{
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0;
+    font-family: "Almarai", sans-serif;
+}
+
 @font-face{
     font-family: "Almarai";
     src: url("../assets/fonts/Almarai-Regular.ttf") format("truetype");
@@ -169,12 +176,6 @@
     margin-top: 17px;
 }
 
-body{
-    height: 100vh;
-    margin: 0;
-    font-family: "Almarai", sans-serif;
-}
-
 .content{
     @include full-size;
 }
@@ -251,11 +252,16 @@ body{
     @include full-size;
     @include white-background;
     @include position-absolute-sites;
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
     z-index: 9;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 
     &__headline-div{
-        @include padding-left-settings;
         @include font-weight-700-RedRose;
         padding-top: 114px;
         font-size: 54px;
@@ -269,8 +275,6 @@ body{
     &__settings-preview-div{
         display: flex;
         justify-content: space-between;
-        padding-left: 170px;
-        padding-right: 167px;
     }
 
     &__setting-div{
@@ -294,6 +298,7 @@ body{
 
     &__board-size-div{
         @include flexbox-justify-center-column;
+        padding-top: 45px;
     }
 
     &__flexbox-input{
@@ -322,6 +327,7 @@ body{
     &__choose-player-div{
         @include flexbox-justify-center-column;
         align-items: unset;
+        padding-top: 45px;
     }
 
     &__choose-player-headline{
@@ -363,7 +369,7 @@ body{
     &__final-settings-flexbox{
         display: flex;
         justify-content: flex-end;
-        padding-right: 167px
+        padding-right: 0px;
     }
 
     &__final-settings-div{

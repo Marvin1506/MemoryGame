@@ -220,7 +220,7 @@ function chooseBoardSize(){
             fieldSizeText.innerText = "24 cards";
         });
         largeBoard?.addEventListener("click", () => {
-            fieldSizeText.innerText = "32 cards";
+            fieldSizeText.innerText = "36 cards";
         });
     }
 }
@@ -230,8 +230,8 @@ function setCardFieldSize(){
         selectedBoardSize = 16;
     } else if(fieldSizeText?.innerText === "24 cards"){
         selectedBoardSize = 24;
-    } else if(fieldSizeText?.innerText === "32 cards"){
-        selectedBoardSize = 32;
+    } else if(fieldSizeText?.innerText === "36 cards"){
+        selectedBoardSize = 36;
     }
 }
 
@@ -254,7 +254,7 @@ function addCardsToField() {
     const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
     if (!cardField) return;
     setCardFieldSize();
-    cardField.className = `card__card-play-field card__card-play-field--${selectedTheme}`;
+    cardField.className = `card__card-play-field card__card-play-field--${selectedTheme} card__card-play-field--${selectedBoardSize}`;
     cardField.innerHTML = "";
     shuffledCards = shuffleCards(getSelectedCards());
     renderCards(cardField, shuffledCards, selectedTheme);

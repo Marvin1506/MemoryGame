@@ -742,8 +742,22 @@ body{
 
 
     &__card-play-field{
-        height: 512px;
-        width: 512px;
+        display: grid;
+
+        &--16 {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        &--24 {
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        &--36 {
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+        }
     }
 
     &__card-div{
@@ -957,15 +971,17 @@ body{
     width: 100%;
 
     &__color-confetti{
+        position: fixed;
+        top: 0px;
         width: 90%;
-        height: auto;
+        height: 323px;
     }
 
     &__winner-headline{
         @include font-weight-400-RedRose;
         font-size: 40px;
         color: #FFFFFF;
-        margin-top: 0px;
+        margin-top: 81px;
         margin-bottom: 8px;
     }
 

@@ -426,6 +426,17 @@ body{
     height: 100%;
     width: 100%;
     background-color: #303131;
+    display: flex;
+    justify-content: center;
+
+
+    .field__flexbox {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1440px;
+        box-sizing: border-box;
+    }
 
     &__padding-margin{
         padding-top: 41px;
@@ -613,12 +624,17 @@ body{
 }
 
 .field--gaming{
-    background-color: #294F60;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #294f60;
 
-    .field__header{
-        margin-left: 110px;
-        margin-right: 110px;
-        background-color: #FD96C933;
+    .field__flexbox {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1440px;
+        box-sizing: border-box;
     }
 
     .field__player-flexbox{

@@ -176,6 +176,16 @@ body{
     margin-top: 17px;
 }
 
+@mixin widescreenStyling{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1440px;
+    box-sizing: border-box;
+}
+
 .content{
     @include full-size;
 }
@@ -1104,6 +1114,10 @@ body{
     height: 100%;
     width: 100%;
 
+    &__flexbox-code{
+        @include widescreenStyling;
+    }
+
     &__its-headline{
         @include font-weight-400-RedRose;
         font-size: 40px;
@@ -1158,6 +1172,10 @@ body{
 
 .draw-screen--gaming{
     background-color: #294F60;
+
+    .draw-screen__flexbox-gaming{
+        @include widescreenStyling;
+    }
 
     .draw-screen__headline-flexbox{
         display: flex;

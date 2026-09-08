@@ -153,26 +153,30 @@ export function gameOverScreenCodeTemplate() {
 
 export function drawScreenCodeTemplate() {
     return `
-        <div class="draw-screen__headline-flexbox">
-            <h3 class="draw-screen__its-headline">It's a</h3>
-            <div class="draw-screen__draw-div">
-                <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawWhite.png" alt="">
-                <img class="draw-screen__headline-green" src="./src/assets/fonts/images/drawGreen.png" alt="">
+        <div class="draw-screen__flexbox-code">
+            <div class="draw-screen__headline-flexbox">
+                <h3 class="draw-screen__its-headline">It's a</h3>
+                <div class="draw-screen__draw-div">
+                    <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawWhite.png" alt="">
+                    <img class="draw-screen__headline-green" src="./src/assets/fonts/images/drawGreen.png" alt="">
+                </div>
             </div>
+            <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIcon.png" alt="draw">
+            <button class="draw-screen__draw-button" id="draw-screen__draw-button">Back to start</button>
         </div>
-        <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIcon.png" alt="draw">
-        <button class="draw-screen__draw-button" id="draw-screen__draw-button">Back to start</button>
     `;
 }
 
 export function drawScreenGamingTemplate() {
     return `
-        <div class="draw-screen__headline-flexbox">
-            <h3 class="draw-screen__its-headline">It's a</h3>
-            <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawGamingHeadline.png" alt="">
+        <div class="draw-screen__flexbox-gaming">
+            <div class="draw-screen__headline-flexbox">
+                <h3 class="draw-screen__its-headline">It's a</h3>
+                <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawGamingHeadline.png" alt="">
+            </div>
+            <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIconGaming.png" alt="draw">
+            <button class="draw-screen__draw-button" id="draw-screen__draw-button">Home</button>
         </div>
-        <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIconGaming.png" alt="draw">
-        <button class="draw-screen__draw-button" id="draw-screen__draw-button">Home</button>
     `;
 }
 

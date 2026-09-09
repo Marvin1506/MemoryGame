@@ -3,7 +3,8 @@ import { codeCards, gamingCards, type Card } from "./cards";
 import {
     closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates,
     resetScoreDisplay, setEndScreenClasses, showExitGameDiv, showResultScreen,
-    showSettingsMenu, shuffleCards, updateWinnerContent, type PlayerColor, type Theme
+    showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting, togglePlayerInput,
+    resetInputs, resetTextFieldsSettings, type PlayerColor, type Theme
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe");
 const gamingThemeInput = document.getElementById("gamingTheme");
@@ -132,19 +133,6 @@ function resetMismatchedCards() {
     );
     switchPlayer();
     resetFlippedCards();
-}
-
-/** Opens the settings screen from the home screen. */
-function goToSetting(){
-    const playButton = document.getElementById("play-button");
-    const homeScreen = document.getElementById("home-content");
-    const settingsContent = document.getElementById("settings-content");
-    if(playButton) {
-        playButton.addEventListener("click", () => {
-            homeScreen?.classList.add("display-none");
-            settingsContent?.classList.remove("display-none");
-        });
-    }
 }
 
 /** Starts the game when all required settings have been selected. */
@@ -343,10 +331,10 @@ function addExitButtonEvent( buttonId: string, screen?: HTMLElement | null) {
 /** Resets the game and returns to the settings screen. */
 function resetGameAndBackToMenu() {
     closeExitDiv();
-    resetTextFieldsSettings();
+    resetTextFieldsSettings(fieldSizeText);
     resetGameState();
     resetScoreDisplay();
-    resetInputs();
+    resetInputs(orangePlayerInput, bluePlayerInput);
     showSettingsMenu();
 }
 
@@ -372,50 +360,6 @@ function playerInputEvent() {
     });
 }
 
-/**
- * Toggles the checked state of a player input.
- * @param event The click event triggered by the input.
- */
-function togglePlayerInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.dataset.wasChecked === "true") {
-        input.checked = false;
-        input.dataset.wasChecked = "false";
-    } else {
-        input.checked = true;
-        input.dataset.wasChecked = "true";
-    }
-}
-
-/** Resets all theme, board-size and player inputs. */
-function resetInputs(){
-    const themeInputs = document.getElementsByName("boardTheme");
-    const boardSizeInputs = document.getElementsByName("boardSize");
-    themeInputs.forEach((input) => {
-        (input as HTMLInputElement).checked = false;
-    });
-    boardSizeInputs.forEach((input) => {
-        (input as HTMLInputElement).checked = false;
-    });
-    if (orangePlayerInput && bluePlayerInput) {
-        orangePlayerInput.checked = false;
-        bluePlayerInput.checked = false;
-    }
-}
-
-/** Resets the displayed settings summary. */
-function resetTextFieldsSettings(){
-    const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
-    const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
-    if (playerPreview) {
-        playerPreview.innerText = "Player";
-    }
-    gamingThemeText.innerText = "Game theme";
-    if (fieldSizeText) {
-        fieldSizeText.innerText = "Board size";
-    }
-}
-
 /** Checks whether all card pairs have been found. */
 function checkIfGameIsOver(){
     const cards = document.getElementsByClassName("card__card-div");
@@ -423,10 +367,9 @@ function checkIfGameIsOver(){
     const allCardsFlipped = Array.from(cards).every((card) => {
         return card.classList.contains("is-flipped");
     });
-    if (allCardsFlipped && blueScore !== orangeScore) {
-        whoisTheWinner();
-        field?.classList.add("display-none");
-    }
+    if (!allCardsFlipped) return;
+    whoisTheWinner();
+    field?.classList.add("display-none");
 }
 
 /** Determines the winner or draw and displays the corresponding screen. */

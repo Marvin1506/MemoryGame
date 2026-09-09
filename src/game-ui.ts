@@ -158,3 +158,57 @@ export function showResultScreen(gameOverScreen: HTMLElement, resultScreen: HTML
         resultScreen?.classList.remove("display-none");
     }, 2000);
 }
+
+/** Opens the settings screen from the home screen. */
+export function goToSetting() {
+    const playButton = document.getElementById("play-button");
+    const homeScreen = document.getElementById("home-content");
+    const settingsContent = document.getElementById("settings-content");
+    playButton?.addEventListener("click", () => {
+        homeScreen?.classList.add("display-none");
+        settingsContent?.classList.remove("display-none");
+    });
+}
+
+/**
+ * Toggles the checked state of a player input.
+ * @param event - The click event triggered by the input.
+ */
+export function togglePlayerInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const wasChecked = input.dataset.wasChecked === "true";
+    input.checked = !wasChecked;
+    input.dataset.wasChecked = String(!wasChecked);
+}
+
+/**
+ * Resets all theme, board-size and player inputs.
+ * @param orangeInput - The orange player input.
+ * @param blueInput - The blue player input.
+ */
+export function resetInputs(orangeInput: HTMLInputElement | null, blueInput: HTMLInputElement | null) {
+    document.getElementsByName("boardTheme").forEach(input => {
+        (input as HTMLInputElement).checked = false;
+    });
+    document.getElementsByName("boardSize").forEach(input => {
+        (input as HTMLInputElement).checked = false;
+    });
+    if (orangeInput) orangeInput.checked = false;
+    if (blueInput) blueInput.checked = false;
+}
+
+/**
+ * Resets the displayed settings summary.
+ * @param fieldSizeText - The element displaying the selected board size.
+ */
+export function resetTextFieldsSettings(fieldSizeText: HTMLParagraphElement | null) {
+    const playerPreview = document.getElementById(
+        "settings-content__final-settings-game-text-player"
+    );
+    const themeText = document.getElementById(
+        "settings-content__final-settings-game-text"
+    );
+    if (playerPreview) playerPreview.innerText = "Player";
+    if (themeText) themeText.innerText = "Game theme";
+    if (fieldSizeText) fieldSizeText.innerText = "Board size";
+}

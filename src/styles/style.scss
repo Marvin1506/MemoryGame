@@ -361,8 +361,13 @@ body{
         padding-right: 8px;
     }
 
-    &__line-svg{
+     &__line-svg {
+        display: none;
         margin-left: 10px;
+    }
+
+    &__radio-input:checked ~ &__line-svg {
+        display: block;
     }
 
     &__preview-div{

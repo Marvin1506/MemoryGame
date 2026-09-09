@@ -27,6 +27,7 @@ let flippedCards: Card[] = [];
 let flippedCardElements: HTMLButtonElement[] = [];
 let shuffledCards: Card[] = [];
 
+/** Initializes the game and registers all required event listeners. */
 function init(){
     goToSetting();
     goToBoard();
@@ -38,11 +39,16 @@ function init(){
 
 init();
 
+/** Registers the click event listener for the card field. */
 function cardFlip() {
     const fieldRef = document.getElementById("card__card-play-field");
     fieldRef?.addEventListener("click", handleCardClick);
 }
 
+/**
+ * Handles a click on a memory card.
+ * @param event The click event triggered on the card field.
+ */
 function handleCardClick(event: Event) {
     if (flippedCards.length === 2) return;
     const cardElement = (event.target as HTMLElement).closest<HTMLButtonElement>(".card__card-div");
@@ -58,10 +64,12 @@ function handleCardClick(event: Event) {
     setTimeout(checkIfGameIsOver, 1000);
 }
 
+/** Determines whether single-player or multiplayer mode is selected. */
 function selectSingleOrMultiplayer() {
     isMultiplayer = Boolean(bluePlayerInput?.checked && orangePlayerInput?.checked);
 }
 
+/** Selects the player who starts the game. */
 function selectCurrentPlayer() {
     if (isMultiplayer) {
         currentPlayer = Math.random() < 0.5 ? "blue" : "orange";
@@ -70,6 +78,7 @@ function selectCurrentPlayer() {
     currentPlayer = bluePlayerInput?.checked ? "blue" : "orange";
 }
 
+/** Displays the icon and color of the current player. */
 function showPlayerIcon() {
     const currentPlayerTurn = document.getElementById("field__current-player-playing-div");
     if (!currentPlayerTurn) return;
@@ -80,12 +89,14 @@ function showPlayerIcon() {
     currentPlayerTurn.innerHTML = `<img src="${playerIcon}">`;
 }
 
+/** Switches between the blue and orange player in multiplayer mode. */
 function switchPlayer() {
     if (!isMultiplayer) return;
     currentPlayer = currentPlayer === "blue" ? "orange" : "blue";
     showPlayerIcon();
 }
 
+/** Increases and displays the score of the current player. */
 function increaseScore() {
     const counter = document.getElementById(`field-counter-${currentPlayer}`);
     const gameOverCounter = document.getElementById(`game-over__${currentPlayer}-counter`);
@@ -95,6 +106,7 @@ function increaseScore() {
     gameOverCounter.innerText = score.toString();
 }
 
+/** Checks whether the two currently flipped cards match. */
 function checkForMatch() {
     const [firstCard, secondCard] = flippedCards;
     if (firstCard.id === secondCard.id) {
@@ -106,11 +118,13 @@ function checkForMatch() {
     setTimeout(resetMismatchedCards, 1000);
 }
 
+/** Clears the arrays containing the currently flipped cards. */
 function resetFlippedCards() {
     flippedCards = [];
     flippedCardElements = [];
 }
 
+/** Turns non-matching cards back over and switches the player. */
 function resetMismatchedCards() {
     flippedCards.forEach(card => card.isFlipped = false);
     flippedCardElements.forEach(element =>
@@ -120,6 +134,7 @@ function resetMismatchedCards() {
     resetFlippedCards();
 }
 
+/** Opens the settings screen from the home screen. */
 function goToSetting(){
     const playButton = document.getElementById("play-button");
     const homeScreen = document.getElementById("home-content");
@@ -132,6 +147,7 @@ function goToSetting(){
     }
 }
 
+/** Starts the game when all required settings have been selected. */
 function goToBoard(){
     const finalSettingButton = document.getElementById("final-settings-button");
     const settingsContent = document.getElementById("settings-content");
@@ -147,6 +163,7 @@ function goToBoard(){
     });
 }
 
+/** Executes all functions required to start the game. */
 function startGameFunctions() {
     selectSingleOrMultiplayer();
     selectCurrentPlayer();
@@ -159,6 +176,7 @@ function startGameFunctions() {
     exitGameButtonEvent();
 }
 
+/** Registers the event listeners for selecting a game theme. */
 function changePreviewImage() {
     const previewImg = document.getElementById("settings-content__preview-image") as HTMLImageElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
@@ -171,18 +189,29 @@ function changePreviewImage() {
     );
 }
 
+/**
+ * Selects the code theme and updates its preview.
+ * @param previewImg The image element displaying the theme preview.
+ * @param gamingThemeText The element displaying the selected theme.
+ */
 function selectCodeTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLParagraphElement) {
     selectedTheme = "code";
     previewImg.src = images[0];
     gamingThemeText.innerText = "Code vibes theme";
 }
 
+/**
+ * Selects the gaming theme and updates its preview.
+ * @param previewImg The image element displaying the theme preview.
+ * @param gamingThemeText The element displaying the selected theme.
+ */
 function selectGamingTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLParagraphElement) {
     selectedTheme = "gaming";
     previewImg.src = images[1];
     gamingThemeText.innerText = "Gaming theme";
 }
 
+/** Registers the event listeners for selecting the players. */
 function choosePlayer(){
     const orangePlayerInput = document.getElementById("orange") as HTMLInputElement | null;
     const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | null;
@@ -197,6 +226,7 @@ function choosePlayer(){
     }
 }
 
+/** Updates the displayed summary of the selected players. */
 function updatePlayerPreview() {
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     if (!orangePlayerInput || !bluePlayerInput || !playerPreview) return;
@@ -211,6 +241,7 @@ function updatePlayerPreview() {
     }
 }
 
+/** Registers the event listeners for selecting the board size. */
 function chooseBoardSize(){
     if(fieldSizeText) {
         smallBoard?.addEventListener("click", () => {
@@ -225,6 +256,7 @@ function chooseBoardSize(){
     }
 }
 
+/** Stores the selected number of cards. */
 function setCardFieldSize(){
     if(startButton && fieldSizeText?.innerText === "16 cards"){
         selectedBoardSize = 16;
@@ -235,6 +267,7 @@ function setCardFieldSize(){
     }
 }
 
+/** Renders the game field for the selected theme. */
 function renderGameField() {
     const field = document.getElementById("field");
     const winnerScreen = document.getElementById("winner-screen");
@@ -250,6 +283,7 @@ function renderGameField() {
     }
 }
 
+/** Selects, shuffles and adds the cards to the game field. */
 function addCardsToField() {
     const cardField = document.getElementById("card__card-play-field") as HTMLDivElement | null;
     if (!cardField) return;
@@ -260,6 +294,7 @@ function addCardsToField() {
     renderCards(cardField, shuffledCards, selectedTheme);
 }
 
+/** Returns the cards for the selected theme and board size. */
 function getSelectedCards() {
     if (selectedTheme === "code") {
         return codeCards.slice(0, selectedBoardSize);
@@ -267,6 +302,7 @@ function getSelectedCards() {
     return gamingCards.slice(0, selectedBoardSize);
 }
 
+/** Registers the event listener for opening the exit dialog. */
 function openExitGameDiv() {
     const exitButton = document.getElementById("field__button-exit");
     const exitDiv = document.getElementById("field__exit-div");
@@ -277,6 +313,7 @@ function openExitGameDiv() {
     );
 }
 
+/** Registers the event listener for closing the exit dialog. */
 function closeExitGameDiv() {
     const backToGameButton = document.getElementById("field__button-back-to-game") as HTMLButtonElement | null;
     backToGameButton?.addEventListener("click", () => {
@@ -284,12 +321,18 @@ function closeExitGameDiv() {
     });
 }
 
+/** Registers the buttons used to exit and reset the game. */
 function exitGameButtonEvent() {
     addExitButtonEvent("field__button-exit-game");
     addExitButtonEvent("winner-screen__button", winnerScreenContent);
     addExitButtonEvent("draw-screen__draw-button", drawContentDiv);
 }
 
+/**
+ * Registers an event listener for an exit button.
+ * @param buttonId The ID of the exit button.
+ * @param screen An optional screen that is hidden after the click.
+ */
 function addExitButtonEvent( buttonId: string, screen?: HTMLElement | null) {
     document.getElementById(buttonId)?.addEventListener("click", () => {
         resetGameAndBackToMenu();
@@ -297,6 +340,7 @@ function addExitButtonEvent( buttonId: string, screen?: HTMLElement | null) {
     });
 }
 
+/** Resets the game and returns to the settings screen. */
 function resetGameAndBackToMenu() {
     closeExitDiv();
     resetTextFieldsSettings();
@@ -306,6 +350,7 @@ function resetGameAndBackToMenu() {
     showSettingsMenu();
 }
 
+/** Resets scores, game mode and temporary card data. */
 function resetGameState() {
     orangeScore = 0;
     blueScore = 0;
@@ -315,6 +360,7 @@ function resetGameState() {
     resetFlippedCards();
 }
 
+/** Registers the event listeners for the player inputs. */
 function playerInputEvent() {
     bluePlayerInput?.addEventListener("click", (event) => {
         togglePlayerInput(event);
@@ -326,6 +372,10 @@ function playerInputEvent() {
     });
 }
 
+/**
+ * Toggles the checked state of a player input.
+ * @param event The click event triggered by the input.
+ */
 function togglePlayerInput(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.dataset.wasChecked === "true") {
@@ -337,6 +387,7 @@ function togglePlayerInput(event: Event) {
     }
 }
 
+/** Resets all theme, board-size and player inputs. */
 function resetInputs(){
     const themeInputs = document.getElementsByName("boardTheme");
     const boardSizeInputs = document.getElementsByName("boardSize");
@@ -352,6 +403,7 @@ function resetInputs(){
     }
 }
 
+/** Resets the displayed settings summary. */
 function resetTextFieldsSettings(){
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
@@ -364,6 +416,7 @@ function resetTextFieldsSettings(){
     }
 }
 
+/** Checks whether all card pairs have been found. */
 function checkIfGameIsOver(){
     const cards = document.getElementsByClassName("card__card-div");
     const field = document.getElementById("field");
@@ -376,6 +429,7 @@ function checkIfGameIsOver(){
     }
 }
 
+/** Determines the winner or draw and displays the corresponding screen. */
 function whoisTheWinner() {
     const gameOverScreen = document.getElementById("game-over");
     if (!gameOverScreen) return;

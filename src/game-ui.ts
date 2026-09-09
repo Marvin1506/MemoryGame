@@ -193,8 +193,18 @@ export function resetInputs(orangeInput: HTMLInputElement | null, blueInput: HTM
     document.getElementsByName("boardSize").forEach(input => {
         (input as HTMLInputElement).checked = false;
     });
-    if (orangeInput) orangeInput.checked = false;
-    if (blueInput) blueInput.checked = false;
+    resetPlayerInput(orangeInput);
+    resetPlayerInput(blueInput);
+}
+
+/**
+ * Resets a player input and clears its previously stored checked state.
+ * @param input - The player input that should be reset.
+ */
+function resetPlayerInput(input: HTMLInputElement | null) {
+    if (!input) return;
+    input.checked = false;
+    input.dataset.wasChecked = "false";
 }
 
 /**

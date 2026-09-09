@@ -283,11 +283,15 @@ function addCardsToField() {
 }
 
 /** Returns the cards for the selected theme and board size. */
-function getSelectedCards() {
-    if (selectedTheme === "code") {
-        return codeCards.slice(0, selectedBoardSize);
-    }
-    return gamingCards.slice(0, selectedBoardSize);
+/** Returns fresh cards for the selected theme and board size. */
+function getSelectedCards(): Card[] {
+    const cards = selectedTheme === "code"? codeCards : gamingCards;
+
+    return cards.slice(0, selectedBoardSize).map(card => ({
+        ...card,
+        isFlipped: false,
+        isMatched: false
+    }));
 }
 
 /** Registers the event listener for opening the exit dialog. */

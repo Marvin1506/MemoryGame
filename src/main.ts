@@ -23,7 +23,7 @@ let blueScore: number = 0;
 let isMultiplayer: boolean = false;
 let currentPlayer: PlayerColor = "blue";
 let selectedTheme: Theme = "code";
-const images: string[] = ["./src/assets/fonts/images/codeVibeTheme.png", "./src/assets/fonts/images/gamingTheme.png"];
+const images: string[] = ["./assets/fonts/images/codeVibeTheme.png", "./assets/fonts/images/gamingTheme.png"];
 let flippedCards: Card[] = [];
 let flippedCardElements: HTMLButtonElement[] = [];
 let shuffledCards: Card[] = [];
@@ -83,7 +83,7 @@ function selectCurrentPlayer() {
 function showPlayerIcon() {
     const currentPlayerTurn = document.getElementById("field__current-player-playing-div");
     if (!currentPlayerTurn) return;
-    const playerIcon = selectedTheme === "code" ? `./src/assets/fonts/images/${currentPlayer}LabelPic.png` : "./src/assets/fonts/images/card_gaming_img/chessWhite.png";
+    const playerIcon = selectedTheme === "code" ? `./assets/fonts/images/${currentPlayer}LabelPic.png` : "./assets/fonts/images/card_gaming_img/chessWhite.png";
     if (selectedTheme === "gaming") {
         currentPlayerTurn.style.backgroundColor = currentPlayer === "blue" ? "#1FAAFC" : "#EA6900";
     }

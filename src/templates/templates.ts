@@ -118,10 +118,10 @@ export function gamingGameFieldTemplate() {
  */
 export function winnerScreenCodeTemplate() {
     return `
-        <img class="winner-screen__color-confetti" src="./src/assets/fonts/images/confetti.png" alt="">
+        <img class="winner-screen__color-confetti" src="./assets/fonts/images/confetti.png" alt="">
         <h3 class="winner-screen__winner-headline">The winner is</h3>
         <h2 class="winner-screen__color-winner" id="winner-screen__color-winner">Blue</h2>
-        <img src="./src/assets/fonts/images/chessBlue.png" alt="winner" id="winner-picture">
+        <img src="./assets/fonts/images/chessBlue.png" alt="winner" id="winner-picture">
         <button class="winner-screen__button" id="winner-screen__button">
             <p class="winner-screen__button-text">Back to start</p>
         </button>
@@ -136,7 +136,7 @@ export function winnerScreenGamingTemplate() {
     return `
         <h3 class="winner-screen__winner-headline">The winner is</h3>
         <h2 class="winner-screen__color-winner" id="winner-screen__color-winner">Blue Player</h2>
-        <img src="./src/assets/fonts/images/trophy.png" alt="winner" id="winner-picture">
+        <img src="./assets/fonts/images/trophy.png" alt="winner" id="winner-picture">
         <button class="winner-screen__button" id="winner-screen__button">
             <p class="winner-screen__button-text">Home</p>
         </button>
@@ -151,18 +151,18 @@ export function gameOverScreenCodeTemplate() {
     return `
         <div class="game-over__flexbox-code">
             <div class="game-over__headline-div">
-                <img src="./src/assets/fonts/images/gameOverWhite.png" class="game-over__headline-white">
-                <img src="./src/assets/fonts/images/gameOverGreen.png" class="game-over__headline-blue">
+                <img src="./assets/fonts/images/gameOverWhite.png" class="game-over__headline-white">
+                <img src="./assets/fonts/images/gameOverGreen.png" class="game-over__headline-blue">
             </div>
             <h3 class="game-over__score-headline">Final score</h3>
             <div class="game-over__blue-background">
                 <div class="game-over__blue-div">
-                    <img class="game-over__image-padding-blue" src="./src/assets/fonts/images/blueLabelPic.png" alt="">
+                    <img class="game-over__image-padding-blue" src="./assets/fonts/images/blueLabelPic.png" alt="">
                     <p class="game-over__blue-headline">Blue</p>
                     <div class="game-over__blue-counter" id="game-over__blue-counter">0</div>
                 </div>
                 <div class="game-over__orange-div">
-                    <img class="game-over__image-padding-orange" src="./src/assets/fonts/images/orangeLabelPic.png" alt="">
+                    <img class="game-over__image-padding-orange" src="./assets/fonts/images/orangeLabelPic.png" alt="">
                     <p class="game-over__orange-headline">Orange</p>
                     <div class="game-over__orange-counter" id="game-over__orange-counter">0</div>
                 </div>
@@ -181,11 +181,11 @@ export function drawScreenCodeTemplate() {
             <div class="draw-screen__headline-flexbox">
                 <h3 class="draw-screen__its-headline">It's a</h3>
                 <div class="draw-screen__draw-div">
-                    <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawWhite.png" alt="">
-                    <img class="draw-screen__headline-green" src="./src/assets/fonts/images/drawGreen.png" alt="">
+                    <img class="draw-screen__headline-white" src="./assets/fonts/images/drawWhite.png" alt="">
+                    <img class="draw-screen__headline-green" src="./assets/fonts/images/drawGreen.png" alt="">
                 </div>
             </div>
-            <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIcon.png" alt="draw">
+            <img class="draw-screen__draw-image" src="./assets/fonts/images/scaleIcon.png" alt="draw">
             <button class="draw-screen__draw-button" id="draw-screen__draw-button">Back to start</button>
         </div>
     `;
@@ -200,9 +200,9 @@ export function drawScreenGamingTemplate() {
         <div class="draw-screen__flexbox-gaming">
             <div class="draw-screen__headline-flexbox">
                 <h3 class="draw-screen__its-headline">It's a</h3>
-                <img class="draw-screen__headline-white" src="./src/assets/fonts/images/drawGamingHeadline.png" alt="">
+                <img class="draw-screen__headline-white" src="./assets/fonts/images/drawGamingHeadline.png" alt="">
             </div>
-            <img class="draw-screen__draw-image" src="./src/assets/fonts/images/scaleIconGaming.png" alt="draw">
+            <img class="draw-screen__draw-image" src="./assets/fonts/images/scaleIconGaming.png" alt="draw">
             <button class="draw-screen__draw-button" id="draw-screen__draw-button">Home</button>
         </div>
     `;
@@ -216,16 +216,16 @@ export function gameOverScreenGamingTemplate() {
     return `
         <div class="game-over__flexbox-gaming">
             <div class="game-over__headline-div">
-                <img src="./src/assets/fonts/images/gameOverGaming.png" class="game-over__headline-white">
+                <img src="./assets/fonts/images/gameOverGaming.png" class="game-over__headline-white">
             </div>
             <h3 class="game-over__score-headline">Final score</h3>
             <div class="game-over__blue-background">
                 <div class="game-over__orange-div">
-                    <img class="game-over__image-padding-orange" src="./src/assets/fonts/images/chessOrange.png" alt="">
+                    <img class="game-over__image-padding-orange" src="./assets/fonts/images/chessOrange.png" alt="">
                     <div class="game-over__orange-counter" id="game-over__orange-counter">0</div>
                 </div>
                 <div class="game-over__blue-div">
-                    <img class="game-over__image-padding-blue" src="./src/assets/fonts/images/chessBlue.png" alt="">
+                    <img class="game-over__image-padding-blue" src="./assets/fonts/images/chessBlue.png" alt="">
                     <div class="game-over__blue-counter" id="game-over__blue-counter">0</div>
                 </div>
             </div>

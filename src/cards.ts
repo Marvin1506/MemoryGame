@@ -1,3 +1,10 @@
+/**
+ * Represents a single card in the memory game.
+ * Identifies matching card pairs.
+ * Contains the path to the card's image.
+ * Indicates whether the card is currently flipped.
+ * Indicates whether the card has already been matched.
+ */
 export type Card = {
     id: number;
     src: string;
@@ -5,6 +12,11 @@ export type Card = {
     isMatched: boolean,
 };
 
+/**
+ * Contains all card pairs used by the code theme.
+ * Every card appears twice with the same ID and image source
+ * so that matching pairs can be identified during the game.
+ */
 export const codeCards: Card[] = [
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
     { id: 1, src: "./src/assets/fonts/images/card_img/angularIcon.png", isFlipped: false, isMatched:false },
@@ -44,6 +56,11 @@ export const codeCards: Card[] = [
     { id: 18, src: "./src/assets/fonts/images/card_img/vueJS.png", isFlipped: false, isMatched:false }
 ];
 
+/**
+ * Contains all card pairs used by the gaming theme.
+ * Every card appears twice with the same ID and image source
+ * so that matching pairs can be identified during the game.
+ */
 export const gamingCards: Card[] = [
     { id: 1, src: "./src/assets/fonts/images/card_gaming_img/bananaGaming.png", isFlipped: false, isMatched:false },
     { id: 1, src: "./src/assets/fonts/images/card_gaming_img/bananaGaming.png", isFlipped: false, isMatched:false },

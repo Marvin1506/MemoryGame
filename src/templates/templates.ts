@@ -1,5 +1,9 @@
 import { Card } from "../cards";
 
+/**
+ * Creates the complete game-field markup for the code theme.
+ * @returns The HTML template for the code-themed game field.
+ */
 export function codeGameFieldTemplate() {
     return `
         <div class="field__flexbox">
@@ -52,6 +56,10 @@ export function codeGameFieldTemplate() {
     `;
 }
 
+/**
+ * Creates the complete game-field markup for the gaming theme.
+ * @returns The HTML template for the gaming-themed game field.
+ */
 export function gamingGameFieldTemplate() {
     return `
         <div class="field__flexbox">
@@ -104,6 +112,10 @@ export function gamingGameFieldTemplate() {
         `;
 }
 
+/**
+ * Creates the winner-screen markup for the code theme.
+ * @returns The HTML template for the code-themed winner screen.
+ */
 export function winnerScreenCodeTemplate() {
     return `
         <img class="winner-screen__color-confetti" src="./src/assets/fonts/images/confetti.png" alt="">
@@ -116,6 +128,10 @@ export function winnerScreenCodeTemplate() {
     `;
 }
 
+/**
+ * Creates the winner-screen markup for the gaming theme.
+ * @returns The HTML template for the gaming-themed winner screen.
+ */
 export function winnerScreenGamingTemplate() {
     return `
         <h3 class="winner-screen__winner-headline">The winner is</h3>
@@ -127,6 +143,10 @@ export function winnerScreenGamingTemplate() {
     `;
 }
 
+/**
+ * Creates the game-over screen markup for the code theme.
+ * @returns The HTML template for the code-themed game-over screen.
+ */
 export function gameOverScreenCodeTemplate() {
     return `
         <div class="game-over__flexbox-code">
@@ -151,6 +171,10 @@ export function gameOverScreenCodeTemplate() {
     `;
 }
 
+/**
+ * Creates the draw-screen markup for the code theme.
+ * @returns The HTML template for the code-themed draw screen.
+ */
 export function drawScreenCodeTemplate() {
     return `
         <div class="draw-screen__flexbox-code">
@@ -167,6 +191,10 @@ export function drawScreenCodeTemplate() {
     `;
 }
 
+/**
+ * Creates the draw-screen markup for the gaming theme.
+ * @returns The HTML template for the gaming-themed draw screen.
+ */
 export function drawScreenGamingTemplate() {
     return `
         <div class="draw-screen__flexbox-gaming">
@@ -180,6 +208,10 @@ export function drawScreenGamingTemplate() {
     `;
 }
 
+/**
+ * Creates the game-over screen markup for the gaming theme.
+ * @returns The HTML template for the gaming-themed game-over screen.
+ */
 export function gameOverScreenGamingTemplate() {
     return `
         <div class="game-over__flexbox-gaming">
@@ -201,6 +233,14 @@ export function gameOverScreenGamingTemplate() {
     `;
 }
 
+/**
+ * Creates the markup for a single code-themed memory card.
+ * The card index is stored in a data attribute and is used
+ * to identify the selected card when it is clicked.
+ * @param card - The card data containing its ID and image source.
+ * @param i - The card's position in the shuffled card array.
+ * @returns The HTML template for one code-themed card.
+ */
 export function codeCardsTemplate(card: Card, i: number){
     return`
         <button class="card__card-div" data-card-id="${card.id}" data-card-index="${i}">
@@ -224,6 +264,14 @@ export function codeCardsTemplate(card: Card, i: number){
     `;
 }
 
+/**
+ * Creates the markup for a single gaming-themed memory card.
+ * The card index is stored in a data attribute and is used
+ * to identify the selected card when it is clicked.
+ * @param card - The card data containing its ID and image source.
+ * @param i - The card's position in the shuffled card array.
+ * @returns The HTML template for one gaming-themed card.
+ */
 export function gamingCardsTemplate(card: Card, i: number){
     return`
         <button class="card__card-div" data-card-id="${card.id}" data-card-index="${i}">

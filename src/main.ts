@@ -282,11 +282,9 @@ function addCardsToField() {
     renderCards(cardField, shuffledCards, selectedTheme);
 }
 
-/** Returns the cards for the selected theme and board size. */
 /** Returns fresh cards for the selected theme and board size. */
 function getSelectedCards(): Card[] {
     const cards = selectedTheme === "code"? codeCards : gamingCards;
-
     return cards.slice(0, selectedBoardSize).map(card => ({
         ...card,
         isFlipped: false,

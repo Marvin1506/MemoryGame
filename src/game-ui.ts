@@ -140,8 +140,8 @@ export function updateWinnerContent(winner: PlayerColor, theme: Theme) {
     winnerText.classList.add(`winner-screen__${winner}-winner`);
     if (theme === "code") {
         winnerImage.src = winner === "blue"
-            ? "./src/assets/fonts/images/chessBlue.png"
-            : "./src/assets/fonts/images/chessOrange.png";
+            ? "./assets/fonts/images/chessBlue.png"
+            : "./assets/fonts/images/chessOrange.png";
     }
 }
 
@@ -221,4 +221,56 @@ export function resetTextFieldsSettings(fieldSizeText: HTMLParagraphElement | nu
     if (playerPreview) playerPreview.innerText = "Player";
     if (themeText) themeText.innerText = "Game theme";
     if (fieldSizeText) fieldSizeText.innerText = "Board size";
+}
+
+/** Changes the button color when all required settings are selected. */
+export function updateStartButtonColor() {
+    const startButton = document.getElementById("final-settings-button") as HTMLButtonElement | null;
+    const codeTheme = document.getElementById("codeVibe") as HTMLInputElement | null;
+    const gamingTheme = document.getElementById("gamingTheme") as HTMLInputElement | null;
+    const smallBoard = document.getElementById("smallBoard") as HTMLInputElement | null;
+    const mediumBoard = document.getElementById("mediumBoard") as HTMLInputElement | null;
+    const largeBoard = document.getElementById("largeBoard") as HTMLInputElement | null;
+    const bluePlayer = document.getElementById("blue") as HTMLInputElement | null;
+    const orangePlayer = document.getElementById("orange") as HTMLInputElement | null;
+    const themeSelected = Boolean(codeTheme?.checked || gamingTheme?.checked);
+    const boardSelected = Boolean(smallBoard?.checked || mediumBoard?.checked || largeBoard?.checked);
+    const playerSelected = Boolean(bluePlayer?.checked || orangePlayer?.checked);
+    if (startButton) startButton.style.backgroundColor = themeSelected && boardSelected && playerSelected ? "#F0EA6E" : "#DBDBD6";
+}
+
+/** Registers the button color update for all settings inputs. */
+export function startButtonColorEvent() {
+    const inputs = document.querySelectorAll<HTMLInputElement>(".settings-content__radio-input");
+    inputs.forEach(input => {input.addEventListener("click", updateStartButtonColor);});
+    updateStartButtonColor();
+}
+
+/**
+ * Switches between the incomplete and completed settings line.
+ * @param incompleteLineId - The ID of the incomplete settings line.
+ * @param completedLineId - The ID of the completed settings line.
+ * @param isSelected - Indicates whether the setting is selected.
+ */
+function updateSettingsLine(incompleteLineId: string,completedLineId: string,isSelected: boolean) {
+    const incompleteLine = document.getElementById(incompleteLineId);
+    const completedLine = document.getElementById(completedLineId);
+    incompleteLine?.classList.toggle("display-none", isSelected);
+    completedLine?.classList.toggle("display-none", !isSelected);
+}
+
+/** Updates the settings line after selecting a game theme. */
+export function updateThemeSettingsLine() {
+    const codeTheme = document.getElementById("codeVibe") as HTMLInputElement | null;
+    const gamingTheme = document.getElementById("gamingTheme") as HTMLInputElement | null;
+    const themeSelected = Boolean(codeTheme?.checked || gamingTheme?.checked);
+    updateSettingsLine("line-no-settings-board", "line-settings-done-board", themeSelected);
+}
+
+/** Updates the settings line after selecting at least one player. */
+export function updatePlayerSettingsLine() {
+    const bluePlayer = document.getElementById("blue") as HTMLInputElement | null;
+    const orangePlayer = document.getElementById("orange") as HTMLInputElement | null;
+    const playerSelected = Boolean(bluePlayer?.checked || orangePlayer?.checked);
+    updateSettingsLine( "line-no-settings-player", "line-settings-done-player", playerSelected);
 }

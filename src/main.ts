@@ -1,10 +1,9 @@
 import './styles/style.scss'
 import { codeCards, gamingCards, type Card } from "./cards";
 import {
-    closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates,
-    resetScoreDisplay, setEndScreenClasses, showExitGameDiv, showResultScreen,
-    showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting, togglePlayerInput,
-    resetInputs, resetTextFieldsSettings, type PlayerColor, type Theme
+    closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates, resetScoreDisplay, setEndScreenClasses, showExitGameDiv,
+    showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting, togglePlayerInput,resetInputs, resetTextFieldsSettings,
+    updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine, type PlayerColor, type Theme
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
 const gamingThemeInput = document.getElementById("gamingTheme") as HTMLInputElement | null;
@@ -152,24 +151,6 @@ function goToBoard(){
     });
 }
 
-/** Changes the button color when all required settings are selected. */
-function updateStartButtonColor() {
-    if (!startButton) return;
-    const themeSelected = Boolean(codeVibeThemeInput?.checked || gamingThemeInput?.checked);
-    const boardSelected = Boolean(smallBoard?.checked || mediumBoard?.checked || largeBoard?.checked);
-    const playerSelected = Boolean(bluePlayerInput?.checked || orangePlayerInput?.checked);
-    const allSettingsSelected = themeSelected && boardSelected && playerSelected;
-    startButton.style.backgroundColor = allSettingsSelected? "#F0EA6E": "#DBDBD6";
-}
-
-/** Registers the button color update for all settings inputs. */
-function startButtonColorEvent() {
-    const inputs = document.querySelectorAll<HTMLInputElement>(".settings-content__radio-input");
-    inputs.forEach(input => {
-        input.addEventListener("click", updateStartButtonColor);
-    });
-}
-
 /** Executes all functions required to start the game. */
 function startGameFunctions() {
     selectSingleOrMultiplayer();
@@ -205,6 +186,7 @@ function selectCodeTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLPara
     selectedTheme = "code";
     previewImg.src = images[0];
     gamingThemeText.innerText = "Code vibes theme";
+    updateThemeSettingsLine();
 }
 
 /**
@@ -216,6 +198,7 @@ function selectGamingTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLPa
     selectedTheme = "gaming";
     previewImg.src = images[1];
     gamingThemeText.innerText = "Gaming theme";
+    updateThemeSettingsLine();
 }
 
 /** Registers the event listeners for selecting the players. */
@@ -357,6 +340,8 @@ function resetGameAndBackToMenu() {
     resetScoreDisplay();
     resetInputs(orangePlayerInput, bluePlayerInput);
     updateStartButtonColor();
+    updateThemeSettingsLine();
+    updatePlayerSettingsLine();
     showSettingsMenu();
 }
 
@@ -375,10 +360,12 @@ function playerInputEvent() {
     bluePlayerInput?.addEventListener("click", (event) => {
         togglePlayerInput(event);
         updatePlayerPreview();
+        updatePlayerSettingsLine();
     });
     orangePlayerInput?.addEventListener("click", (event) => {
         togglePlayerInput(event);
         updatePlayerPreview();
+        updatePlayerSettingsLine();
     });
 }
 

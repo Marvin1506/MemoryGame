@@ -435,6 +435,14 @@ body{
         @include font-weight-700-RedRose;
         font-size: 20px;
     }
+
+    &__line-settings-done-board{
+        rotate: 120deg;
+    }
+
+    &__line-settings-done-player{
+        rotate: 120deg;
+    }
 }
 
 .field{

@@ -6,8 +6,8 @@ import {
     showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting, togglePlayerInput,
     resetInputs, resetTextFieldsSettings, type PlayerColor, type Theme
 } from "./game-ui";
-const codeVibeThemeInput = document.getElementById("codeVibe");
-const gamingThemeInput = document.getElementById("gamingTheme");
+const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
+const gamingThemeInput = document.getElementById("gamingTheme") as HTMLInputElement | null;
 const fieldSizeText = document.getElementById("settings-content__final-settings-game-text-board") as HTMLParagraphElement | null;
 const smallBoard = document.getElementById("smallBoard") as HTMLInputElement | null;
 const mediumBoard = document.getElementById("mediumBoard") as HTMLInputElement | null;
@@ -36,6 +36,7 @@ function init(){
     choosePlayer();
     chooseBoardSize();
     playerInputEvent();
+    startButtonColorEvent();
 }
 
 init();
@@ -148,6 +149,24 @@ function goToBoard(){
         startGameFunctions();
         settingsContent?.classList.add("display-none");
         playContent?.classList.remove("display-none");
+    });
+}
+
+/** Changes the button color when all required settings are selected. */
+function updateStartButtonColor() {
+    if (!startButton) return;
+    const themeSelected = Boolean(codeVibeThemeInput?.checked || gamingThemeInput?.checked);
+    const boardSelected = Boolean(smallBoard?.checked || mediumBoard?.checked || largeBoard?.checked);
+    const playerSelected = Boolean(bluePlayerInput?.checked || orangePlayerInput?.checked);
+    const allSettingsSelected = themeSelected && boardSelected && playerSelected;
+    startButton.style.backgroundColor = allSettingsSelected? "#F0EA6E": "#DBDBD6";
+}
+
+/** Registers the button color update for all settings inputs. */
+function startButtonColorEvent() {
+    const inputs = document.querySelectorAll<HTMLInputElement>(".settings-content__radio-input");
+    inputs.forEach(input => {
+        input.addEventListener("click", updateStartButtonColor);
     });
 }
 
@@ -337,6 +356,7 @@ function resetGameAndBackToMenu() {
     resetGameState();
     resetScoreDisplay();
     resetInputs(orangePlayerInput, bluePlayerInput);
+    updateStartButtonColor();
     showSettingsMenu();
 }
 

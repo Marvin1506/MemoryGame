@@ -388,22 +388,31 @@ body{
     }
 
     &__final-settings-div{
-        width: 615px;
+        width: 670px;
         height: 81px;
         background-color: #F6F6F6;
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 200px 65px 90px 65px 110px 128px;
         justify-content: center;
+        align-items: center;
     }
 
     &__final-settings-game-text{
         @include font-weight-400;
         font-size: 20px;
+        margin-left: 16px;
+        text-align: center;
+    }
+
+    &__final-settings-game-text-board{
+        @include font-weight-400;
+        font-size: 20px;
         margin-right: 16px;
     }
 
-    &__line-margin-right{
-        margin-right: 16px
+    &__final-settings-game-text-player{
+        @include font-weight-400;
+        font-size: 20px;
     }
 
     &__final-settings-button{
@@ -437,11 +446,11 @@ body{
     }
 
     &__line-settings-done-board{
-        rotate: 120deg;
+        rotate: 115deg;
     }
 
     &__line-settings-done-player{
-        rotate: 120deg;
+        rotate: 115deg;
     }
 }
 

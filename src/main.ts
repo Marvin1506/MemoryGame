@@ -3,7 +3,7 @@ import { codeCards, gamingCards, type Card } from "./cards";
 import {
     closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates, resetScoreDisplay, setEndScreenClasses, showExitGameDiv,
     showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting, togglePlayerInput,resetInputs, resetTextFieldsSettings,
-    updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine, type PlayerColor, type Theme
+    updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine,updatePlayerPreview, type PlayerColor, type Theme
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
 const gamingThemeInput = document.getElementById("gamingTheme") as HTMLInputElement | null;
@@ -167,14 +167,31 @@ function startGameFunctions() {
 /** Registers the event listeners for selecting a game theme. */
 function changePreviewImage() {
     const previewImg = document.getElementById("settings-content__preview-image") as HTMLImageElement | null;
-    const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
-    if (!previewImg) return;
+    const themeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement | null;
+    if (!previewImg || !themeText) return;
+    addThemePreviewHover(codeVibeThemeInput, previewImg, images[0]);
+    addThemePreviewHover(gamingThemeInput, previewImg, images[1]);
     codeVibeThemeInput?.addEventListener("click", () =>
-        selectCodeTheme(previewImg, gamingThemeText)
+        selectCodeTheme(themeText)
     );
     gamingThemeInput?.addEventListener("click", () =>
-        selectGamingTheme(previewImg, gamingThemeText)
+        selectGamingTheme(themeText)
     );
+}
+/**
+ * Displays a theme preview while hovering over a theme option.
+ * @param input The input belonging to the theme option.
+ * @param previewImg The image element displaying the preview.
+ * @param imageSource The path to the theme preview image.
+ */
+function addThemePreviewHover(input: HTMLElement | null, previewImg: HTMLImageElement, imageSource: string) {
+    const themeOption = input?.closest<HTMLElement>(".settings-content__flexbox-input");
+    themeOption?.addEventListener("mouseenter", () => {
+        previewImg.src = imageSource;
+    });
+    themeOption?.addEventListener("mouseleave", () => {
+        previewImg.src = selectedTheme === "code" ? images[0] : images[1];
+    });
 }
 
 /**
@@ -182,9 +199,8 @@ function changePreviewImage() {
  * @param previewImg The image element displaying the theme preview.
  * @param gamingThemeText The element displaying the selected theme.
  */
-function selectCodeTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLParagraphElement) {
+function selectCodeTheme(gamingThemeText: HTMLParagraphElement) {
     selectedTheme = "code";
-    previewImg.src = images[0];
     gamingThemeText.innerText = "Code vibes theme";
     updateThemeSettingsLine();
 }
@@ -194,9 +210,8 @@ function selectCodeTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLPara
  * @param previewImg The image element displaying the theme preview.
  * @param gamingThemeText The element displaying the selected theme.
  */
-function selectGamingTheme(previewImg: HTMLImageElement, gamingThemeText: HTMLParagraphElement) {
+function selectGamingTheme(gamingThemeText: HTMLParagraphElement) {
     selectedTheme = "gaming";
-    previewImg.src = images[1];
     gamingThemeText.innerText = "Gaming theme";
     updateThemeSettingsLine();
 }
@@ -213,21 +228,6 @@ function choosePlayer(){
         bluePlayerInput?.addEventListener("click", () => {
             updatePlayerPreview();
         });
-    }
-}
-
-/** Updates the displayed summary of the selected players. */
-function updatePlayerPreview() {
-    const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
-    if (!orangePlayerInput || !bluePlayerInput || !playerPreview) return;
-    if (orangePlayerInput.checked && bluePlayerInput.checked) {
-        playerPreview.innerText = "2 Player";
-    } else if (orangePlayerInput.checked) {
-        playerPreview.innerText = "Orange";
-    } else if (bluePlayerInput.checked) {
-        playerPreview.innerText = "Blue";
-    } else {
-        playerPreview.innerText = "Player";
     }
 }
 

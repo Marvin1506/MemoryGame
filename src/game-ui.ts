@@ -274,3 +274,15 @@ export function updatePlayerSettingsLine() {
     const playerSelected = Boolean(bluePlayer?.checked || orangePlayer?.checked);
     updateSettingsLine( "line-no-settings-player", "line-settings-done-player", playerSelected);
 }
+
+/** Updates the displayed summary of the selected players. */
+export function updatePlayerPreview() {
+    const orangeInput = document.getElementById("orange") as HTMLInputElement | null;
+    const blueInput = document.getElementById("blue") as HTMLInputElement | null;
+    const playerPreview = document.getElementById("settings-content__final-settings-game-text-player");
+    if (!orangeInput || !blueInput || !playerPreview) return;
+    if (orangeInput.checked && blueInput.checked) playerPreview.innerText = "2 Player";
+    else if (orangeInput.checked) playerPreview.innerText = "Orange";
+    else if (blueInput.checked) playerPreview.innerText = "Blue";
+    else playerPreview.innerText = "Player";
+}

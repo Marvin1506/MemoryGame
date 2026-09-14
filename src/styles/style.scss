@@ -973,6 +973,7 @@ body{
 }
 
 .game-over--gaming{
+    background-color: #294F60;
     .game-over__flexbox-gaming{
         display: flex;
         flex-direction: column;
@@ -1098,6 +1099,7 @@ body{
 }
 
 .winner-screen--gaming{
+    background-color: #294F60;
     .winner-screen__winner-headline{
         @include font-weight-700-Orbitron;
         font-size: 27px;
@@ -1255,4 +1257,26 @@ body{
     .winnerscreen_color-confetti {
         height: auto;
     }
+}
+
+@keyframes slide-in-from-top {
+    from {
+        transform: translateY(-100vh);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.screen-slide-in {
+    animation: slide-in-from-top 400ms ease-out forwards;
+}
+
+body.result-background {
+    background-color: #303131;
+}
+
+body.result-background-gaming {
+    background-color: #294f60;
 }

@@ -268,8 +268,10 @@ function renderGameField() {
     setEndScreenClasses(winnerScreen, gameOverScreen, drawScreen, selectedTheme);
     if(selectedTheme === "code"){
         renderCodeTemplates(field, winnerScreen, gameOverScreen, drawScreen);
+        document.body.classList.add("result-background");
     } else if(selectedTheme === "gaming") {
        renderGamingTemplates(field, winnerScreen, gameOverScreen, drawScreen);
+       document.body.classList.add("result-background-gaming");
     }
 }
 
@@ -342,6 +344,8 @@ function resetGameAndBackToMenu() {
     updateStartButtonColor();
     updateThemeSettingsLine();
     updatePlayerSettingsLine();
+    document.body.classList.remove("result-background");
+    document.body.classList.remove("result-background-gaming");
     showSettingsMenu();
 }
 

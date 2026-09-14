@@ -155,7 +155,7 @@ export function showResultScreen(gameOverScreen: HTMLElement, resultScreen: HTML
     gameOverScreen.classList.remove("display-none");
     setTimeout(() => {
         gameOverScreen.classList.add("display-none");
-        resultScreen?.classList.remove("display-none");
+        showAnimatedResultScreen(resultScreen);
     }, 2000);
 }
 
@@ -285,4 +285,16 @@ export function updatePlayerPreview() {
     else if (orangeInput.checked) playerPreview.innerText = "Orange";
     else if (blueInput.checked) playerPreview.innerText = "Blue";
     else playerPreview.innerText = "Player";
+}
+
+/**
+ * Displays a result screen with a slide-in animation.
+ *
+ * @param resultScreen The result screen that should be displayed.
+ */
+function showAnimatedResultScreen(resultScreen: HTMLElement | null) {
+    if (!resultScreen) return;
+    resultScreen.classList.remove("display-none", "screen-slide-in");
+    void resultScreen.offsetWidth;
+    resultScreen.classList.add("screen-slide-in");
 }

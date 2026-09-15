@@ -4,7 +4,7 @@ import {
     closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates, resetScoreDisplay, setEndScreenClasses, showExitGameDiv,
     showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting ,resetInputs, resetTextFieldsSettings,
     updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine,updatePlayerPreview,
-    goBackToSettings, type PlayerColor, type Theme
+    goBackToSettings, setBodyTheme, type PlayerColor, type Theme,
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
 const gamingThemeInput = document.getElementById("gamingTheme") as HTMLInputElement | null;
@@ -248,7 +248,7 @@ function setCardFieldSize(){
     }
 }
 
-/** Renders the game field for the selected theme. */
+//** Renders the game field for the selected theme. */
 function renderGameField() {
     const field = document.getElementById("field");
     const winnerScreen = document.getElementById("winner-screen");
@@ -257,13 +257,9 @@ function renderGameField() {
     if (!field || !winnerScreen || !gameOverScreen || !drawScreen) return;
     field.className = `field field--${selectedTheme}`;
     setEndScreenClasses(winnerScreen, gameOverScreen, drawScreen, selectedTheme);
-    if(selectedTheme === "code"){
-        renderCodeTemplates(field, winnerScreen, gameOverScreen, drawScreen);
-        document.body.classList.add("result-background");
-    } else if(selectedTheme === "gaming") {
-       renderGamingTemplates(field, winnerScreen, gameOverScreen, drawScreen);
-       document.body.classList.add("result-background-gaming");
-    }
+    const renderTemplates = selectedTheme === "code" ? renderCodeTemplates : renderGamingTemplates;
+    renderTemplates(field, winnerScreen, gameOverScreen, drawScreen);
+    setBodyTheme(selectedTheme);
 }
 
 /** Selects, shuffles and adds the cards to the game field. */

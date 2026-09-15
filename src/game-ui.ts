@@ -70,8 +70,6 @@ export function setEndScreenClasses(winnerScreen: HTMLElement, gameOverScreen: H
  */
 export function renderCards(cardField: HTMLDivElement,cards: Card[],theme: Theme) {
     const cardTemplate = theme === "code" ? codeCardsTemplate : gamingCardsTemplate;
-    document.body.classList.remove("result-background","result-background-gaming");
-    document.body.classList.add(theme === "code" ? "result-background" : "result-background-gaming");
     for (let i = 0; i < cards.length; i++) {
         cardField.innerHTML += cardTemplate(cards[i], i);
     }
@@ -296,4 +294,10 @@ export function goBackToSettings() {
     document.getElementById("field")?.classList.add("display-none");
     document.body.classList.remove("result-background","result-background-gaming");
     document.body.classList.add("result-background-settings");
+}
+
+/** Applies the background class for the selected theme. */
+export function setBodyTheme(theme: Theme) {
+    document.body.classList.remove("result-background-settings","result-background","result-background-gaming");
+    document.body.classList.add(theme === "code"? "result-background" : "result-background-gaming");
 }

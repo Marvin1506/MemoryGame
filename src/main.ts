@@ -2,7 +2,7 @@ import './styles/style.scss'
 import { codeCards, gamingCards, type Card } from "./cards";
 import {
     closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates, resetScoreDisplay, setEndScreenClasses, showExitGameDiv,
-    showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting, togglePlayerInput,resetInputs, resetTextFieldsSettings,
+    showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting ,resetInputs, resetTextFieldsSettings,
     updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine,updatePlayerPreview, type PlayerColor, type Theme
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
@@ -19,7 +19,6 @@ const drawContentDiv = document.getElementById("draw-screen") as HTMLDivElement;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
-let isMultiplayer: boolean = false;
 let currentPlayer: PlayerColor = "blue";
 let selectedTheme: Theme = "code";
 const images: string[] = ["./assets/fonts/images/codeVibeTheme.png", "./assets/fonts/images/gamingTheme.png"];
@@ -65,17 +64,8 @@ function handleCardClick(event: Event) {
     setTimeout(checkIfGameIsOver, 1000);
 }
 
-/** Determines whether single-player or multiplayer mode is selected. */
-function selectSingleOrMultiplayer() {
-    isMultiplayer = Boolean(bluePlayerInput?.checked && orangePlayerInput?.checked);
-}
-
 /** Selects the player who starts the game. */
 function selectCurrentPlayer() {
-    if (isMultiplayer) {
-        currentPlayer = Math.random() < 0.5 ? "blue" : "orange";
-        return;
-    }
     currentPlayer = bluePlayerInput?.checked ? "blue" : "orange";
 }
 
@@ -92,7 +82,6 @@ function showPlayerIcon() {
 
 /** Switches between the blue and orange player in multiplayer mode. */
 function switchPlayer() {
-    if (!isMultiplayer) return;
     currentPlayer = currentPlayer === "blue" ? "orange" : "blue";
     showPlayerIcon();
 }
@@ -153,7 +142,6 @@ function goToBoard(){
 
 /** Executes all functions required to start the game. */
 function startGameFunctions() {
-    selectSingleOrMultiplayer();
     selectCurrentPlayer();
     renderGameField();
     showPlayerIcon();
@@ -353,7 +341,6 @@ function resetGameAndBackToMenu() {
 function resetGameState() {
     orangeScore = 0;
     blueScore = 0;
-    isMultiplayer = false;
     selectedBoardSize = 0;
     shuffledCards = [];
     resetFlippedCards();
@@ -361,13 +348,11 @@ function resetGameState() {
 
 /** Registers the event listeners for the player inputs. */
 function playerInputEvent() {
-    bluePlayerInput?.addEventListener("click", (event) => {
-        togglePlayerInput(event);
+    bluePlayerInput?.addEventListener("click", () => {
         updatePlayerPreview();
         updatePlayerSettingsLine();
     });
-    orangePlayerInput?.addEventListener("click", (event) => {
-        togglePlayerInput(event);
+    orangePlayerInput?.addEventListener("click", () => {
         updatePlayerPreview();
         updatePlayerSettingsLine();
     });

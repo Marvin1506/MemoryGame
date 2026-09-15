@@ -171,17 +171,6 @@ export function goToSetting() {
 }
 
 /**
- * Toggles the checked state of a player input.
- * @param event - The click event triggered by the input.
- */
-export function togglePlayerInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const wasChecked = input.dataset.wasChecked === "true";
-    input.checked = !wasChecked;
-    input.dataset.wasChecked = String(!wasChecked);
-}
-
-/**
  * Resets all theme, board-size and player inputs.
  * @param orangeInput - The orange player input.
  * @param blueInput - The blue player input.

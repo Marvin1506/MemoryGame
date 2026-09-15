@@ -327,9 +327,29 @@ body{
         cursor: pointer;
     }
 
-    &__radio-input:hover + &__radio-text{
-        font-weight: bold;
+   &__radio-input-themes {
+        margin-top: 0;
+        height: 24px;
+        width: 24px;
         cursor: pointer;
+    }
+
+    &__radio-text-themes {
+        @include font-weight-400;
+        padding-left: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    &__radio-input-themes:hover + &__radio-text-themes,
+    &__radio-text-themes:hover {
+        font-weight: bold;
+    }
+
+    &__radio-input-themes:hover ~ &__line-svg,
+    &__radio-text-themes:hover + &__line-svg,
+    &__radio-input-themes:checked ~ &__line-svg {
+        display: block;
     }
 
     &__radio-text{
@@ -1278,8 +1298,23 @@ body{
         padding-top: 0px;
     }
 
+    .field {
+        position: relative;
+    }
+
     .field__padding-margin {
-        padding-top: 0px;
+        position: absolute;
+        top: 41px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1440px;
+        padding-top: 0;
+        box-sizing: border-box;
+    }
+
+    .field__header{
+        max-width: 1440px;
     }
 
     .field .field__flexbox{

@@ -3,7 +3,8 @@ import { codeCards, gamingCards, type Card } from "./cards";
 import {
     closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates, resetScoreDisplay, setEndScreenClasses, showExitGameDiv,
     showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting ,resetInputs, resetTextFieldsSettings,
-    updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine,updatePlayerPreview, type PlayerColor, type Theme
+    updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine,updatePlayerPreview,
+    goBackToSettings, type PlayerColor, type Theme
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
 const gamingThemeInput = document.getElementById("gamingTheme") as HTMLInputElement | null;
@@ -142,6 +143,7 @@ function goToBoard(){
 
 /** Executes all functions required to start the game. */
 function startGameFunctions() {
+    prepareNewGame();
     selectCurrentPlayer();
     renderGameField();
     showPlayerIcon();
@@ -166,6 +168,7 @@ function changePreviewImage() {
         selectGamingTheme(themeText)
     );
 }
+
 /**
  * Displays a theme preview while hovering over a theme option.
  * @param input The input belonging to the theme option.
@@ -305,9 +308,21 @@ function closeExitGameDiv() {
 
 /** Registers the buttons used to exit and reset the game. */
 function exitGameButtonEvent() {
-    addExitButtonEvent("field__button-exit-game");
+    document.getElementById("field__button-exit-game")?.addEventListener("click", () => {
+    closeExitDiv();
+    goBackToSettings();
+    });
     addExitButtonEvent("winner-screen__button", winnerScreenContent);
     addExitButtonEvent("draw-screen__draw-button", drawContentDiv);
+}
+
+/** Resets the game state for a new game. */
+function prepareNewGame() {
+    orangeScore = 0;
+    blueScore = 0;
+    shuffledCards = [];
+    resetFlippedCards();
+    resetScoreDisplay();
 }
 
 /**
@@ -334,6 +349,7 @@ function resetGameAndBackToMenu() {
     updatePlayerSettingsLine();
     document.body.classList.remove("result-background");
     document.body.classList.remove("result-background-gaming");
+    document.body.classList.add("result-background-settings");
     showSettingsMenu();
 }
 

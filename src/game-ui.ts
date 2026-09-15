@@ -68,8 +68,10 @@ export function setEndScreenClasses(winnerScreen: HTMLElement, gameOverScreen: H
  * @param cards - The cards that should be displayed.
  * @param theme - The currently selected game theme.
  */
-export function renderCards(cardField: HTMLDivElement, cards: Card[], theme: Theme) {
+export function renderCards(cardField: HTMLDivElement,cards: Card[],theme: Theme) {
     const cardTemplate = theme === "code" ? codeCardsTemplate : gamingCardsTemplate;
+    document.body.classList.remove("result-background","result-background-gaming");
+    document.body.classList.add(theme === "code" ? "result-background" : "result-background-gaming");
     for (let i = 0; i < cards.length; i++) {
         cardField.innerHTML += cardTemplate(cards[i], i);
     }
@@ -286,4 +288,12 @@ function showAnimatedResultScreen(resultScreen: HTMLElement | null) {
     resultScreen.classList.remove("display-none", "screen-slide-in");
     void resultScreen.offsetWidth;
     resultScreen.classList.add("screen-slide-in");
+}
+
+/** Displays the settings screen without resetting the selected settings. */
+export function goBackToSettings() {
+    document.getElementById("settings-content")?.classList.remove("display-none");
+    document.getElementById("field")?.classList.add("display-none");
+    document.body.classList.remove("result-background","result-background-gaming");
+    document.body.classList.add("result-background-settings");
 }

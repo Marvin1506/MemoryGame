@@ -1258,6 +1258,24 @@ body{
     .winnerscreen_color-confetti {
         height: auto;
     }
+
+    .settings-content{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .settings-content__headline-div{
+        padding-top: 0px;
+    }
+
+    .field__padding-margin {
+        padding-top: 0px;
+    }
+
+    .field .field__flexbox{
+        justify-content: center;
+    }
 }
 
 @keyframes slide-in-from-top {

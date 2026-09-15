@@ -271,6 +271,10 @@ body{
     z-index: 9;
     background-color: #ffffff;
 
+    &.display-none {
+        display: none;
+    }
+
     &__headline-div{
         @include font-weight-700-RedRose;
         padding-top: 114px;
@@ -416,26 +420,31 @@ body{
         font-size: 20px;
     }
 
-    &__final-settings-button{
-        @include flexbox-center;
-        background-color: #DBDBD6;
-        width: 126px;
-        height: 53px;
-        border: none;
-        transition: transform 0.5s ease;
+    &__final-settings-button {
+    @include flexbox-center;
+    background-color: #DBDBD6;
+    width: 126px;
+    height: 53px;
+    border: none;
+    transition: transform 0.5s ease;
+    cursor: default;
+
+    &.is-ready {
         cursor: pointer;
 
         &:hover {
             transform: scale(1.1);
-            .settings-content__svg-button{
+
+            .settings-content__svg-button {
                 transform: rotate(-10deg) scale(1.1);
             }
 
-            .settings-content__start-text{
+            .settings-content__start-text {
                 transform: scale(1.1);
             }
         }
     }
+}
 
     &__svg-button{
         margin: 8px;
@@ -1276,6 +1285,14 @@ body{
     .field .field__flexbox{
         justify-content: center;
     }
+
+    .game-content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
 }
 
 @keyframes slide-in-from-top {

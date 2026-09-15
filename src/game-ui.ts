@@ -9,6 +9,18 @@ import {
 export type PlayerColor = "blue" | "orange";
 export type Theme = "code" | "gaming";
 
+/** Creates the empty game and result screens inside the application mount point. */
+export function renderGameScreens() {
+    const gameContent = document.getElementById("game-content");
+    if (!gameContent) return;
+    gameContent.innerHTML = `
+        <section class="field display-none" id="field" aria-label="Memory game board"></section>
+        <section class="winner-screen display-none" id="winner-screen" aria-label="Winner screen"></section>
+        <section class="game-over display-none" id="game-over" aria-label="Game over screen"></section>
+        <section class="draw-screen display-none" id="draw-screen" aria-label="Draw screen"></section>
+    `;
+}
+
 /**
  * Randomizes the order of the provided cards without modifying
  * the original array.
@@ -212,7 +224,7 @@ export function resetTextFieldsSettings(fieldSizeText: HTMLParagraphElement | nu
     if (fieldSizeText) fieldSizeText.innerText = "Board size";
 }
 
-/** Changes the button color when all required settings are selected. */
+/** Changes the button state when all required settings are selected. */
 export function updateStartButtonColor() {
     const startButton = document.getElementById("final-settings-button") as HTMLButtonElement | null;
     const codeTheme = document.getElementById("codeVibe") as HTMLInputElement | null;
@@ -225,7 +237,7 @@ export function updateStartButtonColor() {
     const themeSelected = Boolean(codeTheme?.checked || gamingTheme?.checked);
     const boardSelected = Boolean(smallBoard?.checked || mediumBoard?.checked || largeBoard?.checked);
     const playerSelected = Boolean(bluePlayer?.checked || orangePlayer?.checked);
-    if (startButton) startButton.style.backgroundColor = themeSelected && boardSelected && playerSelected ? "#F0EA6E" : "#DBDBD6";
+    if (startButton) updateStartButtonState(startButton, themeSelected && boardSelected && playerSelected);
 }
 
 /** Registers the button color update for all settings inputs. */
@@ -300,4 +312,16 @@ export function goBackToSettings() {
 export function setBodyTheme(theme: Theme) {
     document.body.classList.remove("result-background-settings","result-background","result-background-gaming");
     document.body.classList.add(theme === "code"? "result-background" : "result-background-gaming");
+}
+
+/** Hides the settings screen when the game starts. */
+export function hideSettingsContent() {
+    document.getElementById("settings-content")?.classList.add("display-none");
+}
+
+/** Updates the active state of the start button. */
+function updateStartButtonState(startButton: HTMLButtonElement,isReady: boolean) {
+    startButton.style.backgroundColor = isReady ? "#F0EA6E" : "#DBDBD6";
+    startButton.classList.toggle("is-ready", isReady);
+    startButton.disabled = !isReady;
 }

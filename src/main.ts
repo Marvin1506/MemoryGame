@@ -4,7 +4,7 @@ import {
     closeExitDiv, renderCards, renderCodeTemplates, renderGamingTemplates, resetScoreDisplay, setEndScreenClasses, showExitGameDiv,
     showResultScreen, showSettingsMenu, shuffleCards, updateWinnerContent, goToSetting ,resetInputs, resetTextFieldsSettings,
     updateStartButtonColor, startButtonColorEvent, updateThemeSettingsLine, updatePlayerSettingsLine,updatePlayerPreview,
-    goBackToSettings, setBodyTheme, type PlayerColor, type Theme,
+    goBackToSettings, renderGameScreens, setBodyTheme, hideSettingsContent, type PlayerColor, type Theme,
 } from "./game-ui";
 const codeVibeThemeInput = document.getElementById("codeVibe") as HTMLInputElement | null;
 const gamingThemeInput = document.getElementById("gamingTheme") as HTMLInputElement | null;
@@ -15,8 +15,6 @@ const largeBoard = document.getElementById("largeBoard") as HTMLInputElement | n
 const startButton = document.getElementById("final-settings-button") as HTMLButtonElement | null;
 const orangePlayerInput = document.getElementById("orange") as HTMLInputElement | null;
 const bluePlayerInput = document.getElementById("blue") as HTMLInputElement | null;
-const winnerScreenContent = document.getElementById("winner-screen") as HTMLDivElement | null;
-const drawContentDiv = document.getElementById("draw-screen") as HTMLDivElement;
 let selectedBoardSize: number = 0;
 let orangeScore: number = 0;
 let blueScore: number = 0;
@@ -129,7 +127,6 @@ function resetMismatchedCards() {
 function goToBoard(){
     const finalSettingButton = document.getElementById("final-settings-button");
     const settingsContent = document.getElementById("settings-content");
-    const playContent = document.getElementById("field");
     const playerPreview = document.getElementById("settings-content__final-settings-game-text-player") as HTMLParagraphElement | null;
     const gamingThemeText = document.getElementById("settings-content__final-settings-game-text") as HTMLParagraphElement;
     finalSettingButton?.addEventListener("click", () => {
@@ -137,14 +134,15 @@ function goToBoard(){
         || orangePlayerInput?.checked === false && bluePlayerInput?.checked === false) return;
         startGameFunctions();
         settingsContent?.classList.add("display-none");
-        playContent?.classList.remove("display-none");
     });
 }
 
 /** Executes all functions required to start the game. */
 function startGameFunctions() {
+    hideSettingsContent();
     prepareNewGame();
     selectCurrentPlayer();
+    renderGameScreens();
     renderGameField();
     showPlayerIcon();
     addCardsToField();
@@ -308,8 +306,8 @@ function exitGameButtonEvent() {
     closeExitDiv();
     goBackToSettings();
     });
-    addExitButtonEvent("winner-screen__button", winnerScreenContent);
-    addExitButtonEvent("draw-screen__draw-button", drawContentDiv);
+    addExitButtonEvent("winner-screen__button", document.getElementById("winner-screen"));
+    addExitButtonEvent("draw-screen__draw-button", document.getElementById("draw-screen"));
 }
 
 /** Resets the game state for a new game. */
@@ -385,12 +383,14 @@ function checkIfGameIsOver(){
 /** Determines the winner or draw and displays the corresponding screen. */
 function whoisTheWinner() {
     const gameOverScreen = document.getElementById("game-over");
+    const winnerScreen = document.getElementById("winner-screen");
+    const drawScreen = document.getElementById("draw-screen");
     if (!gameOverScreen) return;
     if (blueScore === orangeScore) {
-        showResultScreen(gameOverScreen, drawContentDiv);
+        showResultScreen(gameOverScreen, drawScreen);
         return;
     }
     const winner = blueScore > orangeScore ? "blue" : "orange";
     updateWinnerContent(winner, selectedTheme);
-    showResultScreen(gameOverScreen, winnerScreenContent);
+    showResultScreen(gameOverScreen, winnerScreen);
 }

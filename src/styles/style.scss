@@ -327,6 +327,10 @@ body{
         cursor: pointer;
     }
 
+    &__radio-input:hover + &__radio-text{
+        cursor: pointer;
+    }
+
    &__radio-input-themes {
         margin-top: 0;
         height: 24px;
@@ -1328,6 +1332,10 @@ body{
         height: 100vh;
     }
 
+}
+
+body:has(.home-content:not(.display-none)) .game-content {
+    height: unset;
 }
 
 @keyframes slide-in-from-top {

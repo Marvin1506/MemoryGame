@@ -242,7 +242,7 @@ export function updateStartButtonColor() {
 
 /** Registers the button color update for all settings inputs. */
 export function startButtonColorEvent() {
-    const inputs = document.querySelectorAll<HTMLInputElement>(".settings-content__radio-input");
+    const inputs = document.querySelectorAll<HTMLInputElement>(".settings-content__radio-input, .settings-content__radio-input-themes");
     inputs.forEach(input => {input.addEventListener("click", updateStartButtonColor);});
     updateStartButtonColor();
 }
